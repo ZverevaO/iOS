@@ -18,16 +18,17 @@ class LoginFormControllerViewController: UIViewController {
     
     
     
-    
-    @IBAction func clickButtonGO(_ sender: UIButton) {
-        
-//        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
+    @IBAction func onClickEntery(_ sender: UIButton) {
+                
+        //        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
         
         let login = loginTextFild.text!
         let password = passworTextField.text!
-        print (login + " " + password)
         
-        }
+        print (login + " " + password)
+    }
+    
+    
     
     
     override func viewDidLoad() {
