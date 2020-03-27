@@ -19,10 +19,12 @@ class LoginFormControllerViewController: UIViewController {
     
     
     
-    @IBAction func ClickButtonGO(_ sender: UIButton) {
+    @IBAction func clickButtonGO(_ sender: UIButton) {
         
-        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
+//        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
         
+        let login = loginTextFild.text!
+        let password = passworTextField.text!
         print (login + " " + password)
         
         }
@@ -30,7 +32,7 @@ class LoginFormControllerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -64,7 +66,7 @@ class LoginFormControllerViewController: UIViewController {
         self.scrollView?.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
-
+    
     @objc func keyboardWillHide (notification: Notification)
     {
         scrollView.contentInset = .zero
