@@ -16,20 +16,7 @@ class LoginFormControllerViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
-    
-    
-    @IBAction func clickButtonGO(_ sender: UIButton) {
-        
-//        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
-        
-        let login = loginTextFild.text!
-        let password = passworTextField.text!
-        print (login + " " + password)
-        
-        }
-    
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,5 +62,46 @@ class LoginFormControllerViewController: UIViewController {
     @objc func hideKeyboard ()
     {
         view.endEditing(true)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        switch identifier {
+        case "loginSegue":
+            
+            let isAuth = login()
+            
+            if !isAuth {
+                showErrorAlert()
+            }
+            
+            return isAuth
+        default:
+            return true
+        }
+    }
+    
+    func login () -> Bool {
+        // функция проверки учетных данных пользователя
+        //        guard let login = loginTextFild.text, let password = passworTextField.text else {return}
+        let login = loginTextFild.text!
+        let password = passworTextField.text!
+        return login == "admin" && password == "123456"
+        
+    }
+    
+    func showErrorAlert() {
+        // вывод сообщения для пользователя
+        // Создаем контроллер
+        let alert = UIAlertController(
+            title: "Ошибка",
+            message: "Введены неверные данные пользователя",
+            preferredStyle: .alert)
+        // Создаем кнопку для UIAlertController
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // Добавляем кнопку на UIAlertController
+        alert.addAction(action)
+        // Показываем UIAlertController
+        present(alert, animated: true)
     }
 }
