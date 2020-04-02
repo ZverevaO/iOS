@@ -81,5 +81,23 @@ class FotoCollectionController: UICollectionViewController {
     
     }
     */
+    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "goFoto"
+        {
+            // Даём понять, что sender это ячейка класса MyCell
+            let cell: FotoCollectionCell  = sender as! FotoCollectionCell
+                
+            // Получает объект image из текущей ячейки
+            let image = cell.foto.image
+                
+            // Даём понять, что destinationViewController это контроллер класса 
+            let previewVC: FotoController = segue.destination as! FotoController
+                
+            // Задаём контроллеру изображение с текущей ячейки
+            previewVC.fotoView.image = image
+        }
+    }
 
 }

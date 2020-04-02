@@ -246,6 +246,7 @@
                                 <size key="customSize" width="150" height="150"/>
                                 <connections>
                                     <outlet property="foto" destination="Gdv-1x-HYx" id="QQ0-Oa-Qat"/>
+                                    <segue destination="Sdy-k0-Scw" kind="showDetail" identifier="goFoto" id="lTq-9q-hd8"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -259,6 +260,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIt-VP-iVM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2504.8000000000002" y="-474.38423645320199"/>
+        </scene>
+        <!--Foto Controller-->
+        <scene sceneID="hKL-q1-b2z">
+            <objects>
+                <viewController id="Sdy-k0-Scw" customClass="FotoController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qtO-Wp-p2l">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gOs-Bb-Pfo">
+                                <rect key="frame" x="5" y="5" width="365" height="714"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="gOs-Bb-Pfo" firstAttribute="leading" secondItem="CIb-AF-7TK" secondAttribute="leading" constant="5" id="GGR-Wl-7cv"/>
+                            <constraint firstItem="CIb-AF-7TK" firstAttribute="trailing" secondItem="gOs-Bb-Pfo" secondAttribute="trailing" constant="5" id="IP1-c8-ipK"/>
+                            <constraint firstItem="CIb-AF-7TK" firstAttribute="bottom" secondItem="gOs-Bb-Pfo" secondAttribute="bottom" constant="5" id="Png-Dt-DD7"/>
+                            <constraint firstItem="gOs-Bb-Pfo" firstAttribute="top" secondItem="CIb-AF-7TK" secondAttribute="top" constant="5" id="fdL-sU-YoV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CIb-AF-7TK"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sKt-zE-1US"/>
+                    <connections>
+                        <outlet property="fotoView" destination="gOs-Bb-Pfo" id="Al9-qp-oBT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iWR-OY-L4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3361" y="-471"/>
         </scene>
         <!--My Group Table Controller-->
         <scene sceneID="Cdr-pa-ss4">
