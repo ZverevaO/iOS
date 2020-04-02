@@ -1,16 +1,19 @@
 //
-//  MyGroupTableController.swift
+//  AllFriendTableController.swift
 //  ApplicationVK
 //
-//  Created by Оксана Зверева on 01.04.2020.
+//  Created by Оксана Зверева on 02.04.2020.
 //  Copyright © 2020 Oksana Zvereva. All rights reserved.
 //
 
 import UIKit
 
-class MyGroupTableController: UITableViewController {
+class AllFriendTableController: UITableViewController {
     
-    var myGroup: [Group] = []
+    let allFriend: [Friend] = [
+        Friend(sex: Friend.Sex.male, name: "Вася", surName: "Васильев", age: 23, city: "Пермь"),
+        Friend(sex: Friend.Sex.male, name: "Петя", surName: "Петров", age: 33, city: "Анапа")
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,31 +23,6 @@ class MyGroupTableController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
-    @IBAction func addGroup (segue: UIStoryboardSegue) {
-        
-        // Проверяем идентификатор, чтобы убедиться, что это нужный переход
-        if segue.identifier == "addGroup" {
-            
-            // Получаем ссылку на контроллер, с которого осуществлен переход
-            let allGroupTableController = segue.source as! AllGroupTableController
-            
-            // Получаем индекс выделенной ячейки
-            if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
-                // Получаем город по индексу
-                let group = allGroupTableController.allGroup[indexPath.row]
-                // Проверяем, что такого города нет в списке
-                if !myGroup.contains(group) {
-                    // Добавляем город в список выбранных
-                    myGroup.append(group)
-                    // Обновляем таблицу
-                    tableView.reloadData()
-                }
-                
-            }
-        }
-        
     }
 
     // MARK: - Table view data source
@@ -56,19 +34,22 @@ class MyGroupTableController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return myGroup.count
+        return allFriend.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Получаем ячейку из пула
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell
-        // Получаем группу для строки
-        let group = myGroup[indexPath.row]
         
-        // Устанавливаем параметры группы
-        cell.name.text = group.Name
-        cell.groupType.text = group.GType.description
+        // Получаем ячейку из пула
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendTableCell", for: indexPath) as! AllFriendTableCell
+        // Получаем группу для строки
+        let friend = allFriend[indexPath.row]
+        let fname = "iconFriend" + String(indexPath.item + 1)
+        
+        // Устанавливаем параметры друга
+        cell.name.text = friend.Name + " " + friend.SurName
+        cell.city.text = friend.City
+        cell.foto.image = UIImage(named: fname)
+        
         
         return cell
     }
@@ -82,18 +63,17 @@ class MyGroupTableController: UITableViewController {
     }
     */
 
-    
+    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // Если была нажата кнопка «Удалить»
         if editingStyle == .delete {
-            // Удаляем город из массива
-            myGroup.remove(at: indexPath.row)
-            // И удаляем строку из таблицы
+            // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
     }
-    
+    */
 
     /*
     // Override to support rearranging the table view.

@@ -140,23 +140,56 @@
             </objects>
             <point key="canvasLocation" x="-164" y="-181"/>
         </scene>
-        <!--Table View Controller-->
+        <!--All Friend Table Controller-->
         <scene sceneID="vWW-s7-XfK">
             <objects>
-                <tableViewController id="G4x-8V-JDs" sceneMemberID="viewController">
+                <tableViewController id="G4x-8V-JDs" customClass="AllFriendTableController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="V38-h6-crl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="USW-Xr-TPj">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AllFriendTableCell" rowHeight="115" id="USW-Xr-TPj" customClass="AllFriendTableCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="USW-Xr-TPj" id="A0O-j8-0mc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eeN-1r-b7r">
+                                            <rect key="frame" x="2" y="2" width="100" height="111"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="bbP-m5-6vu"/>
+                                                <constraint firstAttribute="width" constant="100" id="lfN-3v-875"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIa-BX-WEu">
+                                            <rect key="frame" x="112" y="14.999999999999998" width="42" height="22.333333333333329"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NC-GX-ZfW">
+                                            <rect key="frame" x="112" y="47.333333333333336" width="42" height="22.333333333333336"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="KIa-BX-WEu" firstAttribute="top" secondItem="A0O-j8-0mc" secondAttribute="topMargin" constant="4" id="9sg-pD-K8B"/>
+                                        <constraint firstItem="eeN-1r-b7r" firstAttribute="top" secondItem="A0O-j8-0mc" secondAttribute="top" constant="2" id="AEh-Jw-Mbl"/>
+                                        <constraint firstAttribute="bottom" secondItem="eeN-1r-b7r" secondAttribute="bottom" constant="2" id="OSh-U4-dbr"/>
+                                        <constraint firstItem="7NC-GX-ZfW" firstAttribute="top" secondItem="KIa-BX-WEu" secondAttribute="bottom" constant="10" id="e8y-Ft-k7J"/>
+                                        <constraint firstItem="7NC-GX-ZfW" firstAttribute="leading" secondItem="eeN-1r-b7r" secondAttribute="trailing" constant="10" id="jkf-lW-8DL"/>
+                                        <constraint firstItem="eeN-1r-b7r" firstAttribute="leading" secondItem="A0O-j8-0mc" secondAttribute="leading" constant="2" id="vU3-Zj-vho"/>
+                                        <constraint firstItem="KIa-BX-WEu" firstAttribute="leading" secondItem="eeN-1r-b7r" secondAttribute="trailing" constant="10" id="zz1-06-Vob"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="city" destination="7NC-GX-ZfW" id="6ls-kR-Mdx"/>
+                                    <outlet property="foto" destination="eeN-1r-b7r" id="Lrq-B9-uHl"/>
+                                    <outlet property="name" destination="KIa-BX-WEu" id="Ihu-g5-hdB"/>
                                     <segue destination="x7e-3f-5LV" kind="show" id="8iY-xs-IQ5"/>
                                 </connections>
                             </tableViewCell>
@@ -172,28 +205,48 @@
             </objects>
             <point key="canvasLocation" x="1666.4000000000001" y="-470.68965517241384"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Foto Collection Controller-->
         <scene sceneID="ftg-9u-6eS">
             <objects>
-                <collectionViewController id="x7e-3f-5LV" sceneMemberID="viewController">
+                <collectionViewController id="x7e-3f-5LV" customClass="FotoCollectionController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="vUv-gM-3mL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="quj-4K-2fT">
-                            <size key="itemSize" width="128" height="128"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="quj-4K-2fT">
+                            <size key="itemSize" width="150" height="150"/>
+                            <size key="estimatedItemSize" width="150" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8Yv-hc-OvS">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FotoCollectionCell" id="8Yv-hc-OvS" customClass="FotoCollectionCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="2" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Zcf-fx-aFo">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-1x-HYx">
+                                            <rect key="frame" x="2" y="2" width="146" height="146"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="140" id="Gqa-dE-71H"/>
+                                                <constraint firstAttribute="width" constant="140" id="gI4-fK-5M2"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Gdv-1x-HYx" secondAttribute="trailing" constant="2" id="Fxs-8h-DNT"/>
+                                        <constraint firstItem="Gdv-1x-HYx" firstAttribute="top" secondItem="Zcf-fx-aFo" secondAttribute="top" constant="2" id="a95-fv-fej"/>
+                                        <constraint firstAttribute="bottom" secondItem="Gdv-1x-HYx" secondAttribute="bottom" constant="2" id="xNx-BX-tQD"/>
+                                        <constraint firstItem="Gdv-1x-HYx" firstAttribute="leading" secondItem="Zcf-fx-aFo" secondAttribute="leading" constant="2" id="xOQ-CC-r54"/>
+                                    </constraints>
                                 </collectionViewCellContentView>
+                                <size key="customSize" width="150" height="150"/>
+                                <connections>
+                                    <outlet property="foto" destination="Gdv-1x-HYx" id="QQ0-Oa-Qat"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -205,7 +258,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIt-VP-iVM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2505" y="-474"/>
+            <point key="canvasLocation" x="2504.8000000000002" y="-474.38423645320199"/>
         </scene>
         <!--My Group Table Controller-->
         <scene sceneID="Cdr-pa-ss4">

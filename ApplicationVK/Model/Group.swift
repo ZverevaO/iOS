@@ -8,8 +8,11 @@
 
 import Foundation
 
-class Group {
+class Group: Comparable {
+  
+    
     enum GroupType: CustomStringConvertible {
+        
         case cityGroup
         case history
         case cafe
@@ -38,4 +41,14 @@ class Group {
         self.Count = count
         self.GType = gType
     }
+    
+    
+    static func == (lhs: Group, rhs: Group) -> Bool {
+        return lhs.Name == rhs.Name
+    }
+    
+    static func < (lhs: Group, rhs: Group) -> Bool {
+        return lhs.Name < rhs.Name
+    }
+
 }
