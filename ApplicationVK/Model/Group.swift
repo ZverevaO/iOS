@@ -31,24 +31,26 @@ class Group: Comparable {
             }
         }
     }
-    let Name: String
-    var Count: Int
-    let GType: GroupType
+    let name: String
+    var count: Int
+    let gType: GroupType
+    var fotoPath: String
     
     
-    init(name: String, count: Int, gType: GroupType) {
-        self.Name = name
-        self.Count = count
-        self.GType = gType
+    init(name: String, count: Int, gType: GroupType, fotoPath: String) {
+        self.name = name
+        self.count = count
+        self.gType = gType
+        self.fotoPath = fotoPath
     }
     
     
     static func == (lhs: Group, rhs: Group) -> Bool {
-        return lhs.Name == rhs.Name
+        return lhs.name == rhs.name
     }
     
     static func < (lhs: Group, rhs: Group) -> Bool {
-        return lhs.Name < rhs.Name
+        return lhs.name < rhs.name
     }
 
 }

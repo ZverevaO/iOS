@@ -22,17 +22,21 @@ class Friend {
             }
         }
     }
-    let Name: String
-    let SurName: String
-    var Age: Int
-    let City: String
-    let Sex: Sex
+    let name: String
+    let surName: String
+    var age: Int
+    let city: String
+    let sex: Sex
+    var fotoPath: String
+    var isOnLine: Bool
     
-    init(sex: Sex, name: String, surName: String, age: Int, city: String) {
-        self.Sex = sex
-        self.Name = name
-        self.SurName = surName
-        self.Age = age
-        self.City = city
+    init(sex: Sex, name: String, surName: String, age: Int, city: String, fotoPath: String, isOnLine: Bool) {
+        self.sex = sex
+        self.name = name
+        self.surName = surName
+        self.age = age
+        self.city = city
+        self.fotoPath = fotoPath
+        self.isOnLine = isOnLine 
     }
 }
