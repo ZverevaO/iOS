@@ -11,12 +11,11 @@ import UIKit
 class AllGroupTableController: UITableViewController {
     
     let allGroup: [Group] = [
-        Group(name: "HistoryPorn", count: 1000000, gType: Group.GroupType.history),
-        Group(name: "E-squire", count: 100000, gType: Group.GroupType.business),
-        Group(name: "Snob", count: 30000, gType: Group.GroupType.business),
-        Group(name: "Фобошная и Кофешная", count: 25000, gType: Group.GroupType.cafe)
+        Group(name: "HistoryPorn", count: 1000000, gType: Group.GroupType.history, fotoPath: "iconGroupVK"),
+        Group(name: "E-squire", count: 100000, gType: Group.GroupType.business, fotoPath: "iconGroupVK"),
+        Group(name: "Snob", count: 30000, gType: Group.GroupType.business, fotoPath: "iconGroupVK"),
+        Group(name: "Фобошная и Кофешная", count: 25000, gType: Group.GroupType.cafe, fotoPath: "iconGroupVK")
     ]
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,8 +48,9 @@ class AllGroupTableController: UITableViewController {
         let group = allGroup[indexPath.row]
         
         // Устанавливаем параметры группы
-        cell.name.text = group.Name
-        cell.groupType.text = group.GType.description
+        cell.name.text = group.name
+        cell.groupType.text = group.gType.description
+        cell.icon.image = UIImage(named: group.fotoPath)
         
         return cell
     }

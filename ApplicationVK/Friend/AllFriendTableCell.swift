@@ -15,6 +15,10 @@ class AllFriendTableCell: UITableViewCell {
     @IBOutlet weak var city: UILabel!
     
     @IBOutlet weak var foto: UIImageView!
+   
+    @IBOutlet weak var shadowFoto: CircleShadowImage!
+    
+    
     
     
     override func awakeFromNib() {

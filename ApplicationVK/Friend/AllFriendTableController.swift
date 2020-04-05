@@ -8,96 +8,80 @@
 
 import UIKit
 
+struct Section <T> {
+    var title: String
+    var items: [T]
+}
+
 class AllFriendTableController: UITableViewController {
     
-    let allFriend: [Friend] = [
-        Friend(sex: Friend.Sex.male, name: "Вася", surName: "Васильев", age: 23, city: "Пермь"),
-        Friend(sex: Friend.Sex.male, name: "Петя", surName: "Петров", age: 33, city: "Анапа")
+    var allFriend: [Friend] = [
+        Friend(sex: Friend.Sex.male, name: "Вася", surName: "Васильев", age: 23, city: "Пермь", fotoPath: "iconFriend1", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Петя", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Ваня", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Иван", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Алексей", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Борис", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Роман", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Эдуарт", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Юрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
+        Friend(sex: Friend.Sex.male, name: "Дмитрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false)
     ]
+    
+    var friendSection = [Section<Friend>]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "друзья"
+        // создаем словарь
+        let friendsDictionary = Dictionary.init(grouping: allFriend) {
+            $0.name.prefix(1)
+        }
+        
+        //формируем секции по словарю
+        friendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+        //сортируем секции
+        friendSection.sort {$0.title < $1.title}
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return friendSection.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return allFriend.count
+        // возвращаем количесво элементов секции
+        return friendSection[section].items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Получаем ячейку из пула
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendTableCell", for: indexPath) as! AllFriendTableCell
-        // Получаем группу для строки
-        let friend = allFriend[indexPath.row]
-        let fname = "iconFriend" + String(indexPath.item + 1)
+        // Получаем друзей из секции
+        let friend = friendSection[indexPath.section].items[indexPath.row]
+        // ранее получали просто массив друзей let friend = allFriend[indexPath.row]
         
         // Устанавливаем параметры друга
-        cell.name.text = friend.Name + " " + friend.SurName
-        cell.city.text = friend.City
-        cell.foto.image = UIImage(named: fname)
-        
+        cell.name.text = friend.name + " " + friend.surName
+        cell.city.text = friend.city
+        cell.shadowFoto.image.image = UIImage(named: friend.fotoPath)
         
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return friendSection[section].title
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        //добавлем заголовки секций
+        return friendSection.map {$0.title}
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

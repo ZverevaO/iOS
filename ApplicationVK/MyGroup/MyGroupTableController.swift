@@ -69,8 +69,9 @@ class MyGroupTableController: UITableViewController {
         let group = myGroup[indexPath.row]
         
         // Устанавливаем параметры группы
-        cell.name.text = group.Name
-        cell.groupType.text = group.GType.description
+        cell.name.text = group.name
+        cell.groupType.text = group.gType.description
+        cell.icon.image = UIImage(named: group.fotoPath)
         
         return cell
     }
