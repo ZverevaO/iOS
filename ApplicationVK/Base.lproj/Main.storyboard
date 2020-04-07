@@ -272,7 +272,7 @@
                                 <size key="customSize" width="150" height="150"/>
                                 <connections>
                                     <outlet property="foto" destination="Gdv-1x-HYx" id="QQ0-Oa-Qat"/>
-                                    <segue destination="Sdy-k0-Scw" kind="showDetail" identifier="goFoto" id="lTq-9q-hd8"/>
+                                    <segue destination="Sdy-k0-Scw" kind="presentation" identifier="goFoto" id="Vzr-Bv-iar"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -310,7 +310,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="sKt-zE-1US"/>
                     <connections>
-                        <outlet property="fotoView" destination="gOs-Bb-Pfo" id="Al9-qp-oBT"/>
+                        <outlet property="curentFoto" destination="gOs-Bb-Pfo" id="apk-0X-0LD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWR-OY-L4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -486,7 +486,7 @@
         <scene sceneID="SS2-G5-REP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OBy-KL-uF1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="друзья" id="FNk-L2-utg"/>
+                    <tabBarItem key="tabBarItem" title="друзья" image="iconfriend" id="FNk-L2-utg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HSp-Ae-4BM">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -505,7 +505,7 @@
         <scene sceneID="Meq-De-uqm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="He7-F8-5R6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="группы" id="fzd-zK-Cbd"/>
+                    <tabBarItem key="tabBarItem" title="группы" image="icongroup" id="fzd-zK-Cbd"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="p3W-Tj-Zbf">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -521,4 +521,8 @@
             <point key="canvasLocation" x="724" y="196.55172413793105"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="iconfriend" width="24" height="24"/>
+        <image name="icongroup" width="24" height="24"/>
+    </resources>
 </document>

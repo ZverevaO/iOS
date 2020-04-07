@@ -11,9 +11,9 @@ import UIKit
 class FotoController: UIViewController {
 
     
-    @IBOutlet weak var fotoView: UIImageView!
+    @IBOutlet weak var curentFoto: UIImageView!
     
-    var currentPhoto: UIImage!
+    var Foto: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()

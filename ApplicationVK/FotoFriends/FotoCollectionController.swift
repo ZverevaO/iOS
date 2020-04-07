@@ -16,7 +16,7 @@ class FotoCollectionController: UICollectionViewController {
         super.viewDidLoad()
         
             
-        self.title = "Фото"
+        self.title = "галерея"
     }
 
 
@@ -36,14 +36,35 @@ class FotoCollectionController: UICollectionViewController {
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FotoCollectionCell", for: indexPath) as! FotoCollectionCell
 
-        let fname = "foto" + String(indexPath.item + 1)
+       let fname = "foto" + String(indexPath.item + 1)
         cell.foto.image = UIImage(named: fname)
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
-
     
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+              if segue.identifier == "goFoto"
+              {
+                  // Даём понять, что sender это ячейка класса MyCell
+                  let cell: FotoCollectionCell  = sender as! FotoCollectionCell
+                      
+                  // Получает объект image из текущей ячейки
+                  let image = cell.foto.image
+                      
+                  // Даём понять, что destinationViewController это контроллер класса
+                  let previewVC: FotoController = segue.destination as! FotoController
+                      
+                  // Задаём контроллеру изображение с текущей ячейки
+                  previewVC.curentFoto.image = image
+              }
+        
+    }*/
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let fotoVC = segue.destination as? FotoController {
+            let indexPath = collectionView.indexPathsForSelectedItems!.first!
+            let name = "foto" + String(indexPath.item + 1)
+            fotoVC.Foto = UIImage(named: name)
+        }
+    }
 }
