@@ -84,4 +84,17 @@ class AllFriendTableController: UITableViewController {
         //добавлем заголовки секций
         return friendSection.map {$0.title}
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goCollectionFoto"
+        {
+            let fotoCollection: FotoCollectionController = segue.destination as! FotoCollectionController
+            let cell: AllFriendTableCell = sender as! AllFriendTableCell
+            
+            fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
+        }
+        
+    }
+
 }
+

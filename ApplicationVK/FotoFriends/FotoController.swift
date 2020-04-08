@@ -9,25 +9,27 @@
 import UIKit
 
 class FotoController: UIViewController {
-
     
-    @IBOutlet weak var fotoView: UIImageView!
     
-    var currentPhoto: UIImage!
+    @IBOutlet weak var curentFoto: UIImageView!
+    
+    var Foto: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        curentFoto.image = Foto
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-            
+        
         
     }
-
     
-
+    
+    
 }
