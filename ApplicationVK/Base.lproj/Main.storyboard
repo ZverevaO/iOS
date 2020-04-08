@@ -208,7 +208,7 @@
                                     <outlet property="foto" destination="eeN-1r-b7r" id="Lrq-B9-uHl"/>
                                     <outlet property="name" destination="KIa-BX-WEu" id="Ihu-g5-hdB"/>
                                     <outlet property="shadowFoto" destination="Awz-9i-g0w" id="J83-5h-SCk"/>
-                                    <segue destination="x7e-3f-5LV" kind="show" id="8iY-xs-IQ5"/>
+                                    <segue destination="x7e-3f-5LV" kind="show" identifier="goCollectionFoto" id="8iY-xs-IQ5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

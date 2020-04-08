@@ -9,7 +9,7 @@
 import UIKit
 
 class FotoController: UIViewController {
-
+    
     
     @IBOutlet weak var curentFoto: UIImageView!
     
@@ -17,17 +17,19 @@ class FotoController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        curentFoto.image = Foto
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-            
+        
         
     }
-
     
-
+    
+    
 }

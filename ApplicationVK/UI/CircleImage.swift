@@ -11,6 +11,7 @@ class CircleShadowImage: UIView {
     
     public var image: UIImageView!
     
+    
     override init (frame: CGRect)
     {
         super.init(frame: frame)
