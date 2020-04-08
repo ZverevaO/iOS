@@ -12,4 +12,11 @@ class FotoCollectionCell: UICollectionViewCell {
         
     @IBOutlet weak var foto: UIImageView!
     
+    
+    @IBAction func clickLike(_ sender: LikeButton) {
+        
+        sender.like()
+    }
+    
+    
 }
