@@ -14,21 +14,12 @@ struct Section <T> {
 }
 
 class AllFriendTableController: UITableViewController {
-    
-    var allFriend: [Friend] = [
-        Friend(sex: Friend.Sex.male, name: "Вася", surName: "Васильев", age: 23, city: "Пермь", fotoPath: "iconFriend1", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Петя", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Ваня", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Иван", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Алексей", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Борис", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Роман", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Эдуарт", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Юрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Дмитрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false)
-    ]
+
+    var allFriend = AllFriends.getAllFriend ()
     
     var friendSection = [Section<Friend>]()
+    
+    @IBOutlet weak var searchFriend: UISearchBar!
     
 
     override func viewDidLoad() {
@@ -44,7 +35,8 @@ class AllFriendTableController: UITableViewController {
         friendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
         //сортируем секции
         friendSection.sort {$0.title < $1.title}
-
+        
+        searchFriend.delegate = self
     }
 
     // MARK: - Table view data source
@@ -96,5 +88,27 @@ class AllFriendTableController: UITableViewController {
         
     }
 
+}
+
+extension AllFriendTableController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+  
+        
+        let friendsDictionary = Dictionary.init(grouping: allFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.surName.lowercased().contains(searchText.lowercased()) || user.name.lowercased().contains(searchText.lowercased())
+        }) {
+            $0.name.prefix(1)
+        }
+              
+        //формируем секции по словарю
+        friendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+        //сортируем секции
+        friendSection.sort {$0.title < $1.title}
+        
+        tableView.reloadData()
+              
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
 }
 
