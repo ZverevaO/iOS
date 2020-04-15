@@ -11,6 +11,27 @@ class CircleShadowImage: UIView {
     
     public var image: UIImageView!
     
+    var tapGestureRecognizer: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapView))
+        recognizer.numberOfTapsRequired = 1
+        recognizer.numberOfTouchesRequired = 1
+        return recognizer
+    }()
+    
+    @objc func  tapView () {
+        viewAnimation ()
+    }
+    
+    func viewAnimation () {
+       let animation = CASpringAnimation (keyPath: "transform.scale")
+        animation.fromValue = 0.8
+       animation.toValue = 1
+       animation.stiffness = 500
+       animation.mass = 1
+       animation.duration = 1
+       animation.fillMode = CAMediaTimingFillMode.both
+       layer.add(animation, forKey: nil)
+    }
     
     override init (frame: CGRect)
     {
