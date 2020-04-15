@@ -36,7 +36,7 @@ class LikeButton: UIButton {
     
     private func setupDefault ()
     {
-        setImage(UIImage(named: "nolike"), for: .normal)
+        setImage(UIImage(named: "dislike"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = .gray
         

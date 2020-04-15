@@ -8,20 +8,32 @@
 
 import UIKit
 
+class GroupDB {
+   static func  getGroups () -> [Group] {
+        return [Group(name: "группа1", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK"), Group(name: "группа2", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK"),
+                Group(name: "группа3", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK")]
+    }
+    
+    
+}
+
 class MyGroupTableController: UITableViewController {
     
-    var myGroup: [Group] = []
+    var myGroup = GroupDB.getGroups()
+    
+    @IBOutlet weak var groupSearch: UISearchBar!
+    
+    
+    var controlRrefresh = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "мои группы"
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+       addRefreshControl()
+        
+        groupSearch.delegate = self
     }
     
     @IBAction func addGroup (segue: UIStoryboardSegue) {
@@ -76,51 +88,35 @@ class MyGroupTableController: UITableViewController {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func addRefreshControl (){
+        controlRrefresh.attributedTitle = NSAttributedString(string: "Обновление...")
+        controlRrefresh.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        tableView.addSubview(controlRrefresh)
     }
-    */
-
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // Если была нажата кнопка «Удалить»
-        if editingStyle == .delete {
-            // Удаляем город из массива
-            myGroup.remove(at: indexPath.row)
-            // И удаляем строку из таблицы
-            tableView.deleteRows(at: [indexPath], with: .fade)
+    @objc func refreshTable ()
+    {
+        print("Start")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.controlRrefresh.endRefreshing()
         }
     }
-    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+}
 
+extension MyGroupTableController: UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        myGroup = GroupDB.getGroups().filter{(group) -> Bool in return
+            searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+        
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

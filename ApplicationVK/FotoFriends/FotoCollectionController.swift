@@ -20,6 +20,7 @@ class FotoCollectionController: UICollectionViewController {
         
         
         self.title = titelWindow
+        updateNavigationItem ()
     }
     
     
@@ -53,5 +54,12 @@ class FotoCollectionController: UICollectionViewController {
             fotoController.Foto = UIImage(named: name)
         }
         
+    }
+    
+    func updateNavigationItem ()
+    {
+        let backItemButton = UIBarButtonItem()
+        backItemButton.title = ""
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backItemButton
     }
 }
