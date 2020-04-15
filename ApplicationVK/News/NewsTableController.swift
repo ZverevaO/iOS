@@ -13,8 +13,7 @@ class NewsTableController: UITableViewController {
     let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
                                 Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
     
-    var fotoNews1: [String] = ["news1"]
-    let fotoNews2: [String] = ["news21", "news22", "news23"]
+   
     
     let myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
                           News(nameAutor: "Лучшее", textNews: "Пepвая eго фoтосеcсия. Mилота",  countLike: 7, countView: 234)]
@@ -25,7 +24,7 @@ class NewsTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.estimatedRowHeight = 500.0
+        tableView.estimatedRowHeight = 300.0
         
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -83,7 +82,7 @@ class NewsTableController: UITableViewController {
     
 }
 
-extension  NewsTableController : UICollectionViewDataSource
+/*extension  NewsTableController : UICollectionViewDataSource
 {
   func numberOfSections(in collectionView: UICollectionView) -> Int
   {
@@ -121,5 +120,5 @@ extension NewsTableController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
-}
+}*/
 

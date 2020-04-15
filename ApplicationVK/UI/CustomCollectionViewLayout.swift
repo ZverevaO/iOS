@@ -11,7 +11,7 @@ import UIKit
 class CastomCollectionViewLayout: UICollectionViewLayout {
     var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
     var columnsCount = 2
-    var cellHeight: CGFloat = 128
+    var cellHeight: CGFloat = 150
     private var totalCellsHeight: CGFloat = 0
     
     override func prepare() {
@@ -23,8 +23,11 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
         let itemsCount = collectionView.numberOfItems(inSection: 0)
         guard itemsCount > 0 else { return }
         
-        let bigCellWidth = collectionView.bounds.width
-        let smallCellWidth = collectionView.bounds.width / CGFloat(columnsCount)
+//        let bigCellWidth = collectionView.bounds.width
+//        let smallCellWidth = collectionView.bounds.width / CGFloat(columnsCount)
+        
+        let bigCellWidth = collectionView.frame.width
+        let smallCellWidth = collectionView.frame.width / CGFloat(columnsCount)
         
         var lastY: CGFloat = 0
         var lastX: CGFloat = 0
@@ -36,10 +39,16 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
             let isBigCell = (((index + 1) % (columnsCount + 1)) == 0)
             
             if isBigCell {
-                attributtes.frame = CGRect(x: 0, y: lastY, width: bigCellWidth, height: cellHeight)
+                attributtes.frame = CGRect(x: 0,
+                                           y: lastY,
+                                           width: bigCellWidth,
+                                           height: cellHeight)
                 lastY += cellHeight
             } else {
-                attributtes.frame = CGRect(x: lastX, y: lastY, width: smallCellWidth, height: cellHeight)
+                attributtes.frame = CGRect(x: lastX,
+                                           y: lastY,
+                                           width: smallCellWidth,
+                                           height: cellHeight)
                 
                 let isLastColumn = (index + 2) % (columnsCount + 1) == 0 || index == (itemsCount - 1)
                 
@@ -66,7 +75,7 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
     }
     
     override var collectionViewContentSize: CGSize {
-        return CGSize(width: collectionView?.bounds.width ?? 0,
+        return CGSize(width: collectionView?.frame.width ?? 0,
                       height: totalCellsHeight)
     }
 }

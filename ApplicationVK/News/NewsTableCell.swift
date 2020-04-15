@@ -34,28 +34,32 @@ class NewsTableCell: UITableViewCell {
     @IBOutlet weak var fotoCollection: UICollectionView!
     
     
+    var fotoNews1: [String] = ["news1"]
+    let fotoNews2: [String] = ["news21", "news22", "news23"]
 }
 
 
-/*extension  NewsTableCell : UICollectionViewDataSource
+extension  NewsTableCell : UICollectionViewDataSource
 {
-  func numberOfSections(in collectionView: UICollectionView) -> Int
-  {
-      return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return fotoNews2.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFotoCollectionCell", for: indexPath) as! NewsFotoCollectionCell
-      
-    cell.foto.image = UIImage(named: fotoNews2[1])
-      
-      return cell
-  }
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return fotoNews2.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFotoCollectionCell", for: indexPath) as! NewsFotoCollectionCell
+        
+        cell.foto.image = UIImage(named: fotoNews2[indexPath.item])
+        
+        return cell
+    }
+    
 }
 
 extension NewsTableCell : UICollectionViewDelegate
@@ -63,15 +67,15 @@ extension NewsTableCell : UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
     }
-
+    
 }
 
-extension NewsTableController: UICollectionViewDelegateFlowLayout {
+extension NewsTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = (collectionView.bounds.width - 41) / 3
+        let cellWidth = (collectionView.bounds.width - 41) / 2
         
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
-}*/
+}
