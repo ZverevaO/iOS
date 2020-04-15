@@ -83,7 +83,7 @@ class MyGroupTableController: UITableViewController {
         // Устанавливаем параметры группы
         cell.name.text = group.name
         cell.groupType.text = group.gType.description
-        cell.icon.image = UIImage(named: group.fotoPath)
+        cell.iconShadow.image.image = UIImage(named: group.fotoPath)
         
         return cell
     }

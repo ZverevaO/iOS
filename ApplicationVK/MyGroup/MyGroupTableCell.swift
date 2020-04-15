@@ -10,8 +10,8 @@ import UIKit
 
 class MyGroupTableCell: UITableViewCell {
     
-    
-    @IBOutlet weak var icon: UIImageView!
+  
+    @IBOutlet weak var iconShadow: CircleShadowImage!
     
     @IBOutlet weak var name: UILabel!
     

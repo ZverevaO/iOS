@@ -16,7 +16,10 @@ class LoginFormControllerViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
-  
+    
+
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +27,7 @@ class LoginFormControllerViewController: UIViewController {
         
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(hideAction)
+        
         
     }
     
@@ -33,6 +37,7 @@ class LoginFormControllerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        
         
         
     }
@@ -104,4 +109,9 @@ class LoginFormControllerViewController: UIViewController {
         // Показываем UIAlertController
         present(alert, animated: true)
     }
+    
+    
+    
+
+       
 }
