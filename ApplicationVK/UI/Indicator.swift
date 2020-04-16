@@ -40,11 +40,11 @@ class Indicator: UIView {
                        delay: 0,
                        options: [.repeat, .autoreverse, .curveLinear],
                        animations: {
-                        //self.indicator2.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                        self.indicator1.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                         self.indicator1.alpha = 0.5
         }){_ in
             self.indicator1.alpha = 1
-            //            self.indicator1.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.indicator1.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             
         }
         
@@ -52,10 +52,10 @@ class Indicator: UIView {
                        delay: 0.3,
                        options: [.repeat, .autoreverse, .curveLinear],
                        animations: {
-            //self.indicator2.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.indicator2.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                         self.indicator2.alpha = 0.5
         }){_ in
-           // self.indicator2.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.indicator2.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
              self.indicator2.alpha = 1
             
         }
@@ -64,10 +64,10 @@ class Indicator: UIView {
                        delay: 0.6,
                        options: [.repeat, .autoreverse, .curveLinear],
                        animations: {
-            //self.indicator3.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.indicator3.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                         self.indicator3.alpha = 0.5
         }){_ in
-            //self.indicator3.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.indicator3.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
              self.indicator3.alpha = 1
             
         }
@@ -94,44 +94,27 @@ class Indicator: UIView {
 
 class CircleShadowImage1: UIView {
     
-    public var image: UIImageView!
-    
-    
     override init (frame: CGRect)
     {
         super.init(frame: frame)
-        addImage()
         
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addImage()
         
-    }
-    
-    func addImage() {
-        image = UIImageView(frame: frame)
-        image.image = UIImage(named: "grey")
-        addSubview(image)
     }
     
     override func layoutSubviews() {
-        
-  
-        image.frame = bounds
-        
-        layer.backgroundColor = UIColor.clear.cgColor
+
         //работа с тенью
         layer.shadowColor = UIColor.black.cgColor //устанавливаем цвет
         layer.shadowOpacity = 1.0 //устанавливаем прозрачность
         layer.shadowRadius = 4 //устанавоиваем радиус тени
         layer.shadowOffset = CGSize(width: 0, height: 1)
-        
-        //скругляем аватар
-        image.layer.cornerRadius = bounds.size.height / 2
-        image.layer.masksToBounds = true
-        
+        layer.cornerRadius = bounds.size.height / 2
+        layer.masksToBounds = true
+            
     }
     
 }
