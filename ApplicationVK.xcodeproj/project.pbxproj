@@ -21,6 +21,8 @@
 		D71A07092438DEFA004DAA58 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A07082438DEFA004DAA58 /* CircleImage.swift */; };
 		D71A070B2439CCF5004DAA58 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070A2439CCF5004DAA58 /* LikeButton.swift */; };
 		D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070C243A5ABA004DAA58 /* GradientView.swift */; };
+		D738E5AC244A2D970041B775 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AB244A2D970041B775 /* ShareButton.swift */; };
+		D738E5AE244A31290041B775 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AD244A31290041B775 /* ViewButton.swift */; };
 		D75763C2244311310065E684 /* NewsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C1244311310065E684 /* NewsTableController.swift */; };
 		D75763C4244311ED0065E684 /* MessageTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C3244311ED0065E684 /* MessageTableController.swift */; };
 		D75763C7244316CC0065E684 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C6244316CB0065E684 /* News.swift */; };
@@ -55,6 +57,8 @@
 		D71A07082438DEFA004DAA58 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		D71A070A2439CCF5004DAA58 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		D71A070C243A5ABA004DAA58 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		D738E5AB244A2D970041B775 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
+		D738E5AD244A31290041B775 /* ViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		D75763C1244311310065E684 /* NewsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableController.swift; sourceTree = "<group>"; };
 		D75763C3244311ED0065E684 /* MessageTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableController.swift; sourceTree = "<group>"; };
 		D75763C6244316CB0065E684 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -137,15 +141,25 @@
 		D71A07072438C187004DAA58 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				D738E5AA244A2CFE0041B775 /* button */,
 				D71A07082438DEFA004DAA58 /* CircleImage.swift */,
-				D71A070A2439CCF5004DAA58 /* LikeButton.swift */,
 				D71A070C243A5ABA004DAA58 /* GradientView.swift */,
 				D75763CD24438A680065E684 /* CustomCollectionViewLayout.swift */,
-				D75763D32443A8490065E684 /* CommentButton.swift */,
 				D75763D5244753F40065E684 /* Indicator.xib */,
 				D75763D7244759080065E684 /* Indicator.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		D738E5AA244A2CFE0041B775 /* button */ = {
+			isa = PBXGroup;
+			children = (
+				D75763D32443A8490065E684 /* CommentButton.swift */,
+				D71A070A2439CCF5004DAA58 /* LikeButton.swift */,
+				D738E5AB244A2D970041B775 /* ShareButton.swift */,
+				D738E5AD244A31290041B775 /* ViewButton.swift */,
+			);
+			path = button;
 			sourceTree = "<group>";
 		};
 		D75763BF244310390065E684 /* News */ = {
@@ -287,7 +301,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D738E5AC244A2D970041B775 /* ShareButton.swift in Sources */,
 				D71A06FC2435D258004DAA58 /* AllFriendTableCell.swift in Sources */,
+				D738E5AE244A31290041B775 /* ViewButton.swift in Sources */,
 				D75763D0244393BF0065E684 /* NewsTableCell.swift in Sources */,
 				D71A06FA2435D23A004DAA58 /* AllFriendTableController.swift in Sources */,
 				D75763C4244311ED0065E684 /* MessageTableController.swift in Sources */,

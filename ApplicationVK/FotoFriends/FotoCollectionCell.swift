@@ -18,5 +18,9 @@ class FotoCollectionCell: UICollectionViewCell {
         sender.like()
     }
     
+    @IBAction func commentButton(_ sender: CommentButton) {
+        
+        sender.clicked()
+    }
     
 }
