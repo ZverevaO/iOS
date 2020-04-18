@@ -55,7 +55,7 @@ class NewsTableController: UITableViewController {
         
         cell.avatar.image = UIImage(named: "iconGroupVK")
         cell.userName.text = myNews[indexPath.row].nameAutor
-        cell.countView.text = String(myNews[indexPath.row].countView)
+//        cell.countView.text = String(myNews[indexPath.row].countView)
         cell.newsText.text = myNews[indexPath.row].textNews
         
         
