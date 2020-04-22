@@ -10,11 +10,11 @@ import UIKit
 
 class Indicator: UIView {
     
-    @IBOutlet weak var indicator1: CircleShadowImage1!
+    @IBOutlet weak var indicator1: CircleImage!
     
-    @IBOutlet weak var indicator2: CircleShadowImage1!
+    @IBOutlet weak var indicator2: CircleImage!
     
-    @IBOutlet weak var indicator3: CircleShadowImage1!
+    @IBOutlet weak var indicator3: CircleImage!
     
     var contentView: UIView!
     
@@ -92,7 +92,7 @@ class Indicator: UIView {
     }
 }
 
-class CircleShadowImage1: UIView {
+class CircleImage: UIView {
     
     override init (frame: CGRect)
     {
