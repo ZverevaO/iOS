@@ -40,19 +40,19 @@ final class CustomPopAnimator : NSObject, UIViewControllerAnimatedTransitioning 
                                 delay: 0,
                                 options: .calculationModePaced,
                                 animations: {
-                                  /*  UIView.addKeyframe(withRelativeStartTime: 0,
+                                   UIView.addKeyframe(withRelativeStartTime: 0,
                                                        relativeDuration: 0.4,
                                                        animations: {
                                                         let translation = CGAffineTransform(translationX: source.view.frame.width / 2, y: 0)
                                                         let scale = CGAffineTransform(scaleX: 1.2, y: 1.2)
                                                         source.view.transform = translation.concatenating(scale)
-                                    })*/
-                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                    })
+                                   /* UIView.addKeyframe(withRelativeStartTime: 0,
                                                        relativeDuration: 0.4,
                                                        animations: {
                                                         let translation = CGAffineTransform(rotationAngle: (-.pi)/4)
                                                         source.view.transform = translation
-                                    })
+                                    })*/
                                     UIView.addKeyframe(withRelativeStartTime: 0.4,
                                                        relativeDuration: 0.4,
                                                        animations: {
