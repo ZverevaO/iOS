@@ -20,7 +20,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     var myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
                           News(nameAutor: "Лучшее", textNews: "Пepвая eго фoтосеcсия. Mилота",  countLike: 7, countView: 234)]
     
-
+    
     
     var controlRrefresh = UIRefreshControl()
     
@@ -35,6 +35,8 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         
         self.title = "новости"
         
+        myNews[0].newsFoto = ["news1"]
+        myNews[1].newsFoto = ["news21", "news22", "news23"]
         addRefreshControl()
         
         
