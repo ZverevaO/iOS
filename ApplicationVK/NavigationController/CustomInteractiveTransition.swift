@@ -8,6 +8,8 @@
 
 import UIKit
 class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
+    var hasStarted: Bool = false
+    var shouldFinish: Bool = false
     
     var viewController: UIViewController? {
         didSet {
@@ -18,8 +20,7 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
-    var hasStarted: Bool = false
-    var shouldFinish: Bool = false
+  
     
     @objc func handleScreenEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         switch recognizer.state {
@@ -32,7 +33,7 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             let progress = max(0, min(1, relativeTranslation))
             
             self.shouldFinish = progress > 0.33
-            
+
             self.update(progress)
         case .ended:
             self.hasStarted = false
@@ -42,6 +43,7 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             self.cancel()
         default: return
         }
+
         
     }
 }

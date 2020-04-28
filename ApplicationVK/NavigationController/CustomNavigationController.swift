@@ -32,28 +32,40 @@ extension CustomNavigationController : UINavigationControllerDelegate {
         return interactiveTransition.hasStarted ? interactiveTransition : nil
     }
     
-    /*func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push {
-            return CustomPushAnimator()
-        } else if operation == .pop {
-            return CustomPopAnimator()
-        }
-        return nil
-    }*/
-    func navigationController(_ navigationController: UINavigationController,
-                              animationControllerFor operation: UINavigationController.Operation,
-                              from fromVC: UIViewController,
-                              to toVC: UIViewController)
-        -> UIViewControllerAnimatedTransitioning? {
-            if operation == .push {
-                self.interactiveTransition.viewController = toVC
-                return CustomPushAnimator()
-            } else if operation == .pop {
-                if navigationController.viewControllers.first != toVC {
-                    self.interactiveTransition.viewController = toVC
-                }
-                return CustomPopAnimator()
-            }
-            return nil
-    }
+ func navigationController(_ navigationController: UINavigationController,
+                           animationControllerFor operation: UINavigationController.Operation,
+                           from fromVC: UIViewController,
+                           to toVC: UIViewController)
+                           -> UIViewControllerAnimatedTransitioning? {
+     if operation == .push {
+         self.interactiveTransition.viewController = toVC
+          return CustomPushAnimator()
+     } else if operation == .pop {
+         if navigationController.viewControllers.first != toVC {
+             self.interactiveTransition.viewController = toVC
+         }
+         return CustomPopAnimator()
+     }
+     return nil
+ }
+//    func navigationController(_ navigationController: UINavigationController,
+//                              animationControllerFor operation: UINavigationController.Operation,
+//                              from fromVC: UIViewController,
+//                              to toVC: UIViewController)
+//        -> UIViewControllerAnimatedTransitioning? {
+//
+//            switch operation {
+//            case .push:
+//               self.interactiveTransition.viewController = toVC
+//               return CustomPushAnimator()
+//            case .pop:
+//                 if navigationController.viewControllers.first != toVC {
+//                    self.interactiveTransition.viewController = toVC}
+//                return CustomPopAnimator()
+//            default:
+//                return nil
+//            }
+//
+//    }
+            
 }

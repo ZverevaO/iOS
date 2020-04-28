@@ -27,6 +27,9 @@
 		D738E5BA2450A6560041B775 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5B92450A6560041B775 /* CustomPopAnimator.swift */; };
 		D738E5BC2450A6A60041B775 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5BB2450A6A60041B775 /* CustomNavigationController.swift */; };
 		D738E5BE2450A8860041B775 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5BD2450A8860041B775 /* CustomInteractiveTransition.swift */; };
+		D738E5C2245884450041B775 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C1245884450041B775 /* PopAnimator.swift */; };
+		D738E5C4245889110041B775 /* ImageViewerPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C3245889110041B775 /* ImageViewerPresentor.swift */; };
+		D738E5C624588B750041B775 /* UIapplication+Compliction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C524588B750041B775 /* UIapplication+Compliction.swift */; };
 		D75763C2244311310065E684 /* NewsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C1244311310065E684 /* NewsTableController.swift */; };
 		D75763C4244311ED0065E684 /* MessageTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C3244311ED0065E684 /* MessageTableController.swift */; };
 		D75763C7244316CC0065E684 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C6244316CB0065E684 /* News.swift */; };
@@ -67,6 +70,9 @@
 		D738E5B92450A6560041B775 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		D738E5BB2450A6A60041B775 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D738E5BD2450A8860041B775 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
+		D738E5C1245884450041B775 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
+		D738E5C3245889110041B775 /* ImageViewerPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerPresentor.swift; sourceTree = "<group>"; };
+		D738E5C524588B750041B775 /* UIapplication+Compliction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIapplication+Compliction.swift"; sourceTree = "<group>"; };
 		D75763C1244311310065E684 /* NewsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableController.swift; sourceTree = "<group>"; };
 		D75763C3244311ED0065E684 /* MessageTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableController.swift; sourceTree = "<group>"; };
 		D75763C6244316CB0065E684 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -181,6 +187,16 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
+		D738E5C0245884190041B775 /* Animator  */ = {
+			isa = PBXGroup;
+			children = (
+				D738E5C1245884450041B775 /* PopAnimator.swift */,
+				D738E5C3245889110041B775 /* ImageViewerPresentor.swift */,
+				D738E5C524588B750041B775 /* UIapplication+Compliction.swift */,
+			);
+			path = "Animator ";
+			sourceTree = "<group>";
+		};
 		D75763BF244310390065E684 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +244,7 @@
 		D7C39E4B23ED683700DCEDCF /* ApplicationVK */ = {
 			isa = PBXGroup;
 			children = (
+				D738E5C0245884190041B775 /* Animator  */,
 				D738E5B62450A5A20041B775 /* NavigationController */,
 				D75763C02443104B0065E684 /* Message */,
 				D75763BF244310390065E684 /* News */,
@@ -322,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D738E5BE2450A8860041B775 /* CustomInteractiveTransition.swift in Sources */,
+				D738E5C624588B750041B775 /* UIapplication+Compliction.swift in Sources */,
 				D738E5AC244A2D970041B775 /* ShareButton.swift in Sources */,
 				D71A06FC2435D258004DAA58 /* AllFriendTableCell.swift in Sources */,
 				D738E5AE244A31290041B775 /* ViewButton.swift in Sources */,
@@ -346,6 +364,8 @@
 				D71A07042436092F004DAA58 /* FotoController.swift in Sources */,
 				D71A06F72434FA18004DAA58 /* AllGroupTableController.swift in Sources */,
 				D75763D224439DB10065E684 /* NewsFotoCollectionCell.swift in Sources */,
+				D738E5C2245884450041B775 /* PopAnimator.swift in Sources */,
+				D738E5C4245889110041B775 /* ImageViewerPresentor.swift in Sources */,
 				D7C39E4F23ED683700DCEDCF /* SceneDelegate.swift in Sources */,
 				D71A070B2439CCF5004DAA58 /* LikeButton.swift in Sources */,
 				D71A06EB2434F218004DAA58 /* Group.swift in Sources */,

@@ -11,4 +11,17 @@ import UIKit
 class NewsFotoCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var foto: UIImageView!
+    
+    var imageClicked: ((UIView)->())? = nil
+    
+    override func awakeFromNib() {
+        foto.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
+        
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func pickImage() {
+        imageClicked?(foto)
+    }
 }

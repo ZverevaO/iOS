@@ -33,7 +33,8 @@ class NewsTableCell: UITableViewCell {
     
     @IBOutlet weak var fotoCollection: UICollectionView!
     
-    
+    var viewClicked: ((UIView)->())? = nil
+    var fotoNews: [String] = [] 
     var fotoNews1: [String] = ["news1"]
     let fotoNews2: [String] = ["news21", "news22", "news23"]
 }
@@ -48,15 +49,20 @@ extension  NewsTableCell : UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return fotoNews2.count
+        return fotoNews.count
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFotoCollectionCell", for: indexPath) as! NewsFotoCollectionCell
         
-        cell.foto.image = UIImage(named: fotoNews2[indexPath.item])
+        cell.foto.image = UIImage(named: fotoNews[indexPath.item])
         
+        cell.imageClicked = {
+            image in
+            self.viewClicked?(image)
+        }
         return cell
     }
     
@@ -73,8 +79,7 @@ extension NewsTableCell : UICollectionViewDelegate
 extension NewsTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = (collectionView.bounds.width - 41) / 2
-        
+        let cellWidth = (collectionView.bounds.width - 16) / 2
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
