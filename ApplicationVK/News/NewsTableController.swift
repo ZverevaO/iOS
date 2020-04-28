@@ -8,22 +8,26 @@
 
 import UIKit
 
-class NewsTableController: UITableViewController {
+class NewsTableController: UITableViewController, ImageViewPresenterSource  {
+    
+    var source: UIView? 
     
     let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
                                 Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
     
    
     
-    let myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
+    var myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
                           News(nameAutor: "Лучшее", textNews: "Пepвая eго фoтосеcсия. Mилота",  countLike: 7, countView: 234)]
+    
+
     
     var controlRrefresh = UIRefreshControl()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.estimatedRowHeight = 300.0
         
         tableView.rowHeight = UITableView.automaticDimension
@@ -57,7 +61,17 @@ class NewsTableController: UITableViewController {
         cell.userName.text = myNews[indexPath.row].nameAutor
 //        cell.countView.text = String(myNews[indexPath.row].countView)
         cell.newsText.text = myNews[indexPath.row].textNews
+        cell.fotoNews = myNews[indexPath.row].newsFoto
         
+        cell.viewClicked = { [weak self] view in
+            guard let self = self else {return }
+                self.source = view
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: "FotoController")
+            let delegate =  ImageViewPresenter(delegate: self)
+            self.navigationController?.delegate = delegate
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
         return cell
     }
@@ -82,43 +96,6 @@ class NewsTableController: UITableViewController {
     
 }
 
-/*extension  NewsTableController : UICollectionViewDataSource
-{
-  func numberOfSections(in collectionView: UICollectionView) -> Int
-  {
-      return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return fotoNews2.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFotoCollectionCell", for: indexPath) as! NewsFotoCollectionCell
-      
-    cell.foto.image = UIImage(named: fotoNews2[indexPath.item])
-      
-      return cell
-  }
-    
-}
 
-extension NewsTableController : UICollectionViewDelegate
-{
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-    }
 
-}
-
-extension NewsTableController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let cellWidth = (collectionView.bounds.width - 41) / 3
-        
-        
-        return CGSize(width: cellWidth, height: cellWidth)
-    }
-}*/
 

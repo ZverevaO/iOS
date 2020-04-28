@@ -15,10 +15,10 @@ struct Comment {
 class News {
     var nameAutor: String
     var textNews: String
-//    var newsFoto: [String] = []
+    var newsFoto: [String] = []
     var countLike: Int
     var countView: Int
-//    var commentNews: [Comment] = []
+  //  var commentNews: [Comment] = []
     init (nameAutor: String, textNews: String, countLike: Int, countView: Int)
     {
         self.nameAutor = nameAutor

@@ -11,8 +11,8 @@
         <!--Login Form Controller View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginFormControllerViewController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bC-Xf-vdC" customClass="GradientView" customModule="ApplicationVK" customModuleProvider="target">
+                <viewController storyboardIdentifier="LoginFormControllerViewController" id="BYZ-38-t0r" customClass="LoginFormControllerViewController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -302,7 +302,7 @@
         <!--Foto Controller-->
         <scene sceneID="hKL-q1-b2z">
             <objects>
-                <viewController id="Sdy-k0-Scw" customClass="FotoController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FotoController" id="Sdy-k0-Scw" customClass="FotoController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qtO-Wp-p2l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -483,10 +483,10 @@
             </objects>
             <point key="canvasLocation" x="2434" y="-404"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="0Cd-mv-EHH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dLy-Nu-Wtj" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dLy-Nu-Wtj" customClass="CustomNavigationController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nek-5Q-45l">
                         <autoresizingMask key="autoresizingMask"/>
@@ -560,7 +560,7 @@
                                                 <constraint firstAttribute="height" constant="162.33333333333337" id="2k3-zO-AMx"/>
                                                 <constraint firstAttribute="width" secondItem="9mP-MX-4LI" secondAttribute="height" multiplier="1:1" id="W3b-r1-jWA"/>
                                             </constraints>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="apd-jc-mWc">
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="apd-jc-mWc">
                                                 <size key="itemSize" width="150" height="150"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
