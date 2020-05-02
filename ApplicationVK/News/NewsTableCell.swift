@@ -35,8 +35,7 @@ class NewsTableCell: UITableViewCell {
     
     var viewClicked: ((UIView)->())? = nil
     var fotoNews: [String] = [] 
-    var fotoNews1: [String] = ["news1"]
-    let fotoNews2: [String] = ["news21", "news22", "news23"]
+
 }
 
 
