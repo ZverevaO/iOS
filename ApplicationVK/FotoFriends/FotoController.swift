@@ -120,23 +120,7 @@ class FotoController: UIViewController {
         
     }
     
-//    @objc func swipeView (_ recognizer: UIPanGestureRecognizer) {
-  //        switch recognizer.direction {
-  //        case .left: print("свайп в лево")
-  //           countFoto += 1
-  //        case .right: print ("свайп в право")
-  //            countFoto += 1
-  //
-  //        default: print("свайп в другую сторону")
-  //        }
-  //        if countFoto < 0 {
-  //            countFoto = arrayFoto.count - 1
-  //        } else if countFoto == arrayFoto.count {
-  //            countFoto = 0
-  //        }
-//          curentFoto.image = UIImage(named: arrayFoto[countFoto])
-//
-//      }
+
     
 }
 

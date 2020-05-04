@@ -63,3 +63,13 @@ class FotoCollectionController: UICollectionViewController {
         navigationController?.navigationBar.topItem?.backBarButtonItem = backItemButton
     }
 }
+
+
+extension FotoCollectionController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = (collectionView.bounds.width - 7) / 2
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+}

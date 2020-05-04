@@ -9,7 +9,7 @@
 import UIKit
 
 protocol  ImageViewPresenterSource: UIViewController {
-    var source: UIView? {get}
+    var source: UIImageView? {get}
 }
 
 
@@ -27,8 +27,10 @@ class ImageViewPresenter: NSObject, UIViewControllerTransitioningDelegate, UINav
             let origin = sourceView.superview?.convert(sourceView.frame, to: UIApplication.topViewController()!.navigationController!.view) else {
                 return nil
         }
+     
         
         animator.originFrame = CGRect(x: origin.minX, y: origin.minY, width: origin.size.width, height: origin.size.height)
+
         
         return animator
     }

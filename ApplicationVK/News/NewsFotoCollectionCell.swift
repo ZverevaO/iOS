@@ -12,7 +12,7 @@ class NewsFotoCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var foto: UIImageView!
     
-    var imageClicked: ((UIView)->())? = nil
+    var imageClicked: ((UIImageView)->())? = nil
     
     override func awakeFromNib() {
         foto.isUserInteractionEnabled = true
@@ -23,5 +23,8 @@ class NewsFotoCollectionCell: UICollectionViewCell {
     
     @objc func pickImage() {
         imageClicked?(foto)
+        
     }
+    
+    
 }

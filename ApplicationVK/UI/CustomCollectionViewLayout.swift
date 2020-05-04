@@ -11,7 +11,7 @@ import UIKit
 class CastomCollectionViewLayout: UICollectionViewLayout {
     var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
     var columnsCount = 2
-    var cellHeight: CGFloat = 150
+    var cellHeight: CGFloat = 100
     private var totalCellsHeight: CGFloat = 0
     
     override func prepare() {
@@ -27,11 +27,13 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
 //        let smallCellWidth = collectionView.bounds.width / CGFloat(columnsCount)
         
         let bigCellWidth = collectionView.frame.width
-        let smallCellWidth = collectionView.frame.width / CGFloat(columnsCount)
+        let smallCellWidth = (collectionView.frame.width / CGFloat(columnsCount))
         
         var lastY: CGFloat = 0
         var lastX: CGFloat = 0
         
+       
+      
         for index in 0..<itemsCount {
             let indexPath = IndexPath(item: index, section: 0)
             let attributtes = UICollectionViewLayoutAttributes(forCellWith: indexPath)

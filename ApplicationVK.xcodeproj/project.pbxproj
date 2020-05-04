@@ -31,6 +31,7 @@
 		D738E5C4245889110041B775 /* ImageViewerPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C3245889110041B775 /* ImageViewerPresentor.swift */; };
 		D738E5C624588B750041B775 /* UIapplication+Compliction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C524588B750041B775 /* UIapplication+Compliction.swift */; };
 		D738E5C8245D41780041B775 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C7245D41780041B775 /* Session.swift */; };
+		D738E5CA245D56C40041B775 /* NewsFotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C9245D56C40041B775 /* NewsFotoController.swift */; };
 		D75763C2244311310065E684 /* NewsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C1244311310065E684 /* NewsTableController.swift */; };
 		D75763C4244311ED0065E684 /* MessageTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C3244311ED0065E684 /* MessageTableController.swift */; };
 		D75763C7244316CC0065E684 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C6244316CB0065E684 /* News.swift */; };
@@ -75,6 +76,7 @@
 		D738E5C3245889110041B775 /* ImageViewerPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerPresentor.swift; sourceTree = "<group>"; };
 		D738E5C524588B750041B775 /* UIapplication+Compliction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIapplication+Compliction.swift"; sourceTree = "<group>"; };
 		D738E5C7245D41780041B775 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		D738E5C9245D56C40041B775 /* NewsFotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFotoController.swift; sourceTree = "<group>"; };
 		D75763C1244311310065E684 /* NewsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableController.swift; sourceTree = "<group>"; };
 		D75763C3244311ED0065E684 /* MessageTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableController.swift; sourceTree = "<group>"; };
 		D75763C6244316CB0065E684 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				D75763C1244311310065E684 /* NewsTableController.swift */,
 				D75763CF244393BF0065E684 /* NewsTableCell.swift */,
 				D75763D124439DB10065E684 /* NewsFotoCollectionCell.swift */,
+				D738E5C9245D56C40041B775 /* NewsFotoController.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				D7C39E6123ED68C100DCEDCF /* LoginFormControllerViewController.swift in Sources */,
 				D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */,
 				D71A06FF2435DBEE004DAA58 /* FotoCollectionController.swift in Sources */,
+				D738E5CA245D56C40041B775 /* NewsFotoController.swift in Sources */,
 				D71A07012435DC11004DAA58 /* FotoCollectionCell.swift in Sources */,
 				D75763D42443A8490065E684 /* CommentButton.swift in Sources */,
 				D7C39E4D23ED683700DCEDCF /* AppDelegate.swift in Sources */,

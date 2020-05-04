@@ -20,6 +20,9 @@ class NewsTableCell: UITableViewCell {
     
     @IBOutlet weak var hashTag: UILabel!
     
+    @IBOutlet weak var collectionHeight: NSLayoutConstraint!
+    
+    
     @IBAction func likeButton(_ sender: LikeButton) {
         sender.like()
     }
@@ -29,11 +32,10 @@ class NewsTableCell: UITableViewCell {
     }
     
     
-    @IBOutlet weak var countView: UILabel!
     
     @IBOutlet weak var fotoCollection: UICollectionView!
     
-    var viewClicked: ((UIView)->())? = nil
+    var viewClicked: ((UIImageView)->())? = nil
     var fotoNews: [String] = [] 
 
 }
@@ -61,6 +63,7 @@ extension  NewsTableCell : UICollectionViewDataSource
         cell.imageClicked = {
             image in
             self.viewClicked?(image)
+            
         }
         return cell
     }
@@ -78,7 +81,7 @@ extension NewsTableCell : UICollectionViewDelegate
 extension NewsTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = (collectionView.bounds.width - 16) / 2
+        let cellWidth = (collectionView.bounds.width - 7) / 2
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
