@@ -16,28 +16,28 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="215"/>
+            <rect key="frame" x="0.0" y="0.0" width="479" height="189"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="DdK-RR-LXj">
-                    <rect key="frame" x="0.0" y="44" width="414" height="171"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DdK-RR-LXj">
+                    <rect key="frame" x="0.0" y="44" width="479" height="111"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pB-cB-fCY" customClass="CircleImage" customModule="ApplicationVK" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="30" width="111.5" height="111"/>
+                            <rect key="frame" x="0.0" y="30.5" width="50" height="50"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2pB-cB-fCY" secondAttribute="height" multiplier="1:1" id="AaW-gx-68S"/>
                             </constraints>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjP-6g-0FZ" customClass="CircleImage" customModule="ApplicationVK" customModuleProvider="target">
-                            <rect key="frame" x="151.5" y="30" width="111" height="111"/>
+                            <rect key="frame" x="214.5" y="30.5" width="50" height="50"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="yjP-6g-0FZ" secondAttribute="height" multiplier="1:1" id="3vJ-L6-To0"/>
                             </constraints>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tvs-WL-fnc" customClass="CircleImage" customModule="ApplicationVK" customModuleProvider="target">
-                            <rect key="frame" x="302.5" y="30" width="111.5" height="111"/>
+                            <rect key="frame" x="429" y="30.5" width="50" height="50"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Tvs-WL-fnc" secondAttribute="height" multiplier="1:1" id="DB1-uz-Jdt"/>
@@ -55,7 +55,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="131.8840579710145" y="-134.26339285714286"/>
+            <point key="canvasLocation" x="60" y="-86"/>
         </view>
     </objects>
 </document>

@@ -9,8 +9,9 @@
 import UIKit
 
 class NewsTableController: UITableViewController, ImageViewPresenterSource  {
+    var source: UIImageView?
     
-    var source: UIView? 
+
     
     let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
                                 Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
@@ -65,14 +66,24 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         cell.newsText.text = myNews[indexPath.row].textNews
         cell.fotoNews = myNews[indexPath.row].newsFoto
         
+        cell.layoutIfNeeded()
+        cell.collectionHeight.constant = cell.fotoCollection.contentSize.height
+     
+        
         cell.viewClicked = { [weak self] view in
             guard let self = self else {return }
                 self.source = view
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: "FotoController")
+            let vc = storyboard.instantiateViewController(identifier: "NewsFotoController") as! NewsFotoController
             let delegate =  ImageViewPresenter(delegate: self)
+            //vc.transitioningDelegate = delegate
+            //vc.modalPresentationStyle = .fullScreen
+            //self.present(vc, animated: true, completion: nil)
             self.navigationController?.delegate = delegate
             self.navigationController?.pushViewController(vc, animated: true)
+    
+            vc.currentNewsFoto = self.source?.image
+            
         }
         
         return cell
