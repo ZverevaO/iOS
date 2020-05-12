@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		D71A07092438DEFA004DAA58 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A07082438DEFA004DAA58 /* CircleImage.swift */; };
 		D71A070B2439CCF5004DAA58 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070A2439CCF5004DAA58 /* LikeButton.swift */; };
 		D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070C243A5ABA004DAA58 /* GradientView.swift */; };
+		D71AFC33246B28D5004CDCBF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71AFC32246B28D5004CDCBF /* WebKit.framework */; };
 		D738E5AC244A2D970041B775 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AB244A2D970041B775 /* ShareButton.swift */; };
 		D738E5AE244A31290041B775 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AD244A31290041B775 /* ViewButton.swift */; };
 		D738E5B82450A6220041B775 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5B72450A6220041B775 /* CustomPushAnimator.swift */; };
@@ -69,6 +70,7 @@
 		D71A07082438DEFA004DAA58 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		D71A070A2439CCF5004DAA58 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		D71A070C243A5ABA004DAA58 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		D71AFC32246B28D5004CDCBF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D738E5AB244A2D970041B775 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		D738E5AD244A31290041B775 /* ViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		D738E5B72450A6220041B775 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71AFC33246B28D5004CDCBF /* WebKit.framework in Frameworks */,
 				2A3366B38E531997CF1C493D /* Pods_ApplicationVK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,13 +123,13 @@
 				9205E38C618A8C40D66B15AE /* Pods-ApplicationVK.debug.xcconfig */,
 				FB7A17B56640430923ABCEF8 /* Pods-ApplicationVK.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		BBCC58B89F3EC36CE633E37D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D71AFC32246B28D5004CDCBF /* WebKit.framework */,
 				A26FBD63EE7C6BDC0F92C733 /* Pods_ApplicationVK.framework */,
 			);
 			name = Frameworks;
