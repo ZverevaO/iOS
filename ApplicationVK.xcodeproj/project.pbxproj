@@ -23,6 +23,7 @@
 		D71A070B2439CCF5004DAA58 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070A2439CCF5004DAA58 /* LikeButton.swift */; };
 		D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070C243A5ABA004DAA58 /* GradientView.swift */; };
 		D71AFC33246B28D5004CDCBF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71AFC32246B28D5004CDCBF /* WebKit.framework */; };
+		D71AFC36246B2A3D004CDCBF /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71AFC35246B2A3D004CDCBF /* AuthorizeViewController.swift */; };
 		D738E5AC244A2D970041B775 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AB244A2D970041B775 /* ShareButton.swift */; };
 		D738E5AE244A31290041B775 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5AD244A31290041B775 /* ViewButton.swift */; };
 		D738E5B82450A6220041B775 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5B72450A6220041B775 /* CustomPushAnimator.swift */; };
@@ -71,6 +72,7 @@
 		D71A070A2439CCF5004DAA58 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		D71A070C243A5ABA004DAA58 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		D71AFC32246B28D5004CDCBF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D71AFC35246B2A3D004CDCBF /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		D738E5AB244A2D970041B775 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		D738E5AD244A31290041B775 /* ViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		D738E5B72450A6220041B775 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
@@ -196,6 +198,14 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		D71AFC34246B29DA004CDCBF /* Authorize */ = {
+			isa = PBXGroup;
+			children = (
+				D71AFC35246B2A3D004CDCBF /* AuthorizeViewController.swift */,
+			);
+			path = Authorize;
+			sourceTree = "<group>";
+		};
 		D738E5AA244A2CFE0041B775 /* button */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +288,7 @@
 		D7C39E4B23ED683700DCEDCF /* ApplicationVK */ = {
 			isa = PBXGroup;
 			children = (
+				D71AFC34246B29DA004CDCBF /* Authorize */,
 				D738E5C0245884190041B775 /* Animator  */,
 				D738E5B62450A5A20041B775 /* NavigationController */,
 				D75763C02443104B0065E684 /* Message */,
@@ -442,6 +453,7 @@
 				D75763C2244311310065E684 /* NewsTableController.swift in Sources */,
 				D71A06ED2434F266004DAA58 /* Friend.swift in Sources */,
 				D71A07042436092F004DAA58 /* FotoController.swift in Sources */,
+				D71AFC36246B2A3D004CDCBF /* AuthorizeViewController.swift in Sources */,
 				D71A06F72434FA18004DAA58 /* AllGroupTableController.swift in Sources */,
 				D75763D224439DB10065E684 /* NewsFotoCollectionCell.swift in Sources */,
 				D738E5C2245884450041B775 /* PopAnimator.swift in Sources */,
