@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 //private let reuseIdentifier = "Cell"
 
@@ -18,6 +19,19 @@ class FotoCollectionController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        фото друга
+        AF.request("https://api.vk.com/method/photos.getAll",
+                          parameters: [
+                           "access_token" : Session.instance.token,
+                           "owner_id" : "173716228",
+                           "extended" : "0",
+                           "count" : "10",
+                           "no_service_albums" : "0",
+                           "v" : "5.103"
+               ]).responseJSON {
+                   response in
+                   print(response.value)
+               }
         
         self.title = titelWindow
         updateNavigationItem ()

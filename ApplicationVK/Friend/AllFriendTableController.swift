@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 struct Section <T> {
     var title: String
@@ -25,6 +26,18 @@ class AllFriendTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AF.request("https://api.vk.com/method/friends.get",
+                   parameters: [
+                    "access_token" : Session.instance.token,
+                    "user_id" : Session.instance.userId,
+                    "order" : "name",
+                    "fields" : "nickname, sex, bdate , city",
+                    "v" : "5.103"
+        ]).responseJSON {
+            response in
+            print(response.value)
+        }
+//  https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103
         self.title = "друзья"
         // создаем словарь
         let friendsDictionary = Dictionary.init(grouping: allFriend) {

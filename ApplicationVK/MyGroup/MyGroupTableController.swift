@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class GroupDB {
    static func  getGroups () -> [Group] {
@@ -28,6 +29,21 @@ class MyGroupTableController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        список групп пользователя
+        AF.request("https://api.vk.com/method/groups.get",
+                          parameters: [
+                           "access_token" : Session.instance.token,
+                           "user_id" : Session.instance.userId,
+                           "extended" : "1",
+                           "fields" : "city, description, members_count",
+                           "v" : "5.103"
+               ]).responseJSON {
+                   response in
+                   print(response.value)
+               }
+        
         
         self.title = "мои группы"
 
@@ -111,8 +127,23 @@ extension MyGroupTableController: UISearchBarDelegate
         
         myGroup = GroupDB.getGroups().filter{(group) -> Bool in return
             searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
+            
         }
         
+        print(searchText.lowercased())
+        //поиск групп
+        AF.request("https://api.vk.com/method/groups.search",
+                   parameters: [
+                    "access_token" : Session.instance.token,
+                    "q": searchText.lowercased(),
+                    "type" : "group",
+                    "sort" : "2",
+                    "v" : "5.103"
+        ]).responseJSON {
+            response in
+            print(response.value)
+           
+        }
         tableView.reloadData()
         
     }
