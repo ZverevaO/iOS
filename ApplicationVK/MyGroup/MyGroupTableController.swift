@@ -8,9 +8,10 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class GroupDB {
-   static func  getGroups () -> [Group] {
+    static func  getGroups () -> [Group] {
         return [Group(name: "группа1", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK"), Group(name: "группа2", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK"),
                 Group(name: "группа3", count: 300000, gType: Group.GroupType.cityGroup, fotoPath: "iconGroupVK")]
     }
@@ -21,33 +22,27 @@ class GroupDB {
 class MyGroupTableController: UITableViewController {
     
     var myGroup = GroupDB.getGroups()
+    var allMyGroups: [VKGroup] = []
     
     @IBOutlet weak var groupSearch: UISearchBar!
     
     
     var controlRrefresh = UIRefreshControl()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-//        список групп пользователя
-        AF.request("https://api.vk.com/method/groups.get",
-                          parameters: [
-                           "access_token" : Session.instance.token,
-                           "user_id" : Session.instance.userId,
-                           "extended" : "1",
-                           "fields" : "city, description, members_count",
-                           "v" : "5.103"
-               ]).responseJSON {
-                   response in
-                   print(response.value)
-               }
-        
+        //        список групп пользователя
+        VKGroupsService.loadGroupsUser() { [weak self] allMyGroups in
+            self?.allMyGroups = allMyGroups
+            print("allMyGroups " + String(allMyGroups.count))
+            self?.tableView?.reloadData()
+        }
         
         self.title = "мои группы"
-
-       addRefreshControl()
+        
+        addRefreshControl()
         
         groupSearch.delegate = self
     }
@@ -76,31 +71,33 @@ class MyGroupTableController: UITableViewController {
         }
         
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return myGroup.count
+        //return myGroup.count
+        return allMyGroups.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Получаем ячейку из пула
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell
         // Получаем группу для строки
-        let group = myGroup[indexPath.row]
+        let group = allMyGroups[indexPath.row]
+            //myGroup[indexPath.row]
         
         // Устанавливаем параметры группы
         cell.name.text = group.name
-        cell.groupType.text = group.gType.description
-        cell.iconShadow.image.image = UIImage(named: group.fotoPath)
-        
+        cell.groupType.text = " "//group.gType.description
+        let iconUrl = NSURL(string: group.photo_50)
+        cell.iconShadow.image.af.setImage(withURL: iconUrl! as URL) 
         return cell
     }
     
@@ -118,7 +115,7 @@ class MyGroupTableController: UITableViewController {
             self.controlRrefresh.endRefreshing()
         }
     }
-
+    
 }
 
 extension MyGroupTableController: UISearchBarDelegate
@@ -142,7 +139,7 @@ extension MyGroupTableController: UISearchBarDelegate
         ]).responseJSON {
             response in
             print(response.value)
-           
+            
         }
         tableView.reloadData()
         

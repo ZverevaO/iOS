@@ -83,8 +83,8 @@ extension AuthorizeViewController: WKNavigationDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
         
         
-        print("token = " + params["access_token"]!)
-        print ("user = " + params["user_id"]!)
+        print ("token =" + params["access_token"]!)
+        print (params["user_id"]!)
         
         decisionHandler(.cancel)
     }

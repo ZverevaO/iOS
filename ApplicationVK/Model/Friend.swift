@@ -7,51 +7,93 @@
 //
 
 import Foundation
+import Alamofire
 
-class Friend {
-    enum Sex: CustomStringConvertible {
-        case male
-        case female
-        var description: String
-        {
-            switch self {
-            case .male:
-                return "мужчина"
-            case .female:
-                return "женищина"
-            }
-        }
-    }
-    let name: String
-    let surName: String
-    var age: Int
-    let city: String
-    let sex: Sex
-    var fotoPath: String
-    var isOnLine: Bool
+
+class MyFrineds: Decodable {
+    let id: Int
+    let first_name: String
+    let last_name: String
+    let sex: Int
+    //    let bdate: String?
+    let photo_50: String
+    let online: Int
     
-    init(sex: Sex, name: String, surName: String, age: Int, city: String, fotoPath: String, isOnLine: Bool) {
-        self.sex = sex
-        self.name = name
-        self.surName = surName
-        self.age = age
-        self.city = city
-        self.fotoPath = fotoPath
-        self.isOnLine = isOnLine 
+    enum FriendCodingKeys: String, CodingKey {
+        case id
+        case first_name
+        case last_name
+        case sex
+        //        case bdate
+        case photo_50
+        case online
+        
     }
+    
+    
+    
+    //    init(from decoder: Decoder) throws {
+    //
+    //        let values = try decoder.container(keyedBy: FRCodingKeys.self)
+    //
+    //        var listFriends = try values.nestedUnkeyedContainer(forKey: .items)
+    //        let first = try listFriends.nestedContainer(keyedBy: FriendCodingKeys.self)
+    //        self.id = try first.decode(Int.self, forKey: .id)
+    //        self.first_name = try first.decode(String.self, forKey: .first_name)
+    //        self.last_name = try first.decode(String.self, forKey: .last_name)
+    //        self.sex = try first.decode(Int.self, forKey: .sex)
+    //        self.photo_50 = try first.decode(String.self, forKey: .photo_50)
+    //        self.online = try first.decode(Int.self, forKey: .online)
+    //
+    //
+    //    }
+    
 }
 
-class  AllFriends  {
-    static func getAllFriend () -> [Friend] {
-        return [Friend(sex: Friend.Sex.male, name: "Вася", surName: "Васильев", age: 23, city: "Пермь", fotoPath: "iconFriend1", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Петя", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Ваня", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Иван", surName: "Иванов", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Алексей", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Борис", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Роман", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Эдуарт", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Юрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false),
-        Friend(sex: Friend.Sex.male, name: "Дмитрий", surName: "Петров", age: 33, city: "Анапа", fotoPath: "iconFriend2", isOnLine: false)]
+class VKDataresponse: Decodable {
+    let count: Int = 0
+    let items : [MyFrineds]
+    
+    enum CodingKeys: String, CodingKey {
+        case items
+        case count
+        
     }
+    
+}
+
+class VKFriendResponse: Decodable {
+    let response: VKDataresponse
+    
+}
+
+
+
+class FriendService
+{
+    static func loadAlllFriend (completion: @escaping ([MyFrineds]) -> Void)
+    {
+        //"nickname, sex, bdate , city",
+        AF.request("https://api.vk.com/method/friends.get",
+                   parameters: [
+                    "access_token" : Session.instance.token,
+                    "user_id" : Session.instance.userId,
+                    "order" : "name",
+                    "fields" : "nickname,sex,bdate,photo_50",
+                    "v" : "5.103"
+        ]).responseData {
+            response in
+            guard let data = response.value else {return}
+            do {
+                
+                let dataVKFriends =  try JSONDecoder().decode(VKFriendResponse.self, from: data).response.items
+                completion(dataVKFriends)
+            }
+            catch {
+                print(error)
+            }
+        }
+        
+    }
+    
 }

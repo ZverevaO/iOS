@@ -8,30 +8,24 @@
 
 import UIKit
 import Alamofire
-
-//private let reuseIdentifier = "Cell"
+import AlamofireImage
 
 class FotoCollectionController: UICollectionViewController {
     
     
     var titelWindow : String = "галерея"
+    var userowner: Int = 0
+    var userPhotos: [VKPhoto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        фото друга
-        AF.request("https://api.vk.com/method/photos.getAll",
-                          parameters: [
-                           "access_token" : Session.instance.token,
-                           "owner_id" : "173716228",
-                           "extended" : "0",
-                           "count" : "10",
-                           "no_service_albums" : "0",
-                           "v" : "5.103"
-               ]).responseJSON {
-                   response in
-                   print(response.value)
-               }
+        //        фото друга
+        VKPhotosService.loadVKPhotoUser(userId: userowner) { [weak self] userPhotos  in
+            self?.userPhotos = userPhotos
+            self?.collectionView?.reloadData()
+            
+        }
         
         self.title = titelWindow
         updateNavigationItem ()
@@ -47,15 +41,18 @@ class FotoCollectionController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 2
+        return userPhotos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FotoCollectionCell", for: indexPath) as! FotoCollectionCell
         
-        let fname = "foto" + String(indexPath.item + 1)
-        cell.foto.image = UIImage(named: fname)
+        let fname = NSURL(string: userPhotos[indexPath.item].url)
+        //не понимаю почему тут не работает библиотека AlamofireImage
+        //cell.foto.image?.af.setImage(fname as! URL)
+        cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
+
         return cell
     }
     
@@ -63,9 +60,20 @@ class FotoCollectionController: UICollectionViewController {
         if segue.identifier == "goFoto"
         {
             let fotoController: FotoController = segue.destination as! FotoController
+            let cell: FotoCollectionCell = sender as! FotoCollectionCell
             let indexPath = collectionView.indexPathsForSelectedItems!.first!
             let name = "foto" + String(indexPath.item + 1)
             fotoController.Foto = UIImage(named: name)
+            
+            
+            /*
+             let fotoCollection: FotoCollectionController = segue.destination as! FotoCollectionController
+             let cell: AllFriendTableCell = sender as! AllFriendTableCell
+             
+             fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
+             fotoCollection.userowner = cell.userId!
+             //fotoCollection.userowner =
+             print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))*/
         }
         
     }
