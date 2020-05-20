@@ -23,8 +23,8 @@ import Alamofire
 
 final class VKPhoto: Decodable {
     let id: Int
-    let album_id: Int
-    let owner_id: Int
+    let albumId: Int
+    let ownerId: Int
 //    let text: String
 //    let date: Int
 //    let sizes: [VKPhotoSize]
@@ -32,8 +32,8 @@ final class VKPhoto: Decodable {
     
     enum CodingKeysPhoto: String, CodingKey {
         case id
-        case album_id
-        case owner_id
+        case albumId = "album_id"
+        case ownerId = "owner_id"
         case sizes
     }
     
@@ -50,8 +50,8 @@ final class VKPhoto: Decodable {
         let values = try decoder.container(keyedBy: CodingKeysPhoto.self)
         
         self.id = try values.decode(Int.self, forKey: .id)
-        self.album_id = try values.decode(Int.self, forKey: .album_id)
-        self.owner_id = try values.decode(Int.self, forKey: .owner_id)
+        self.albumId = try values.decode(Int.self, forKey: .albumId)
+        self.ownerId = try values.decode(Int.self, forKey: .ownerId)
         
         var photoSizeValues = try values.nestedUnkeyedContainer(forKey: .sizes)
         let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeysPhotoSize.self)

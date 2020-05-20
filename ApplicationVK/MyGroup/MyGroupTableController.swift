@@ -96,8 +96,8 @@ class MyGroupTableController: UITableViewController {
         // Устанавливаем параметры группы
         cell.name.text = group.name
         cell.groupType.text = " "//group.gType.description
-        let iconUrl = NSURL(string: group.photo_50)
-        cell.iconShadow.image.af.setImage(withURL: iconUrl! as URL) 
+        let iconUrl = URL(string: group.photo50)
+        cell.iconShadow.image.af.setImage(withURL: iconUrl!) 
         return cell
     }
     

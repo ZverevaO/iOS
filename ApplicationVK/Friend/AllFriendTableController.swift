@@ -34,7 +34,7 @@ class AllFriendTableController: UITableViewController {
         FriendService.loadAlllFriend() { [weak self] allMyFriend in
             self?.allMyFriend = allMyFriend
             let myFriendsDictionary = Dictionary.init(grouping: allMyFriend) {
-                $0.last_name.prefix(1)
+                $0.lastLame.prefix(1)
                 
             }
             
@@ -70,15 +70,15 @@ class AllFriendTableController: UITableViewController {
         // ранее получали просто массив друзей let friend = allFriend[indexPath.row]
         
         // Устанавливаем параметры друга
-        cell.name.text = friend.first_name + " " + friend.last_name
+        cell.name.text = friend.firstName + " " + friend.lastLame
         var online = ""
         if friend.online == 1 {
            online = "online"
         }
         cell.city.text = online
         
-        let url = NSURL(string: friend.photo_50)
-        cell.shadowFoto.image.af.setImage(withURL: url! as URL)
+        let url = URL(string: friend.photo50)
+        cell.shadowFoto.image.af.setImage(withURL: url!)
         cell.userId = friend.id
         
         return cell
@@ -116,9 +116,9 @@ extension AllFriendTableController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // не работает нужно поправить
         
-        let friendsDictionary = Dictionary.init(grouping: allMyFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.first_name.lowercased().contains(searchText.lowercased()) || user.last_name.lowercased().contains(searchText.lowercased())
+        let friendsDictionary = Dictionary.init(grouping: allMyFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.firstName.lowercased().contains(searchText.lowercased()) || user.lastLame.lowercased().contains(searchText.lowercased())
         }) {
-            $0.last_name.prefix(1)
+            $0.lastLame.prefix(1)
         }
         
         

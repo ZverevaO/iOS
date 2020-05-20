@@ -8,45 +8,45 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 
-class MyFrineds: Decodable {
-    let id: Int
-    let first_name: String
-    let last_name: String
-    let sex: Int
+class MyFrineds: Object, Decodable {
+    @objc dynamic var  id: Int = 0
+    @objc dynamic var  firstName: String = ""
+    @objc dynamic var  lastLame: String = ""
+    @objc dynamic var  sex: Int = 0
     //    let bdate: String?
-    let photo_50: String
-    let online: Int
+    @objc dynamic var  photo50: String = ""
+    @objc dynamic var  online: Int = 0
     
     enum FriendCodingKeys: String, CodingKey {
         case id
-        case first_name
-        case last_name
+        case firstName = "first_name"
+        case lastLame = "last_name"
         case sex
         //        case bdate
-        case photo_50
+        case photo50 = "photo_50"
         case online
         
     }
     
     
     
-    //    init(from decoder: Decoder) throws {
-    //
-    //        let values = try decoder.container(keyedBy: FRCodingKeys.self)
-    //
-    //        var listFriends = try values.nestedUnkeyedContainer(forKey: .items)
-    //        let first = try listFriends.nestedContainer(keyedBy: FriendCodingKeys.self)
-    //        self.id = try first.decode(Int.self, forKey: .id)
-    //        self.first_name = try first.decode(String.self, forKey: .first_name)
-    //        self.last_name = try first.decode(String.self, forKey: .last_name)
-    //        self.sex = try first.decode(Int.self, forKey: .sex)
-    //        self.photo_50 = try first.decode(String.self, forKey: .photo_50)
-    //        self.online = try first.decode(Int.self, forKey: .online)
-    //
-    //
-    //    }
+    convenience required init (from decoder: Decoder) throws {
+        self.init()
+         // try self.init(from: Decoder.self as! Decoder)
+         //получаем контейнер массива фото
+         let values = try decoder.container(keyedBy: FriendCodingKeys.self)
+
+         self.id = try values.decode(Int.self, forKey: .id)
+         self.firstName = try values.decode(String.self, forKey: .firstName)
+         self.lastLame = try values.decode(String.self, forKey: .lastLame)
+         self.sex = try values.decode(Int.self, forKey: .sex)
+         self.photo50 = try values.decode(String.self, forKey: .photo50)
+         self.online = try values.decode(Int.self, forKey: .online)
+
+     }
     
 }
 
