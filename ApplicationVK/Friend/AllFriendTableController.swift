@@ -8,86 +8,90 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
+
 
 struct Section <T> {
     var title: String
     var items: [T]
 }
 
-class AllFriendTableController: UITableViewController {
 
-    var allFriend = AllFriends.getAllFriend ()
+
+class AllFriendTableController: UITableViewController {
     
-    var friendSection = [Section<Friend>]()
+    
+    var allMyFriend =  [MyFrineds]()
+    var myFriendSection = [Section<MyFrineds>]()
     
     @IBOutlet weak var searchFriend: UISearchBar!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AF.request("https://api.vk.com/method/friends.get",
-                   parameters: [
-                    "access_token" : Session.instance.token,
-                    "user_id" : Session.instance.userId,
-                    "order" : "name",
-                    "fields" : "nickname, sex, bdate , city",
-                    "v" : "5.103"
-        ]).responseJSON {
-            response in
-            print(response.value)
+        //        нужно получить данные друзей
+        FriendService.loadAlllFriend() { [weak self] allMyFriend in
+            self?.allMyFriend = allMyFriend
+            let myFriendsDictionary = Dictionary.init(grouping: allMyFriend) {
+                $0.last_name.prefix(1)
+                
+            }
+            
+            //формируем секции по словарю
+            self?.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+            //сортируем секции
+            self?.myFriendSection.sort {$0.title < $1.title}
+            self?.tableView?.reloadData()
         }
-//  https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103
+        
         self.title = "друзья"
-        // создаем словарь
-        let friendsDictionary = Dictionary.init(grouping: allFriend) {
-            $0.name.prefix(1)
-        }
         
-        //формируем секции по словарю
-        friendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
-        //сортируем секции
-        friendSection.sort {$0.title < $1.title}
-        
-        searchFriend.delegate = self
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return friendSection.count
+        return myFriendSection.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // возвращаем количесво элементов секции
-        return friendSection[section].items.count
+        return myFriendSection[section].items.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Получаем ячейку из пула
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendTableCell", for: indexPath) as! AllFriendTableCell
         // Получаем друзей из секции
-        let friend = friendSection[indexPath.section].items[indexPath.row]
+        let friend = myFriendSection[indexPath.section].items[indexPath.row]
         // ранее получали просто массив друзей let friend = allFriend[indexPath.row]
         
         // Устанавливаем параметры друга
-        cell.name.text = friend.name + " " + friend.surName
-        cell.city.text = friend.city
-        cell.shadowFoto.image.image = UIImage(named: friend.fotoPath)
+        cell.name.text = friend.first_name + " " + friend.last_name
+        var online = ""
+        if friend.online == 1 {
+           online = "online"
+        }
+        cell.city.text = online
+        
+        let url = NSURL(string: friend.photo_50)
+        cell.shadowFoto.image.af.setImage(withURL: url! as URL)
+        cell.userId = friend.id
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return friendSection[section].title
+        return myFriendSection[section].title
     }
     
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         //добавлем заголовки секций
-        return friendSection.map {$0.title}
+        return myFriendSection.map {$0.title}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,31 +101,38 @@ class AllFriendTableController: UITableViewController {
             let cell: AllFriendTableCell = sender as! AllFriendTableCell
             
             fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
+            fotoCollection.userowner = cell.userId!
+            //fotoCollection.userowner =
+            print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))
+
         }
         
     }
-
+    
 }
+
 
 extension AllFriendTableController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-  
+        // не работает нужно поправить
         
-        let friendsDictionary = Dictionary.init(grouping: allFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.surName.lowercased().contains(searchText.lowercased()) || user.name.lowercased().contains(searchText.lowercased())
+        let friendsDictionary = Dictionary.init(grouping: allMyFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.first_name.lowercased().contains(searchText.lowercased()) || user.last_name.lowercased().contains(searchText.lowercased())
         }) {
-            $0.name.prefix(1)
+            $0.last_name.prefix(1)
         }
-              
+        
+        
         //формируем секции по словарю
-        friendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+        myFriendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
         //сортируем секции
-        friendSection.sort {$0.title < $1.title}
+        myFriendSection.sort {$0.title < $1.title}
         
         tableView.reloadData()
-              
+        
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
     }
+    
 }
 

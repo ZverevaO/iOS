@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "F16C0E9E-A3C1-4948-91D6-A9319C1A7441"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ADDFB174-1512-4E93-A586-BE5F4313DFBD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ApplicationVK/Model/PhotoUser.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "loadVKPhotoUser(userId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3A6B7B9-FAD6-4E7A-92B8-A69DA581EA6E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ApplicationVK/Model/PhotoUser.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "VKPhoto"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "A3A6B7B9-FAD6-4E7A-92B8-A69DA581EA6E - 75affbff75e6f470"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ApplicationVK.VKPhotosData.deinit"
+                  moduleName = "ApplicationVK"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oksana/Desktop/%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5/AppVK/iOS_AppVK/ApplicationVK/Model/PhotoUser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "A3A6B7B9-FAD6-4E7A-92B8-A69DA581EA6E - 1052fbc368b8693f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ApplicationVK.VKPhotosData.__deallocating_deinit"
+                  moduleName = "ApplicationVK"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oksana/Desktop/%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5/AppVK/iOS_AppVK/ApplicationVK/Model/PhotoUser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

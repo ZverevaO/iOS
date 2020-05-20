@@ -18,6 +18,7 @@ class AllFriendTableCell: UITableViewCell {
    
     @IBOutlet weak var shadowFoto: CircleShadowImage!
     
+    var userId: Int! 
     
     
     
