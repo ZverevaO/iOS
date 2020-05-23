@@ -48,10 +48,11 @@ class FotoCollectionController: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FotoCollectionCell", for: indexPath) as! FotoCollectionCell
         
-        let fname = NSURL(string: userPhotos[indexPath.item].url)
+        let fname = URL(string: userPhotos[indexPath.item].url)
         //не понимаю почему тут не работает библиотека AlamofireImage
-        //cell.foto.image?.af.setImage(fname as! URL)
-        cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
+        cell.foto?.af.setImage(withURL: fname!)
+        //cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
+        cell.urlPhoto = fname
 
         return cell
     }
@@ -61,19 +62,9 @@ class FotoCollectionController: UICollectionViewController {
         {
             let fotoController: FotoController = segue.destination as! FotoController
             let cell: FotoCollectionCell = sender as! FotoCollectionCell
-            let indexPath = collectionView.indexPathsForSelectedItems!.first!
-            let name = "foto" + String(indexPath.item + 1)
-            fotoController.Foto = UIImage(named: name)
-            
-            
-            /*
-             let fotoCollection: FotoCollectionController = segue.destination as! FotoCollectionController
-             let cell: AllFriendTableCell = sender as! AllFriendTableCell
-             
-             fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
-             fotoCollection.userowner = cell.userId!
-             //fotoCollection.userowner =
-             print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))*/
+    
+            fotoController.photoUrl = cell.urlPhoto
+
         }
         
     }

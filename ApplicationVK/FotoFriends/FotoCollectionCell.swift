@@ -12,7 +12,7 @@ import AlamofireImage
 class FotoCollectionCell: UICollectionViewCell {
         
     @IBOutlet weak var foto: UIImageView!
-    
+    var urlPhoto: URL!
    
     
     @IBAction func clickLike(_ sender: LikeButton) {

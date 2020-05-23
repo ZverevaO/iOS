@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class FotoController: UIViewController {
     
@@ -16,7 +17,9 @@ class FotoController: UIViewController {
     var countFoto: Int = 0
     var Foto: UIImage!
     var interactiveAnimator: UIViewPropertyAnimator!
-     var leftPanTriggered: Bool = false
+    var leftPanTriggered: Bool = false
+    
+    var photoUrl: URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,8 @@ class FotoController: UIViewController {
 
         
 //        curentFoto.image = Foto
-        curentFoto.image = UIImage(named: arrayFoto[countFoto])
+//        curentFoto.image = UIImage(named: arrayFoto[countFoto])
+        curentFoto.af.setImage(withURL: photoUrl!)
         
         
     }
