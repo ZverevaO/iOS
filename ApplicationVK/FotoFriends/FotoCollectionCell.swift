@@ -13,6 +13,7 @@ class FotoCollectionCell: UICollectionViewCell {
         
     @IBOutlet weak var foto: UIImageView!
     var urlPhoto: URL!
+    var ownerId: Int = 0
    
     
     @IBAction func clickLike(_ sender: LikeButton) {

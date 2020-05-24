@@ -76,6 +76,7 @@ class FotoCollectionController: UICollectionViewController {
         cell.foto?.af.setImage(withURL: fname!)
         //cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
         cell.urlPhoto = URL(string: userPhotos[indexPath.item].urlX)
+        cell.ownerId = userPhotos[indexPath.item].ownerId
 
         return cell
     }
@@ -87,6 +88,7 @@ class FotoCollectionController: UICollectionViewController {
             let cell: FotoCollectionCell = sender as! FotoCollectionCell
     
             fotoController.photoUrl = cell.urlPhoto
+            fotoController.userIdByPhotos = cell.ownerId
 
         }
         
