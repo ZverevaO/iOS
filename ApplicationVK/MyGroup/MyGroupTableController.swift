@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import RealmSwift
 
 class GroupDB {
     static func  getGroups () -> [Group] {
@@ -32,11 +33,13 @@ class MyGroupTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadDataGroup()
         
         //        список групп пользователя
-        VKGroupsService.loadGroupsUser() { [weak self] allMyGroups in
-            self?.allMyGroups = allMyGroups
-            print("allMyGroups " + String(allMyGroups.count))
+        VKGroupsService.loadGroupsUser() { [weak self]  in
+            //self?.allMyGroups = self.allMyGroups
+            //print("allMyGroups " + String(self.allMyGroups.count))
+            self?.loadDataGroup()
             self?.tableView?.reloadData()
         }
         
@@ -73,6 +76,23 @@ class MyGroupTableController: UITableViewController {
     }
     
     // MARK: - Table view data source
+    
+    func loadDataGroup()
+       {
+           do {
+               
+               let realm = try Realm()
+               let groups = realm.objects(VKGroup.self)
+               self.allMyGroups = Array(groups)
+               print(self.self.allMyGroups)
+               self.tableView?.reloadData()
+           }
+           catch {
+               print(error)
+           }
+           
+       }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

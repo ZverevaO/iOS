@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import RealmSwift
 
 
 struct Section <T> {
@@ -30,22 +31,48 @@ class AllFriendTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        loadDataFriend()
         //        нужно получить данные друзей
-        FriendService.loadAlllFriend() { [weak self] allMyFriend in
-            self?.allMyFriend = allMyFriend
-            let myFriendsDictionary = Dictionary.init(grouping: allMyFriend) {
-                $0.lastLame.prefix(1)
-                
-            }
+        FriendService.loadAlllFriend() { [weak self] in
+            self?.loadDataFriend()
+//            let myFriendsDictionary = Dictionary.init(grouping: (self?.allMyFriend)!) {
+//                $0.lastLame.prefix(1)}
             
-            //формируем секции по словарю
-            self?.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
-            //сортируем секции
-            self?.myFriendSection.sort {$0.title < $1.title}
-            self?.tableView?.reloadData()
+//            //формируем секции по словарю
+//            self?.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+//            //сортируем секции
+//            self?.myFriendSection.sort {$0.title < $1.title}
+            //self?.tableView?.reloadData()
         }
         
+        
         self.title = "друзья"
+        
+    }
+    
+    func loadDataFriend()
+    {
+        do {
+            
+            let realm = try Realm()
+            let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
+            self.allMyFriend = Array(frinds)
+            
+            let myFriendsDictionary = Dictionary.init(grouping: (self.allMyFriend)) {
+                       $0.lastLame.prefix(1)
+                       
+                   }
+            //формируем секции по словарю
+            self.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+            //сортируем секции
+            self.myFriendSection.sort {$0.title < $1.title}
+            print(self.allMyFriend.count)
+            self.tableView?.reloadData()
+        }
+        catch {
+            print(error)
+        }
         
     }
     

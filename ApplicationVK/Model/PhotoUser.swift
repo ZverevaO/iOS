@@ -30,7 +30,7 @@ final class VKPhoto: Object, Decodable {
     //    let date: Int
     //    let sizes: [VKPhotoSize]
     @objc dynamic var url: String = ""
-    //@objc dynamic var urlM: String = ""
+    @objc dynamic var urlX: String = ""
     
     
     enum CodingKeysPhoto: String, CodingKey {
@@ -46,6 +46,10 @@ final class VKPhoto: Object, Decodable {
     }
     
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     
     convenience required init (from decoder: Decoder) throws {
         self.init()
@@ -58,28 +62,27 @@ final class VKPhoto: Object, Decodable {
         self.ownerId = try values.decode(Int.self, forKey: .ownerId)
         
         var photoSizeValues = try values.nestedUnkeyedContainer(forKey: .sizes)
-        let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeysPhotoSize.self)
-        self.url = try firstSizeValues.decode(String.self, forKey: .url)
-//        while !photoSizeValues.isAtEnd {
-//
-//
-//            let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeysPhotoSize.self)
-//            let sizetype = try firstSizeValues.decode(String.self, forKey: .type)
-//            switch sizetype {
-//            case "x":
-//                self.urlM = try firstSizeValues.decode(String.self, forKey: .url)
-//            case "s":
-//                self.url = try firstSizeValues.decode(String.self, forKey: .url)
-//            default:
-//                self.urlM = ""
-//                self.url = ""
-//            }
-//
-//
-//        }
-     
+        //let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeysPhotoSize.self)
+        //self.url = try firstSizeValues.decode(String.self, forKey: .url)
+        while !photoSizeValues.isAtEnd {
+            
+            
+            let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeysPhotoSize.self)
+            let sizetype = try firstSizeValues.decode(String.self, forKey: .type)
+            switch sizetype {
+            case "x":
+                self.urlX = try firstSizeValues.decode(String.self, forKey: .url)
+            case "m":
+                self.url = try firstSizeValues.decode(String.self, forKey: .url)
+            default:
+                break
+            }
+            
+            
+        }
         
-
+        
+        
         
     }
     
@@ -102,7 +105,7 @@ class VKPhotosResponse: Decodable {
 class VKPhotosService {
     
     
-    static func loadVKPhotoUser (userId: Int, completion: @escaping ([VKPhoto]) -> Void) {
+    static func loadVKPhotoUser (userId: Int, completion: @escaping () -> Void) {
         
         
         AF.request("https://api.vk.com/method/photos.getAll",
@@ -117,7 +120,9 @@ class VKPhotosService {
             guard let data = response.value else {return}
             do {
                 let dataVKPhotoUser = try JSONDecoder().decode(VKPhotosResponse.self, from: data).response.items
-                completion(dataVKPhotoUser)
+                
+                self.savePhotos(dataVKPhotoUser,userId: userId)
+                completion()
                 print ("фото")
                 print(dataVKPhotoUser)
             }
@@ -125,6 +130,23 @@ class VKPhotosService {
                 print(error)
             }
             
+        }
+    }
+    
+    static func  savePhotos (_ photos: [VKPhoto], userId: Int) {
+        do {
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            let strFilter = "ownerId == " + String(userId)
+            let oldFotoByUser = realm.objects(VKPhoto.self).filter(strFilter)
+            realm.beginWrite()
+            realm.delete(oldFotoByUser)
+            realm.add(photos)
+            try realm.commitWrite()
+        }
+        catch
+        {
+            print (error)
         }
     }
     
