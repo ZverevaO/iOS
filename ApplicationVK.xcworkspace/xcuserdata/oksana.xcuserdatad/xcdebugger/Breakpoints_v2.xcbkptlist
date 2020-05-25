@@ -87,22 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E63A5AFD-AE5F-48F4-A3C8-51284426EFD5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ApplicationVK/Friend/AllFriendTableController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "38D19FDB-A138-4BE1-9EBB-1C37C023D3B5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -110,8 +94,8 @@
             filePath = "ApplicationVK/Friend/AllFriendTableController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "loadDataFriend()"
             landmarkType = "7">
          </BreakpointContent>

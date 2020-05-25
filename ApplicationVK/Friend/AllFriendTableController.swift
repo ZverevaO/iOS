@@ -31,22 +31,15 @@ class AllFriendTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        searchFriend.delegate = self
+
         loadDataFriend()
         //        нужно получить данные друзей
         FriendService.loadAlllFriend() { [weak self] in
             self?.loadDataFriend()
-//            let myFriendsDictionary = Dictionary.init(grouping: (self?.allMyFriend)!) {
-//                $0.lastLame.prefix(1)}
-            
-//            //формируем секции по словарю
-//            self?.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
-//            //сортируем секции
-//            self?.myFriendSection.sort {$0.title < $1.title}
-            //self?.tableView?.reloadData()
+
         }
-        
-        
+
         self.title = "друзья"
         
     }
@@ -129,7 +122,6 @@ class AllFriendTableController: UITableViewController {
             
             fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
             fotoCollection.userowner = cell.userId!
-            //fotoCollection.userowner =
             print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))
 
         }
@@ -141,8 +133,7 @@ class AllFriendTableController: UITableViewController {
 
 extension AllFriendTableController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // не работает нужно поправить
-        
+
         let friendsDictionary = Dictionary.init(grouping: allMyFriend.filter{(user) -> Bool in return searchText.isEmpty ? true : user.firstName.lowercased().contains(searchText.lowercased()) || user.lastLame.lowercased().contains(searchText.lowercased())
         }) {
             $0.lastLame.prefix(1)
