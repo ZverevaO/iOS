@@ -20,7 +20,7 @@ class MyFrineds: Object, Decodable {
     @objc dynamic var  photo50: String = ""
     @objc dynamic var  online: Int = 0
     
-    enum FriendCodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastLame = "last_name"
@@ -31,22 +31,24 @@ class MyFrineds: Object, Decodable {
         
     }
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
     
-    
-    convenience required init (from decoder: Decoder) throws {
-        self.init()
-         // try self.init(from: Decoder.self as! Decoder)
-         //получаем контейнер массива фото
-         let values = try decoder.container(keyedBy: FriendCodingKeys.self)
-
-         self.id = try values.decode(Int.self, forKey: .id)
-         self.firstName = try values.decode(String.self, forKey: .firstName)
-         self.lastLame = try values.decode(String.self, forKey: .lastLame)
-         self.sex = try values.decode(Int.self, forKey: .sex)
-         self.photo50 = try values.decode(String.self, forKey: .photo50)
-         self.online = try values.decode(Int.self, forKey: .online)
-
-     }
+//    convenience required init (from decoder: Decoder) throws {
+//        self.init()
+//         // try self.init(from: Decoder.self as! Decoder)
+//         //получаем контейнер массива фото
+//         let values = try decoder.container(keyedBy: FriendCodingKeys.self)
+//
+//         self.id = try values.decode(Int.self, forKey: .id)
+//         self.firstName = try values.decode(String.self, forKey: .firstName)
+//         self.lastLame = try values.decode(String.self, forKey: .lastLame)
+//         self.sex = try values.decode(Int.self, forKey: .sex)
+//         self.photo50 = try values.decode(String.self, forKey: .photo50)
+//         self.online = try values.decode(Int.self, forKey: .online)
+//
+//     }
     
 }
 
@@ -71,7 +73,7 @@ class VKFriendResponse: Decodable {
 
 class FriendService
 {
-    static func loadAlllFriend (completion: @escaping ([MyFrineds]) -> Void)
+    static func loadAlllFriend (completion: @escaping () -> Void)
     {
         //"nickname, sex, bdate , city",
         AF.request("https://api.vk.com/method/friends.get",
@@ -87,13 +89,30 @@ class FriendService
             do {
                 
                 let dataVKFriends =  try JSONDecoder().decode(VKFriendResponse.self, from: data).response.items
-                completion(dataVKFriends)
+                self.saveFriends(dataVKFriends)
+                completion()
             }
             catch {
                 print(error)
             }
         }
         
+    }
+    
+   static func  saveFriends (_ friends: [MyFrineds]) {
+        do {
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            let oldFriends = realm.objects(MyFrineds.self)
+            realm.beginWrite()
+            realm.delete(oldFriends)
+            realm.add(friends)
+            try realm.commitWrite()
+        }
+        catch
+        {
+            print (error)
+        }
     }
     
 }

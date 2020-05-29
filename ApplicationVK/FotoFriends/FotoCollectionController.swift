@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import RealmSwift
 
 class FotoCollectionController: UICollectionViewController {
     
@@ -20,10 +21,13 @@ class FotoCollectionController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadDataPhotoFriend(userId: userowner)
         //        фото друга
-        VKPhotosService.loadVKPhotoUser(userId: userowner) { [weak self] userPhotos  in
-            self?.userPhotos = userPhotos
-            self?.collectionView?.reloadData()
+        VKPhotosService.loadVKPhotoUser(userId: userowner) { [weak self]
+            in
+           // self?.userPhotos = userPhotos
+            self?.loadDataPhotoFriend(userId: self!.userowner)
+            //self?.collectionView?.reloadData()
             
         }
         
@@ -31,7 +35,26 @@ class FotoCollectionController: UICollectionViewController {
         updateNavigationItem ()
     }
     
+   
     
+    
+    func loadDataPhotoFriend(userId: Int)
+       {
+           do {
+               
+               let realm = try Realm()
+               let strFilter = "ownerId == " + String(userId)
+               let photos = realm.objects(VKPhoto.self).filter(strFilter)
+               self.userPhotos = Array(photos)
+               
+               print(self.self.userPhotos)
+               self.collectionView.reloadData()
+           }
+           catch {
+               print(error)
+           }
+           
+       }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -52,7 +75,8 @@ class FotoCollectionController: UICollectionViewController {
         //не понимаю почему тут не работает библиотека AlamofireImage
         cell.foto?.af.setImage(withURL: fname!)
         //cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
-        cell.urlPhoto = fname
+        cell.urlPhoto = URL(string: userPhotos[indexPath.item].urlX)
+        cell.ownerId = userPhotos[indexPath.item].ownerId
 
         return cell
     }
@@ -64,6 +88,7 @@ class FotoCollectionController: UICollectionViewController {
             let cell: FotoCollectionCell = sender as! FotoCollectionCell
     
             fotoController.photoUrl = cell.urlPhoto
+            fotoController.userIdByPhotos = cell.ownerId
 
         }
         

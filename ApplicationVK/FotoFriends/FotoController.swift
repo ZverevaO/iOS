@@ -8,41 +8,58 @@
 
 import UIKit
 import AlamofireImage
+import RealmSwift
 
 class FotoController: UIViewController {
     
     @IBOutlet weak var curentFoto: UIImageView!
     
-    let arrayFoto: [String] = ["foto1","foto2","iconFriend1","iconFriend2"]
     var countFoto: Int = 0
     var Foto: UIImage!
     var interactiveAnimator: UIViewPropertyAnimator!
     var leftPanTriggered: Bool = false
     
     var photoUrl: URL!
+    var userIdByPhotos: Int = 0
+    var userPhoto : [VKPhoto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(swipeView))
-         
-      self.view.addGestureRecognizer(swipeGestureRecognizer)
-
         
-//        curentFoto.image = Foto
-//        curentFoto.image = UIImage(named: arrayFoto[countFoto])
+        loadDataPhotoByFriend(userId: userIdByPhotos)
+        
+        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(swipeView))
+        
+        self.view.addGestureRecognizer(swipeGestureRecognizer)
+        
         curentFoto.af.setImage(withURL: photoUrl!)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        
-        
+            
     }
     
+    
+    
+    func loadDataPhotoByFriend(userId: Int)
+    {
+        do {
+            
+            let realm = try Realm()
+            let strFilter = "ownerId == " + String(userId)
+            let photos = realm.objects(VKPhoto.self).filter(strFilter)
+            self.userPhoto = Array(photos)
+            
+            print(self.self.userPhoto)
+            
+        }
+        catch {
+            print(error)
+        }
+        
+    }
     
     
     @objc func handleLeftEdge (_ recognizer: UIScreenEdgePanGestureRecognizer)
@@ -55,8 +72,7 @@ class FotoController: UIViewController {
                 let threshold: CGFloat = 10  // you decide this
                 let translation = abs(recognizer.translation(in: view).x)
                 if translation >= threshold  {
-                    
-                    
+    
                     leftPanTriggered = true
                 }
             }
@@ -77,9 +93,9 @@ class FotoController: UIViewController {
         
         
     }
-
-    @objc func swipeView (_ recognizer: UIPanGestureRecognizer) {
     
+    @objc func swipeView (_ recognizer: UIPanGestureRecognizer) {
+        
         switch recognizer.state {
         case .began:
             
@@ -90,9 +106,9 @@ class FotoController: UIViewController {
             interactiveAnimator =   UIViewPropertyAnimator(duration: 0.4,
                                                            curve: .easeOut,
                                                            animations: {
-//                                                            self.curentFoto.transform = CGAffineTransform(translationX: dx ,y: 0)
+                                                            // self.curentFoto.transform = CGAffineTransform(translationX: dx ,y: 0)
                                                             self.curentFoto.alpha = 0.5
-//                                                            self.curentFoto.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+                                                            // self.curentFoto.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
             })
             
             interactiveAnimator.pauseAnimation()
@@ -118,13 +134,15 @@ class FotoController: UIViewController {
         default: break
         }
         
-        if countFoto == arrayFoto.count {countFoto = 0}
-        else if countFoto < 0 { countFoto = arrayFoto.count - 1}
-        curentFoto.image = UIImage(named: arrayFoto[countFoto])
+        if countFoto == userPhoto.count {countFoto = 0}
+        else if countFoto < 0 { countFoto = userPhoto.count - 1}
+        let strUrl = URL(string: userPhoto[countFoto].urlX)
+        curentFoto.af.setImage(withURL: strUrl!)
+        
         
     }
     
-
+    
     
 }
 
