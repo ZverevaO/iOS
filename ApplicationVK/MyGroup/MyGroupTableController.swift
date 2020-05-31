@@ -16,6 +16,8 @@ class MyGroupTableController: UITableViewController {
     
     var myGroup: [VKGroup] = [] //GroupDB.getGroups()
     var allMyGroups: [VKGroup] = []
+    var token: NotificationToken?
+    var vkGroups: Results<VKGroup>?
     
     @IBOutlet weak var groupSearch: UISearchBar!
     
@@ -25,17 +27,14 @@ class MyGroupTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pairTableAdnRealm()
+        
         groupSearch.delegate = self
         
-        loadDataGroup()
+       // loadDataGroup()
         
         //        список групп пользователя
-        VKGroupsService.loadGroupsUser() { [weak self]  in
-            //self?.allMyGroups = self.allMyGroups
-            //print("allMyGroups " + String(self.allMyGroups.count))
-            self?.loadDataGroup()
-            self?.tableView?.reloadData()
-        }
+        VKGroupsService.loadGroupsUser()
         
         self.title = "мои группы"
         
@@ -71,22 +70,22 @@ class MyGroupTableController: UITableViewController {
     
     // MARK: - Table view data source
     
-    func loadDataGroup()
-       {
-           do {
-               
-               let realm = try Realm()
-               let groups = realm.objects(VKGroup.self)
-               self.allMyGroups = Array(groups)
-               print(self.self.allMyGroups)
-               self.tableView?.reloadData()
-           }
-           catch {
-               print(error)
-           }
-           
-       }
-    
+//    func loadDataGroup()
+//       {
+//           do {
+//               
+//               let realm = try Realm()
+//               let groups = realm.objects(VKGroup.self)
+//               self.allMyGroups = Array(groups)
+//               print(self.self.allMyGroups)
+//               self.tableView?.reloadData()
+//           }
+//           catch {
+//               print(error)
+//           }
+//           
+//       }
+//    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -95,8 +94,8 @@ class MyGroupTableController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        //return myGroup.count
-        return allMyGroups.count
+
+        return vkGroups?.count ?? 0
     }
     
     
@@ -104,13 +103,13 @@ class MyGroupTableController: UITableViewController {
         // Получаем ячейку из пула
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell
         // Получаем группу для строки
-        let group = allMyGroups[indexPath.row]
+        let group = vkGroups?[indexPath.row]//allMyGroups[indexPath.row]
             //myGroup[indexPath.row]
         
         // Устанавливаем параметры группы
-        cell.name.text = group.name
+        cell.name.text = group?.name
         cell.groupType.text = " "//group.gType.description
-        let iconUrl = URL(string: group.photo50)
+        let iconUrl = URL(string: group?.photo50 ?? "")
         cell.iconShadow.image.af.setImage(withURL: iconUrl!) 
         return cell
     }
@@ -130,6 +129,26 @@ class MyGroupTableController: UITableViewController {
         }
     }
     
+    func pairTableAdnRealm() {
+
+        guard let realm = try? Realm() else {return}
+        vkGroups = realm.objects(VKGroup.self)
+        token = vkGroups?.observe { [weak self]
+            (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                
+                tableView.reloadData()
+
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+    
 }
 
 extension MyGroupTableController: UISearchBarDelegate
@@ -138,9 +157,13 @@ extension MyGroupTableController: UISearchBarDelegate
         
         myGroup = allMyGroups.filter{(group) -> Bool in return
             searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
-            
         }
+
         
+//        let realm = try Realm()
+//        let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
+//        self.allMyFriend = Array(frinds)
+//        
 //        print(searchText.lowercased())
 //        //поиск групп
 //        AF.request("https://api.vk.com/method/groups.search",

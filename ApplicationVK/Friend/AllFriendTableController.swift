@@ -24,6 +24,8 @@ class AllFriendTableController: UITableViewController {
     
     var allMyFriend =  [MyFrineds]()
     var myFriendSection = [Section<MyFrineds>]()
+    var token: NotificationToken?
+    var vkFrends: Results<MyFrineds>?
     
     @IBOutlet weak var searchFriend: UISearchBar!
     
@@ -32,43 +34,71 @@ class AllFriendTableController: UITableViewController {
         super.viewDidLoad()
         
         searchFriend.delegate = self
-
-        loadDataFriend()
+        pairTableFriendsAdnRealm()
+        //loadDataFriend()
         //        нужно получить данные друзей
-        FriendService.loadAlllFriend() { [weak self] in
-            self?.loadDataFriend()
-
-        }
-
+        FriendService.loadAlllFriend()
+        
         self.title = "друзья"
         
     }
     
-    func loadDataFriend()
-    {
-        do {
-            
-            let realm = try Realm()
-            let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
-            self.allMyFriend = Array(frinds)
-            
-            let myFriendsDictionary = Dictionary.init(grouping: (self.allMyFriend)) {
-                       $0.lastLame.prefix(1)
-                       
-                   }
-            //формируем секции по словарю
-            self.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
-            //сортируем секции
-            self.myFriendSection.sort {$0.title < $1.title}
-            print(self.allMyFriend.count)
-            self.tableView?.reloadData()
+//    func loadDataFriend()
+//    {
+//        do {
+//
+//            let realm = try Realm()
+//            let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
+//            self.allMyFriend = Array(frinds)
+//
+//            let myFriendsDictionary = Dictionary.init(grouping: (self.allMyFriend)) {
+//                       $0.lastLame.prefix(1)
+//
+//                   }
+//            //формируем секции по словарю
+//            self.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+//            //сортируем секции
+//            self.myFriendSection.sort {$0.title < $1.title}
+//            print(self.allMyFriend.count)
+//            self.tableView?.reloadData()
+//        }
+//        catch {
+//            print(error)
+//        }
+//
+//    }
+    
+    func pairTableFriendsAdnRealm() {
+        guard let realm = try? Realm() else {return}
+        vkFrends = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
+        token = vkFrends?.observe { [weak self]
+            (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                self!.getSection(frieds: self?.vkFrends)
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                self!.getSection(frieds: self?.vkFrends)
+                tableView.reloadData()
+                
+            case .error(let error):
+                fatalError("\(error)")
+            }
         }
-        catch {
-            print(error)
-        }
-        
     }
     
+    func getSection (frieds: Results<MyFrineds>?)
+    {
+  
+        let myFriendsDictionary = Dictionary.init(grouping: (frieds!)) {
+            $0.lastLame.prefix(1)
+        }
+        //формируем секции по словарю
+        self.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
+        //сортируем секции
+        self.myFriendSection.sort {$0.title < $1.title}
+    }
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {

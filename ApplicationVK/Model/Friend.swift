@@ -73,7 +73,7 @@ class VKFriendResponse: Decodable {
 
 class FriendService
 {
-    static func loadAlllFriend (completion: @escaping () -> Void)
+    static func loadAlllFriend ()
     {
         //"nickname, sex, bdate , city",
         AF.request("https://api.vk.com/method/friends.get",
@@ -90,7 +90,7 @@ class FriendService
                 
                 let dataVKFriends =  try JSONDecoder().decode(VKFriendResponse.self, from: data).response.items
                 self.saveFriends(dataVKFriends)
-                completion()
+                
             }
             catch {
                 print(error)

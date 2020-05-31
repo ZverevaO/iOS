@@ -105,7 +105,7 @@ class VKPhotosResponse: Decodable {
 class VKPhotosService {
     
     
-    static func loadVKPhotoUser (userId: Int, completion: @escaping () -> Void) {
+    static func loadVKPhotoUser (userId: Int) {
         
         
         AF.request("https://api.vk.com/method/photos.getAll",
@@ -122,7 +122,7 @@ class VKPhotosService {
                 let dataVKPhotoUser = try JSONDecoder().decode(VKPhotosResponse.self, from: data).response.items
                 
                 self.savePhotos(dataVKPhotoUser,userId: userId)
-                completion()
+               
                 print ("фото")
                 print(dataVKPhotoUser)
             }

@@ -27,6 +27,8 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     
     override func viewDidLoad() {
+        
+        NewsService.loadAllNews()
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 300.0

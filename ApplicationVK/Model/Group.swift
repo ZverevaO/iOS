@@ -70,7 +70,7 @@ class VKGroupsResponse: Decodable
 
 class VKGroupsService
 {
-    static func loadGroupsUser (completion: @escaping () -> Void)
+    static func loadGroupsUser ()
     {
         AF.request("https://api.vk.com/method/groups.get",
                    parameters: [
@@ -85,7 +85,6 @@ class VKGroupsService
             do {
                 let dataVKGroups =  try JSONDecoder().decode(VKGroupsResponse.self, from: data).response.items
                 self.saveGroups(dataVKGroups)
-                completion()
                 print(response.value)
             }
             catch{

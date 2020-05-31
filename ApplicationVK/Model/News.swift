@@ -5,6 +5,9 @@
 //  Created by Оксана Зверева on 12.04.2020.
 //  Copyright © 2020 Oksana Zvereva. All rights reserved.
 //
+import Foundation
+import Alamofire
+
 
 struct Comment {
     var nameUser: String
@@ -29,3 +32,25 @@ class News {
         self.countView = countView
     }
 }
+
+
+
+class NewsService
+{
+    static func loadAllNews ()
+    {
+        //"nickname, sex, bdate , city",
+        AF.request("https://api.vk.com/method/newsfeed.get",
+                   parameters: [
+                    "access_token" : Session.instance.token,
+                    "v" : "5.103"
+        ]).responseJSON {
+            response in
+            print(response.value)
+        }
+        
+    }
+
+    
+}
+
