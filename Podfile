@@ -11,6 +11,9 @@ pod 'AlamofireImage', '~> 4.1'
 
 pod 'RealmSwift'
 
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+
   # Pods for ApplicationVK
 
 end
