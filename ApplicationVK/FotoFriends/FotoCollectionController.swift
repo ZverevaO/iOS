@@ -17,19 +17,15 @@ class FotoCollectionController: UICollectionViewController {
     var titelWindow : String = "галерея"
     var userowner: Int = 0
     var userPhotos: [VKPhoto] = []
+    var token: NotificationToken?
+    var vkPhotos: Results<VKPhoto>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadDataPhotoFriend(userId: userowner)
+        pairPhotoTableAdnRealm(userId: userowner)
+        //loadDataPhotoFriend(userId: userowner)
         //        фото друга
-        VKPhotosService.loadVKPhotoUser(userId: userowner) { [weak self]
-            in
-           // self?.userPhotos = userPhotos
-            self?.loadDataPhotoFriend(userId: self!.userowner)
-            //self?.collectionView?.reloadData()
-            
-        }
+        VKPhotosService.loadVKPhotoUser(userId: userowner) 
         
         self.title = titelWindow
         updateNavigationItem ()
@@ -38,23 +34,44 @@ class FotoCollectionController: UICollectionViewController {
    
     
     
-    func loadDataPhotoFriend(userId: Int)
-       {
-           do {
-               
-               let realm = try Realm()
-               let strFilter = "ownerId == " + String(userId)
-               let photos = realm.objects(VKPhoto.self).filter(strFilter)
-               self.userPhotos = Array(photos)
-               
-               print(self.self.userPhotos)
-               self.collectionView.reloadData()
-           }
-           catch {
-               print(error)
-           }
-           
-       }
+//    func loadDataPhotoFriend(userId: Int)
+//       {
+//           do {
+//               
+//               let realm = try Realm()
+//               let strFilter = "ownerId == " + String(userId)
+//               let photos = realm.objects(VKPhoto.self).filter(strFilter)
+//               self.userPhotos = Array(photos)
+//               
+//               print(self.self.userPhotos)
+//               self.collectionView.reloadData()
+//           }
+//           catch {
+//               print(error)
+//           }
+//           
+//       }
+    
+    func pairPhotoTableAdnRealm(userId: Int) {
+        
+        guard let realm = try? Realm() else {return}
+        let strFilter = "ownerId == " + String(userId)
+        vkPhotos = realm.objects(VKPhoto.self).filter(strFilter)
+        token = vkPhotos?.observe { [weak self]
+            (changes: RealmCollectionChange) in
+            guard let collectionView = self?.collectionView else { return }
+            switch changes {
+            case .initial:
+                collectionView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                
+                collectionView.reloadData()
+                
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -64,19 +81,21 @@ class FotoCollectionController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return userPhotos.count
+        return vkPhotos!.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FotoCollectionCell", for: indexPath) as! FotoCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
+            "FotoCollectionCell", for: indexPath) as! FotoCollectionCell
         
-        let fname = URL(string: userPhotos[indexPath.item].url)
+        let photo = vkPhotos![indexPath.item]
+        let fname = URL(string: photo.url)
         //не понимаю почему тут не работает библиотека AlamofireImage
         cell.foto?.af.setImage(withURL: fname!)
         //cell.foto.image = UIImage(data: try! Data(contentsOf: fname! as URL))
-        cell.urlPhoto = URL(string: userPhotos[indexPath.item].urlX)
-        cell.ownerId = userPhotos[indexPath.item].ownerId
+        cell.urlPhoto = URL(string: photo.urlX)
+        cell.ownerId = photo.ownerId
 
         return cell
     }
