@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import RealmSwift
+import FirebaseDatabase
 
 
 class MyGroupTableController: UITableViewController {
@@ -18,6 +19,10 @@ class MyGroupTableController: UITableViewController {
     var allMyGroups: [VKGroup] = []
     var token: NotificationToken?
     var vkGroups: Results<VKGroup>?
+    
+    private var userGroups = [FireBaseUserGroups]()
+    private let ref = Database.database().reference(withPath: "userGroups")
+    
     
     @IBOutlet weak var groupSearch: UISearchBar!
     
@@ -47,23 +52,21 @@ class MyGroupTableController: UITableViewController {
         
         // Проверяем идентификатор, чтобы убедиться, что это нужный переход
         if segue.identifier == "addGroup" {
-//
-//            // Получаем ссылку на контроллер, с которого осуществлен переход
-//            let allGroupTableController = segue.source as! AllGroupTableController
-//
-//            // Получаем индекс выделенной ячейки
-//            if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
-//                // Получаем город по индексу
-//                let group = allGroupTableController.allGroup[indexPath.row]
-//                // Проверяем, что такого города нет в списке
-//                if !myGroup.contains(group) {
-//                    // Добавляем город в список выбранных
-//                    myGroup.append(group)
-//                    // Обновляем таблицу
-//                    tableView.reloadData()
-//                }
-//
-//            }
+            
+            //Получаем ссылку на контроллер, с которого осуществлен переход
+            let allGroupTableController = segue.source as! AllGroupTableController
+  
+            //Получаем индекс выделенной ячейки
+            if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
+                // Получаем город по индексу
+                let group = allGroupTableController.allFoundGroup[indexPath.row]
+                // Проверяем, что такого города нет в списке
+                let userGroup = FireBaseUserGroups(userID: Session.instance.userId, groupID: group.id)
+                let ref = String(group.id) + String(Session.instance.userId)
+                let userGroupRef = self.ref.child(ref)
+                userGroupRef.setValue(userGroup.toAnyObject())
+                
+            }
         }
         
     }
