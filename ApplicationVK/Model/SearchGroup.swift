@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class FoundGroup: Decodable
 {
@@ -32,3 +33,34 @@ class VKFoundGroupsResponse: Decodable
     let response: VKFoundGroupsData
 }
 
+class FireBaseUserGroups {
+    let userID: Int
+    let groupID: Int
+    let ref: DatabaseReference?
+    
+    init (userID: Int, groupID: Int) {
+        self.groupID = groupID
+        self.userID = userID
+        self.ref = nil
+    }
+    
+    init? (snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: Any],
+            let userID = value["userID"] as? Int,
+            let groupID = value["groupID"] as? Int else {
+                return nil
+        }
+        self.groupID = groupID
+        self.userID = userID
+        self.ref = snapshot.ref
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        return [
+            "userID": userID,
+            "groupID": groupID
+        ]
+    }
+
+}
