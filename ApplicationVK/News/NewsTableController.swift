@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
+import AlamofireImage
 
 class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     var source: UIImageView?
+    var vkBDGroups: Results<VKGroup>?
+    var vkFriend: Results<MyFrineds>?
     
 
     
@@ -21,6 +25,10 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     var myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
                           News(nameAutor: "Лучшее", textNews: "Пepвая eго фoтосеcсия. Mилота",  countLike: 7, countView: 234)]
     
+    var vkMyNews: [VKNews] = []
+    var urlAvatarSource: URL!
+    var sourceName: String = ""
+    
     
     
     var controlRrefresh = UIRefreshControl()
@@ -28,7 +36,11 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     override func viewDidLoad() {
         
-        NewsService.loadAllNews()
+        NewsService.loadAllNews() { [weak self] vkMyNews in
+            self?.vkMyNews = vkMyNews
+            self?.tableView?.reloadData()
+            
+        }
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 300.0
@@ -54,7 +66,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return myNews.count
+        return vkMyNews.count
         //
     }
     
@@ -62,11 +74,30 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableCell
         
-        cell.avatar.image = UIImage(named: "iconGroupVK")
-        cell.userName.text = myNews[indexPath.row].nameAutor
+        let sourceId = vkMyNews[indexPath.row].sourceId
+        
+        if sourceId < 0 {
+            let groupInfo = getInfoGroup (id: (sourceId*(-1)))
+            urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
+            sourceName = groupInfo?[0].name ?? "NoName"
+           
+        }
+        else
+        {
+            let friendInfo = getFriendInfo(id: sourceId)
+            urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
+            sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastLame ?? "NoName"))
+        }
+        
+        cell.avatar.af.setImage(withURL: urlAvatarSource)
+        cell.userName.text = sourceName
+        
+        //cell.avatar.image = UIImage(named: "iconGroupVK")
+        //cell.userName.text = myNews[indexPath.row].nameAutor
 //        cell.countView.text = String(myNews[indexPath.row].countView)
-        cell.newsText.text = myNews[indexPath.row].textNews
-        cell.fotoNews = myNews[indexPath.row].newsFoto
+        cell.newsText.text = vkMyNews[indexPath.row].text ?? "новости"//myNews[indexPath.row].textNews
+        
+        //cell.fotoNews = myNews[indexPath.row].newsFoto
         
         cell.layoutIfNeeded()
         cell.collectionHeight.constant = cell.fotoCollection.contentSize.height
@@ -107,6 +138,20 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.controlRrefresh.endRefreshing()
         }
+    }
+    
+    func getInfoGroup (id: Int) -> Results<VKGroup>? {
+        
+        guard let realm = try? Realm() else {return nil}
+        let strFilter = "id == " + String(id)
+        return realm.objects(VKGroup.self).filter(strFilter)
+    }
+    
+    func getFriendInfo (id: Int) -> Results<MyFrineds>?
+    {
+        guard let realm = try? Realm() else {return nil}
+        let strFilter = "id == " + String(id)
+        return realm.objects(MyFrineds.self).filter(strFilter)
     }
     
 }

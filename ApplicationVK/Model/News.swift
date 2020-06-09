@@ -87,10 +87,10 @@ class VKNews: Decodable {
     var type: String = ""
     var date: Int = 0
     var text: String?
-    var commentCount: Int?
-    var likesCount: Int?
-    var repostsCount: Int?
-    var viewsCount: Int?
+//    var commentCount: Int?
+//    var likesCount: Int?
+//    var repostsCount: Int?
+//    var viewsCount: Int?
 //    var comment: Counts?
 //    var likes: Counts?
 //    var reposts: Counts?
@@ -118,12 +118,13 @@ class VKNews: Decodable {
     
     enum CodingKeyPhotos: String, CodingKey {
            case items
+           case size
     }
     
     enum CodingKeyPhoto: String, CodingKey {
         case id
         case date
-        case size
+       // case size
     }
     
     enum CodingKeySize: String, CodingKey {
@@ -141,24 +142,28 @@ class VKNews: Decodable {
         self.date = try values.decode(Int.self, forKey: .date)
         self.text = try? values.decode(String?.self, forKey: .text)
         
-        if typeNews == "post" {
-            let commentValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
-            self.commentCount = try commentValue.decode(Int?.self, forKey: .count)
-            
-            let likesValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
-            self.likesCount = try likesValue.decode(Int?.self, forKey: .count)
-            
-            let repostsValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
-            self.repostsCount = try repostsValue.decode(Int?.self, forKey: .count)
-            
-            let viewsValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
-            self.viewsCount = try viewsValue.decode(Int?.self, forKey: .count)
-
-        }
+//        if typeNews == "post" {
+//            let commentValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
+//            self.commentCount = try commentValue.decode(Int?.self, forKey: .count)
+//            
+//            let likesValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
+//            self.likesCount = try likesValue.decode(Int?.self, forKey: .count)
+//            
+//            let repostsValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
+//            self.repostsCount = try repostsValue.decode(Int?.self, forKey: .count)
+//            
+//            let viewsValue = try values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
+//            self.viewsCount = try viewsValue.decode(Int?.self, forKey: .count)
+//
+//        }
 
         if typeNews == "photo" {
-            print("фото")
-         
+           let photosValue =  try values.nestedContainer(keyedBy: CodingKeyPhotos.self, forKey: .photos)
+            var photos = try photosValue.nestedUnkeyedContainer(forKey: .size )
+            print ("фото")
+            print (photos.count)
+  
+           //let firstPhoto  = try photos.decode(CodingKeyPhoto.self, forKey: .)
         }
      
     }
@@ -179,7 +184,7 @@ class VKNewsRespons: Decodable {
 
 class NewsService
 {
-    static func loadAllNews ()
+    static func loadAllNews (completion: @escaping ([VKNews])-> Void)
     {
         //"nickname, sex, bdate , city",
         AF.request("https://api.vk.com/method/newsfeed.get",
@@ -193,8 +198,10 @@ class NewsService
             do {
                 
                 let dataNews =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
+                completion(dataNews)
                 print ("НОВОСТИ")
                 print(dataNews.count)
+                
             }
             catch{
                 print(error)
