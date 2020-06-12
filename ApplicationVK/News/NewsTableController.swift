@@ -95,7 +95,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         if  let photos = vkMyNews[indexPath.row].photos {
             cell.fotoNews.removeAll()
             cell.fotoNews = photos
-            cell.newsText.text =   String(photos.count)
+            //cell.newsText.text =   String(photos.count)
         }
         else
         {
