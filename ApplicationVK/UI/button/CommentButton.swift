@@ -11,7 +11,8 @@ import UIKit
 class CommentButton: UIButton {
    
     var click: Bool = false
-       
+    var countCount: Int = 0
+    
     func clicked()  {
            click = !click
            
@@ -30,13 +31,13 @@ class CommentButton: UIButton {
     
     private func setupDefault ()
        {
-           setImage(UIImage(named: "iconcomm"), for: .normal)
-           setTitle(String(describing: 3), for: .normal)
+        setImage(UIImage(named: "iconcomm"), for: .normal)
+           setTitle(String(describing: countCount), for: .normal)
            tintColor = .gray
            
            imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
            titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -5)
-           imageView?.contentMode = .scaleAspectFit
+        imageView?.contentMode = .scaleAspectFit
        }
     
     }

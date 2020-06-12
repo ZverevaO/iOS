@@ -24,6 +24,15 @@ class NewsTableCell: UITableViewCell {
     @IBOutlet weak var collectionHeight: NSLayoutConstraint!
     
     
+    @IBOutlet weak var likeBtn: LikeButton!
+    
+    @IBOutlet weak var commentBtn: CommentButton!
+    
+    @IBOutlet weak var shareBtn: ShareButton!
+    
+    @IBOutlet weak var viewBtn: ViewButton!
+    
+    
     @IBAction func likeButton(_ sender: LikeButton) {
         sender.like()
     }
@@ -38,6 +47,8 @@ class NewsTableCell: UITableViewCell {
     
     var viewClicked: ((UIImageView)->())? = nil
     var fotoNews: [VKNewsPhoto] = []
+    
+   
 
 }
 

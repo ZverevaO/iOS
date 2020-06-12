@@ -25,6 +25,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     var urlAvatarSource: URL!
     var sourceName: String = ""
     
+    let dateFormatter = DateFormatter()
     
     
     var controlRrefresh = UIRefreshControl()
@@ -88,10 +89,17 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         cell.avatar.af.setImage(withURL: urlAvatarSource)
         cell.userName.text = sourceName
         
-        //cell.avatar.image = UIImage(named: "iconGroupVK")
-        //cell.userName.text = myNews[indexPath.row].nameAutor
-        //cell.countView.text = String(vkMyNews[indexPath.row].viewsCount!)
+        dateFormatter.dateFormat = "dd.MM.yyyy HH.mm"
+        let date = Date(timeIntervalSince1970: vkMyNews[indexPath.row].date)
+        let stringDate = dateFormatter.string(from: date)
+        cell.time.text = stringDate
+        
+//        cell.commentBtn.countCount = vkMyNews[indexPath.row].commentCount!
+//        cell.likeBtn.likeCount = vkMyNews[indexPath.row].likesCount!
+//        cell.viewBtn.countView = vkMyNews[indexPath.row].viewsCount!
+//        cell.shareBtn.countShare = vkMyNews[indexPath.row].repostsCount!
         cell.newsText.text = vkMyNews[indexPath.row].text ?? " "//myNews[indexPath.row].textNews
+        print ("лайки " + String(cell.likeBtn.likeCount))
         if  let photos = vkMyNews[indexPath.row].photos {
             cell.fotoNews.removeAll()
             cell.fotoNews = photos
