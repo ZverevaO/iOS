@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class NewsTableCell: UITableViewCell {
 
@@ -36,7 +37,7 @@ class NewsTableCell: UITableViewCell {
     @IBOutlet weak var fotoCollection: UICollectionView!
     
     var viewClicked: ((UIImageView)->())? = nil
-    var fotoNews: [String] = [] 
+    var fotoNews: [VKNewsPhoto] = []
 
 }
 
@@ -49,16 +50,21 @@ extension  NewsTableCell : UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+      
         return fotoNews.count
+        
 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFotoCollectionCell", for: indexPath) as! NewsFotoCollectionCell
-        
-        cell.foto.image = UIImage(named: fotoNews[indexPath.item])
+        let stringUrl = URL(string: fotoNews[indexPath.item].urlX)
+        //cell.foto.image? = nil 
+        cell.foto.image = nil
+        cell.foto.af.setImage(withURL: stringUrl!)
+        //cell.foto.image = UIImage(named: fotoNews[indexPath.item])
         
         cell.imageClicked = {
             image in

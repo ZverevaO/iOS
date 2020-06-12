@@ -20,11 +20,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
                                 Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
     
-   
-    
-    var myNews: [News] = [News(nameAutor: "Factura", textNews: "Представьте, что друзья сказали, что вам отведена роль шарика",  countLike: 5,countView: 234),
-                          News(nameAutor: "Лучшее", textNews: "Пepвая eго фoтосеcсия. Mилота",  countLike: 7, countView: 234)]
-    
+
     var vkMyNews: [VKNews] = []
     var urlAvatarSource: URL!
     var sourceName: String = ""
@@ -49,9 +45,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         
         
         self.title = "новости"
-        
-        myNews[0].newsFoto = ["news1"]
-        myNews[1].newsFoto = ["news21", "news22", "news23"]
+    
         addRefreshControl()
         
         
@@ -74,6 +68,8 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableCell
         
+        
+        
         let sourceId = vkMyNews[indexPath.row].sourceId
         
         if sourceId < 0 {
@@ -94,10 +90,23 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         
         //cell.avatar.image = UIImage(named: "iconGroupVK")
         //cell.userName.text = myNews[indexPath.row].nameAutor
-//        cell.countView.text = String(myNews[indexPath.row].countView)
-        cell.newsText.text = vkMyNews[indexPath.row].text ?? "новости"//myNews[indexPath.row].textNews
+        //cell.countView.text = String(vkMyNews[indexPath.row].viewsCount!)
+        cell.newsText.text = vkMyNews[indexPath.row].text ?? " "//myNews[indexPath.row].textNews
+        if  let photos = vkMyNews[indexPath.row].photos {
+            cell.fotoNews.removeAll()
+            cell.fotoNews = photos
+            cell.newsText.text =   String(photos.count)
+        }
+        else
+        {
+             print(vkMyNews[indexPath.row].photos)
+             print("нет фото")
+            cell.fotoNews.removeAll()
+            
+        }
         
-        //cell.fotoNews = myNews[indexPath.row].newsFoto
+// let data = response.value else {return}
+        //cell.fotoNews = vkMyNews[indexPath.row].photos!
         
         cell.layoutIfNeeded()
         cell.collectionHeight.constant = cell.fotoCollection.contentSize.height
