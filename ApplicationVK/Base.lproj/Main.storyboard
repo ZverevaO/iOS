@@ -595,10 +595,33 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yTO-PP-0cO">
+                                            <rect key="frame" x="75" y="16.333333333333332" width="285" height="37.333333333333343"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3s-RS-Vkq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="285" height="20.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfx-nS-4yN">
+                                                    <rect key="frame" x="0.0" y="20.333333333333332" width="285" height="16.999999999999996"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAW-oX-0sP">
                                             <rect key="frame" x="15" y="70" width="345" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#heshtag" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0W-MC-SNN">
+                                            <rect key="frame" x="15" y="100.33333333333333" width="345" height="20.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9mP-MX-4LI">
@@ -645,88 +668,69 @@
                                                 <outlet property="dataSource" destination="zCK-87-i4x" id="a25-Uy-J06"/>
                                             </connections>
                                         </collectionView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yTO-PP-0cO">
-                                            <rect key="frame" x="75" y="16.333333333333332" width="285" height="37.333333333333343"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mf5-FJ-fFp">
+                                            <rect key="frame" x="31" y="303" width="313" height="49"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3s-RS-Vkq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="285" height="20.333333333333332"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfx-nS-4yN">
-                                                    <rect key="frame" x="0.0" y="20.333333333333332" width="285" height="16.999999999999996"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAd-m1-8Fo" customClass="LikeButton" customModule="ApplicationVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="9.6666666666666856" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="likeButton:" destination="zCK-87-i4x" eventType="touchUpInside" id="dUX-vP-cM7"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fgw-uV-V7r" customClass="CommentButton" customModule="ApplicationVK" customModuleProvider="target">
+                                                    <rect key="frame" x="86.333333333333329" y="7.6666666666666856" width="53.999999999999986" height="34"/>
+                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="commentButton:" destination="zCK-87-i4x" eventType="touchUpInside" id="VQ2-OW-s9X"/>
+                                                        <action selector="commentButton:" destination="Zq7-Sk-IgJ" eventType="touchUpInside" id="Zg4-R3-jcI"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqC-9q-Zde" customClass="ShareButton" customModule="ApplicationVK" customModuleProvider="target">
+                                                    <rect key="frame" x="180.66666666666666" y="9.6666666666666856" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1c-gN-tJS" customClass="ViewButton" customModule="ApplicationVK" customModuleProvider="target">
+                                                    <rect key="frame" x="267" y="9.6666666666666856" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAd-m1-8Fo" customClass="LikeButton" customModule="ApplicationVK" customModuleProvider="target">
-                                            <rect key="frame" x="30" y="303" width="46" height="49"/>
-                                            <state key="normal" title="Button"/>
-                                            <connections>
-                                                <action selector="likeButton:" destination="zCK-87-i4x" eventType="touchUpInside" id="dUX-vP-cM7"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fgw-uV-V7r" customClass="CommentButton" customModule="ApplicationVK" customModuleProvider="target">
-                                            <rect key="frame" x="106" y="303" width="54" height="34"/>
-                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Button"/>
-                                            <connections>
-                                                <action selector="commentButton:" destination="zCK-87-i4x" eventType="touchUpInside" id="VQ2-OW-s9X"/>
-                                                <action selector="commentButton:" destination="Zq7-Sk-IgJ" eventType="touchUpInside" id="Zg4-R3-jcI"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#heshtag" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0W-MC-SNN">
-                                            <rect key="frame" x="15" y="100.33333333333333" width="345" height="20.333333333333329"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqC-9q-Zde" customClass="ShareButton" customModule="ApplicationVK" customModuleProvider="target">
-                                            <rect key="frame" x="195" y="303" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1c-gN-tJS" customClass="ViewButton" customModule="ApplicationVK" customModuleProvider="target">
-                                            <rect key="frame" x="298" y="303" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="wAd-m1-8Fo" firstAttribute="top" secondItem="9mP-MX-4LI" secondAttribute="bottom" constant="10" id="1Q1-ZT-kMM"/>
                                         <constraint firstAttribute="trailing" secondItem="G0W-MC-SNN" secondAttribute="trailing" constant="15" id="4X5-KQ-5hJ"/>
                                         <constraint firstItem="wAW-oX-0sP" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leading" constant="15" id="4y6-jT-zEj"/>
                                         <constraint firstItem="G0W-MC-SNN" firstAttribute="top" secondItem="wAW-oX-0sP" secondAttribute="bottom" constant="10" id="5eu-Eh-G90"/>
-                                        <constraint firstItem="wAd-m1-8Fo" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leading" constant="30" id="92T-eP-Thb"/>
                                         <constraint firstAttribute="trailing" secondItem="wAW-oX-0sP" secondAttribute="trailing" constant="15" id="9BT-e4-y3J"/>
+                                        <constraint firstItem="mf5-FJ-fFp" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leadingMargin" constant="15" id="9Tf-rc-FPM"/>
                                         <constraint firstItem="wAW-oX-0sP" firstAttribute="top" secondItem="BPI-JK-C6Q" secondAttribute="bottom" constant="10" id="9YX-86-pzk"/>
-                                        <constraint firstItem="QqC-9q-Zde" firstAttribute="top" secondItem="9mP-MX-4LI" secondAttribute="bottom" constant="10" id="9xN-Po-lsq"/>
+                                        <constraint firstAttribute="bottom" secondItem="mf5-FJ-fFp" secondAttribute="bottom" constant="10" id="AOx-Eb-aKh"/>
                                         <constraint firstItem="yTO-PP-0cO" firstAttribute="centerY" secondItem="BPI-JK-C6Q" secondAttribute="centerY" id="C12-ob-ur9"/>
                                         <constraint firstItem="yTO-PP-0cO" firstAttribute="leading" secondItem="BPI-JK-C6Q" secondAttribute="trailing" constant="10" id="DCW-fb-ObQ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="mf5-FJ-fFp" secondAttribute="trailing" constant="15" id="Ecz-Fe-xgi"/>
+                                        <constraint firstItem="mf5-FJ-fFp" firstAttribute="top" secondItem="9mP-MX-4LI" secondAttribute="bottom" constant="10" id="FbQ-C1-oNq"/>
                                         <constraint firstAttribute="trailing" secondItem="9mP-MX-4LI" secondAttribute="trailing" constant="15" id="GaA-En-Ork"/>
-                                        <constraint firstItem="Fgw-uV-V7r" firstAttribute="top" secondItem="9mP-MX-4LI" secondAttribute="bottom" constant="10" id="JP5-fF-Prn"/>
                                         <constraint firstItem="BPI-JK-C6Q" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leading" constant="15" id="NQj-7o-q3l"/>
-                                        <constraint firstItem="k1c-gN-tJS" firstAttribute="top" secondItem="9mP-MX-4LI" secondAttribute="bottom" constant="10" id="Rti-BW-iXy"/>
                                         <constraint firstItem="BPI-JK-C6Q" firstAttribute="top" secondItem="CcV-GG-X21" secondAttribute="top" constant="10" id="SPu-48-DCm"/>
                                         <constraint firstItem="9mP-MX-4LI" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leading" constant="15" id="YSs-3J-XQa"/>
-                                        <constraint firstItem="Fgw-uV-V7r" firstAttribute="leading" secondItem="wAd-m1-8Fo" secondAttribute="trailing" constant="30" id="ZcY-8Q-e5O"/>
                                         <constraint firstItem="9mP-MX-4LI" firstAttribute="top" secondItem="G0W-MC-SNN" secondAttribute="bottom" constant="10" id="aRL-pl-Ubi"/>
                                         <constraint firstAttribute="trailing" secondItem="yTO-PP-0cO" secondAttribute="trailing" constant="15" id="g9n-uj-3XX"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="k1c-gN-tJS" secondAttribute="trailing" constant="15" id="mqk-nS-CS1"/>
-                                        <constraint firstAttribute="bottom" secondItem="wAd-m1-8Fo" secondAttribute="bottom" constant="10" id="nwn-2h-Ecv"/>
                                         <constraint firstItem="G0W-MC-SNN" firstAttribute="leading" secondItem="CcV-GG-X21" secondAttribute="leading" constant="15" id="wiK-zb-vIS"/>
-                                        <constraint firstItem="QqC-9q-Zde" firstAttribute="leading" secondItem="Fgw-uV-V7r" secondAttribute="trailing" constant="35" id="yKV-q0-25h"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatar" destination="BPI-JK-C6Q" id="rRf-fQ-k6l"/>
                                     <outlet property="collectionHeight" destination="2k3-zO-AMx" id="ctj-wb-xpU"/>
+                                    <outlet property="commentBtn" destination="Fgw-uV-V7r" id="KFT-jL-Tjw"/>
                                     <outlet property="fotoCollection" destination="9mP-MX-4LI" id="Iza-z1-aLV"/>
                                     <outlet property="hashTag" destination="G0W-MC-SNN" id="9mK-23-UtU"/>
+                                    <outlet property="likeBtn" destination="wAd-m1-8Fo" id="Pa3-fy-4ZE"/>
                                     <outlet property="newsText" destination="wAW-oX-0sP" id="FUn-ZU-nXd"/>
+                                    <outlet property="shareBtn" destination="QqC-9q-Zde" id="JYS-2O-8GE"/>
                                     <outlet property="time" destination="sfx-nS-4yN" id="6wN-9D-ByG"/>
                                     <outlet property="userName" destination="f3s-RS-Vkq" id="ejc-kS-tSY"/>
+                                    <outlet property="viewBtn" destination="k1c-gN-tJS" id="nuT-gK-sBf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

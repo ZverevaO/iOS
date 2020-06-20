@@ -126,7 +126,7 @@ class VKNews: Decodable {
     var postId: Int = 0
     var sourceId: Int = 0
     var type: String = ""
-    var date: Int = 0
+    var date: Double = 0
     var text: String?
     var commentCount: Int?
     var likesCount: Int?
@@ -189,7 +189,7 @@ class VKNews: Decodable {
         self.sourceId = try values.decode(Int.self, forKey: .sourceId)
         let typeNews = try values.decode(String.self, forKey: .type)
         self.type = typeNews
-        self.date = try values.decode(Int.self, forKey: .date)
+        self.date = try values.decode(Double.self, forKey: .date)
         self.text = try? values.decode(String?.self, forKey: .text)
         let text =  try? values.decode(String?.self, forKey: .text)
         var photosNews: [VKNewsPhoto]? = []
@@ -242,19 +242,17 @@ class VKNews: Decodable {
                         print (photosNews?.count)
                     }
                     
-                    
-                    
                     let commentValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
-                    self.commentCount = try commentValue?.decode(Int?.self, forKey: .count) ?? -1
+                    self.commentCount = try commentValue?.decode(Int?.self, forKey: .count)
                     
                     let likesValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
-                    self.likesCount = try likesValue?.decode(Int?.self, forKey: .count) ?? -1
+                    self.likesCount = try likesValue?.decode(Int?.self, forKey: .count)
                     
                     let repostsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
-                    self.repostsCount = try repostsValue?.decode(Int?.self, forKey: .count) ?? -1
+                    self.repostsCount = try repostsValue?.decode(Int?.self, forKey: .count)
                     
                     let viewsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
-                    self.viewsCount = try viewsValue?.decode(Int?.self, forKey: .count) ?? -1
+                    self.viewsCount = try viewsValue?.decode(Int?.self, forKey: .count)
                     
                 }
             }
