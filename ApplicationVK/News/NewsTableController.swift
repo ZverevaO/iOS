@@ -17,8 +17,8 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
 
     
-    let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
-                                Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
+//    let myComment: [Comment] = [Comment(nameUser: "Иван", text: "Отличная новость", icon: "iconFriend2"),
+//                                Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
     
 
     var vkMyNews: [VKNews] = []
