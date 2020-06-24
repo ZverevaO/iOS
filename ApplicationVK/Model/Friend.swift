@@ -16,7 +16,6 @@ class MyFrineds: Object, Decodable {
     @objc dynamic var  firstName: String = ""
     @objc dynamic var  lastLame: String = ""
     @objc dynamic var  sex: Int = 0
-    //    let bdate: String?
     @objc dynamic var  photo50: String = ""
     @objc dynamic var  online: Int = 0
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewsPhotoTableViewCell: UITableViewCell {
 
@@ -14,8 +15,9 @@ class NewsPhotoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photoCollectionHeight: NSLayoutConstraint!
     
-    var fotoNews: [VKNewsPhoto] = []
-    
+    var fotoNews: Results<VKNewsPhoto>? //[VKNewsPhoto] = []
+    var PostID: Int = 0
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,18 +43,20 @@ extension  NewsPhotoTableViewCell : UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
-        return fotoNews.count
+        return fotoNews?.count ?? 0
         
 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-        let stringUrl = URL(string: fotoNews[indexPath.item].urlX)
+        let stringUrl = URL(string: fotoNews![indexPath.item].urlX)
+        let photo = fotoNews![indexPath.item]
         //cell.foto.image? = nil
         cell.photoNews.image = nil
         cell.photoNews.af.setImage(withURL: stringUrl!)
         //cell.foto.image = UIImage(named: fotoNews[indexPath.item])
+        print("ид новости \(photo.postID)")
         return cell
     }
     

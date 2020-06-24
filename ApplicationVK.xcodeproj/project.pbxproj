@@ -54,6 +54,7 @@
 		D75F04FB249FB78000B68D2B /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F04FA249FB78000B68D2B /* NewsTableViewController.swift */; };
 		D75F04FE249FCFDE00B68D2B /* NewsPhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F04FD249FCFDE00B68D2B /* NewsPhotoCollectionView.swift */; };
 		D75F0500249FD08B00B68D2B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F04FF249FD08B00B68D2B /* PhotoCollectionViewCell.swift */; };
+		D75F050324A3BEEF00B68D2B /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F050224A3BEEF00B68D2B /* NewsService.swift */; };
 		D781588A2486B18200728911 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D78158892486B18200728911 /* GoogleService-Info.plist */; };
 		D7B7D977247C2E5E001761BF /* SearchGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7D976247C2E5E001761BF /* SearchGroup.swift */; };
 		D7C39E4D23ED683700DCEDCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C39E4C23ED683700DCEDCF /* AppDelegate.swift */; };
@@ -113,6 +114,7 @@
 		D75F04FA249FB78000B68D2B /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		D75F04FD249FCFDE00B68D2B /* NewsPhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionView.swift; sourceTree = "<group>"; };
 		D75F04FF249FD08B00B68D2B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		D75F050224A3BEEF00B68D2B /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		D78158892486B18200728911 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7B7D976247C2E5E001761BF /* SearchGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroup.swift; sourceTree = "<group>"; };
 		D7C39E4923ED683700DCEDCF /* ApplicationVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplicationVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +313,14 @@
 			path = NewPhoto;
 			sourceTree = "<group>";
 		};
+		D75F050124A3BECE00B68D2B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D75F050224A3BEEF00B68D2B /* NewsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		D7C39E4023ED683700DCEDCF = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +342,7 @@
 		D7C39E4B23ED683700DCEDCF /* ApplicationVK */ = {
 			isa = PBXGroup;
 			children = (
+				D75F050124A3BECE00B68D2B /* Service */,
 				D75F04F1249FB0C500B68D2B /* NewVC */,
 				D71AFC34246B29DA004CDCBF /* Authorize */,
 				D738E5C0245884190041B775 /* Animator  */,
@@ -516,6 +527,7 @@
 				D71A06EB2434F218004DAA58 /* Group.swift in Sources */,
 				D71A06F22434F9D4004DAA58 /* MyGroupTableCell.swift in Sources */,
 				D75F04FE249FCFDE00B68D2B /* NewsPhotoCollectionView.swift in Sources */,
+				D75F050324A3BEEF00B68D2B /* NewsService.swift in Sources */,
 				D75F04F3249FB11900B68D2B /* NewsAutorTableViewCell.swift in Sources */,
 				D75763C7244316CC0065E684 /* News.swift in Sources */,
 				D75763CE24438A680065E684 /* CustomCollectionViewLayout.swift in Sources */,
