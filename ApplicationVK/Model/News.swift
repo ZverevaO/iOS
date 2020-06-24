@@ -158,9 +158,9 @@ class VKNews: Object, Decodable {
             
             let attachmentsVal = try? values.nestedUnkeyedContainer(forKey: .attachments)
             if (attachmentsVal == nil)  {
-                print("ид новости " + String(post))
-                print(text)
-                print(typeNews)
+                //print("ид новости " + String(post))
+                //print(text)
+                //print(typeNews)
             }
             else
             {

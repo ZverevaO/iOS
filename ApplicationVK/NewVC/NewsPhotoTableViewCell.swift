@@ -56,7 +56,7 @@ extension  NewsPhotoTableViewCell : UICollectionViewDataSource
         cell.photoNews.image = nil
         cell.photoNews.af.setImage(withURL: stringUrl!)
         //cell.foto.image = UIImage(named: fotoNews[indexPath.item])
-        print("ид новости \(photo.postID)")
+        //print("ид новости \(photo.postID)")
         return cell
     }
     

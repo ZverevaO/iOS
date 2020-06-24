@@ -15,6 +15,7 @@ class NewsTableViewController: UITableViewController {
     var source: UIImageView?
     var vkBDGroups: Results<VKNewsGroup>?
     var vkFriend: Results<VKNewsProfile>?
+    var token: NotificationToken?
     
     
     var vkMyNews: Results<VKNews>?
@@ -26,17 +27,19 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        vkMyNews = pairTableNewsAndRealm()
-        self.tableView.reloadData()
+        pairTableNewsAndRealm()
+        
+//        vkMyNews = pairTableNewsAndRealm()
+//        self.tableView.reloadData()
         NewsService.loadAllNews ()
-        vkMyNews = pairTableNewsAndRealm()
-        self.tableView.reloadData()
+//        vkMyNews = pairTableNewsAndRealm()
+//        self.tableView.reloadData()
         
-        //устанавливаем высоту ячейки
-        tableView.estimatedRowHeight = 300.0
-        
-        //пересчитываем высоту ячеек
-        tableView.rowHeight = UITableView.automaticDimension
+//        //устанавливаем высоту ячейки
+//        tableView.estimatedRowHeight = 300.0
+//
+//        //пересчитываем высоту ячеек
+//        tableView.rowHeight = UITableView.automaticDimension
         
         
         self.title = "новости"
@@ -109,10 +112,10 @@ class NewsTableViewController: UITableViewController {
             
             if post.countPhoto > 0 {
                 cell.fotoNews = getPhotoPost(postID: postID)
-                print ("кол-во фото \(post.countPhoto)  \(cell.fotoNews?.count)")
+                //print ("кол-во фото \(post.countPhoto)  \(cell.fotoNews?.count)")
             }
             else {
-                print("нет фото")
+                //print("нет фото")
                 cell.fotoNews = nil
             }
             
@@ -208,11 +211,58 @@ class NewsTableViewController: UITableViewController {
         return realm.objects(VKNewsPhoto.self).filter(strFilter)
     }
     
-    func pairTableNewsAndRealm() -> Results<VKNews>?
+    func pairTableNewsAndRealm()
     {
-        guard let realm = try? Realm() else {return nil}
-        return realm.objects(VKNews.self)
+        guard let realm = try? Realm() else {return }
+        vkMyNews = realm.objects(VKNews.self)
+        
+        token = vkMyNews?.observe { [weak self]
+            (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+                //устанавливаем высоту ячейки
+                tableView.estimatedRowHeight = 300.0
+                
+                //пересчитываем высоту ячеек
+                tableView.rowHeight = UITableView.automaticDimension
+            case .update(_, let deletions, let insertions, let modifications):
+                
+                tableView.reloadData()
+                //устанавливаем высоту ячейки
+                tableView.estimatedRowHeight = 300.0
+                
+                //пересчитываем высоту ячеек
+                tableView.rowHeight = UITableView.automaticDimension
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+       
         
     }
+    
+    /*
+      func pairTableAdnRealm() {
+
+            guard let realm = try? Realm() else {return}
+            vkGroups = realm.objects(VKGroup.self)
+            token = vkGroups?.observe { [weak self]
+                (changes: RealmCollectionChange) in
+                guard let tableView = self?.tableView else { return }
+                switch changes {
+                case .initial:
+                    tableView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    
+                    tableView.reloadData()
+
+                case .error(let error):
+                    fatalError("\(error)")
+                }
+            }
+        }
+     */
     
 }
