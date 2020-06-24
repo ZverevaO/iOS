@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import RealmSwift
-import FirebaseDatabase
+//import FirebaseDatabase
 
 
 class MyGroupTableController: UITableViewController {
@@ -19,9 +19,9 @@ class MyGroupTableController: UITableViewController {
     var allMyGroups: [VKGroup] = []
     var token: NotificationToken?
     var vkGroups: Results<VKGroup>?
-    
-    private var userGroups = [FireBaseUserGroups]()
-    private let ref = Database.database().reference(withPath: "userGroups")
+
+//    private var userGroups = [FireBaseUserGroups]()
+//    private let ref = Database.database().reference(withPath: "userGroups")
     
     
     @IBOutlet weak var groupSearch: UISearchBar!
@@ -61,10 +61,10 @@ class MyGroupTableController: UITableViewController {
                 // Получаем город по индексу
                 let group = allGroupTableController.allFoundGroup[indexPath.row]
                 // Проверяем, что такого города нет в списке
-                let userGroup = FireBaseUserGroups(userID: Session.instance.userId, groupID: group.id)
-                let ref = String(group.id) + String(Session.instance.userId)
-                let userGroupRef = self.ref.child(ref)
-                userGroupRef.setValue(userGroup.toAnyObject())
+                //let userGroup = FireBaseUserGroups(userID: Session.instance.userId, groupID: group.id)
+                //let ref = String(group.id) + String(Session.instance.userId)
+                //let userGroupRef = self.ref.child(ref)
+                //userGroupRef.setValue(userGroup.toAnyObject())
                 
             }
         }

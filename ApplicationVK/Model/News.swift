@@ -315,7 +315,7 @@ class NewsService
         AF.request("https://api.vk.com/method/newsfeed.get",
                    parameters: [
                     "access_token" : Session.instance.token,
-                    "filters" : "post,photo",
+                    "filters" : "post",
                     "v" : "5.103"
         ]).responseData {
             response in
