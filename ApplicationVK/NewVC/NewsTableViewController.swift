@@ -13,11 +13,12 @@ import AlamofireImage
 class NewsTableViewController: UITableViewController {
     
     var source: UIImageView?
-    var vkBDGroups: Results<VKGroup>?
-    var vkFriend: Results<MyFrineds>?
+    var vkBDGroups: Results<VKNewsGroup>?
+    var vkFriend: Results<VKNewsProfile>?
+    var token: NotificationToken?
     
     
-    var vkMyNews: [VKNews] = []
+    var vkMyNews: Results<VKNews>?
     var urlAvatarSource: URL!
     var sourceName: String = ""
     
@@ -26,14 +27,17 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NewsService.loadAllNews() { [weak self] vkMyNews in
-            self?.vkMyNews = vkMyNews
-            self?.tableView?.reloadData()
-        }
+        pairTableNewsAndRealm()
+        
+//        vkMyNews = pairTableNewsAndRealm()
+//        self.tableView.reloadData()
+        NewsService.loadAllNews ()
+//        vkMyNews = pairTableNewsAndRealm()
+//        self.tableView.reloadData()
         
         //устанавливаем высоту ячейки
         tableView.estimatedRowHeight = 300.0
-        
+
         //пересчитываем высоту ячеек
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -47,7 +51,7 @@ class NewsTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return vkMyNews.count
+        return vkMyNews?.count ?? 0
         //каждая новость будет секцией
     }
     
@@ -61,28 +65,28 @@ class NewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        
+        let post = vkMyNews![indexPath.section]
         //выбираем ячейку
         switch indexPath.row {
         case 0:
             //ячейка для вывода автора новости
             let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
             
-            let post = vkMyNews[indexPath.section]
+            //let post = vkMyNews[indexPath.section]
             
             let sourceId = post.sourceId
             
+            
             if sourceId < 0 {
-                let groupInfo = getInfoGroup (id: (sourceId*(-1)))
+                let groupInfo = getInfoGroup (id: (sourceId * (-1)))
                 urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
                 sourceName = groupInfo?[0].name ?? "NoName"
-                
             }
             else
             {
                 let friendInfo = getFriendInfo(id: sourceId)
                 urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
-                sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastLame ?? "NoName"))
+                sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastName ?? "NoName"))
             }
             
             cell.avatar.af.setImage(withURL: urlAvatarSource)
@@ -96,28 +100,28 @@ class NewsTableViewController: UITableViewController {
         case 1:
             //ячейка для вывода текста новости
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTextTableViewCell", for: indexPath) as! NewsTextTableViewCell
-            let post = vkMyNews[indexPath.section]
+            //let post = vkMyNews[indexPath.section]
             cell.textPost.text = post.text ?? " "
             
             return cell
         case 2:
             //ячнйка для вывода фотографий, содержит коллекцию
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
+            //let newsPost = vkMyNews[indexPath.section]
+            let postID = post.postId
             
-            //получаем фотографии новости
-            if  let photos = vkMyNews[indexPath.section].photos {
-                // cell.fotoNews.removeAll()
-                cell.fotoNews = photos
-                //cell.newsText.text =   String(photos.count)
-                print (photos.count)
+            if post.countPhoto > 0 {
+                cell.fotoNews = getPhotoPost(postID: postID)
+                //print ("кол-во фото \(post.countPhoto)  \(cell.fotoNews?.count)")
             }
-            else
-            {
-                print(vkMyNews[indexPath.section].photos)
-                print("нет фото")
-                //cell.fotoNews.removeAll()
-                
+            else {
+                //print("нет фото")
+                cell.fotoNews = nil
             }
+            
+            
+            
+            cell.photoCollection.reloadData()
             cell.layoutIfNeeded()
             
             //получем высоту контента ячейки
@@ -186,18 +190,79 @@ class NewsTableViewController: UITableViewController {
      */
     
     
-    func getInfoGroup (id: Int) -> Results<VKGroup>? {
+    func getInfoGroup (id: Int) -> Results<VKNewsGroup>? {
         
         guard let realm = try? Realm() else {return nil}
         let strFilter = "id == " + String(id)
-        return realm.objects(VKGroup.self).filter(strFilter)
+        return realm.objects(VKNewsGroup.self).filter(strFilter)
     }
     
-    func getFriendInfo (id: Int) -> Results<MyFrineds>?
+    func getFriendInfo (id: Int) -> Results<VKNewsProfile>?
     {
         guard let realm = try? Realm() else {return nil}
         let strFilter = "id == " + String(id)
-        return realm.objects(MyFrineds.self).filter(strFilter)
+        return realm.objects(VKNewsProfile.self).filter(strFilter)
     }
+    
+    func getPhotoPost (postID: Int) -> Results<VKNewsPhoto>?
+    {
+        guard let realm = try? Realm() else {return nil}
+        let strFilter = "postID == " + String(postID)
+        return realm.objects(VKNewsPhoto.self).filter(strFilter)
+    }
+    
+    func pairTableNewsAndRealm()
+    {
+        guard let realm = try? Realm() else {return }
+        vkMyNews = realm.objects(VKNews.self)
+        
+        token = vkMyNews?.observe { [weak self]
+            (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+                //устанавливаем высоту ячейки
+                tableView.estimatedRowHeight = 300.0
+                
+                //пересчитываем высоту ячеек
+                tableView.rowHeight = UITableView.automaticDimension
+            case .update(_, let deletions, let insertions, let modifications):
+                
+                tableView.reloadData()
+                //устанавливаем высоту ячейки
+                tableView.estimatedRowHeight = 300.0
+                
+                //пересчитываем высоту ячеек
+                tableView.rowHeight = UITableView.automaticDimension
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+       
+        
+    }
+    
+    /*
+      func pairTableAdnRealm() {
+
+            guard let realm = try? Realm() else {return}
+            vkGroups = realm.objects(VKGroup.self)
+            token = vkGroups?.observe { [weak self]
+                (changes: RealmCollectionChange) in
+                guard let tableView = self?.tableView else { return }
+                switch changes {
+                case .initial:
+                    tableView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    
+                    tableView.reloadData()
+
+                case .error(let error):
+                    fatalError("\(error)")
+                }
+            }
+        }
+     */
     
 }

@@ -21,7 +21,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
 //                                Comment(nameUser: "Петя", text: "Отличная новость", icon: "iconFriend2")]
     
 
-    var vkMyNews: [VKNews] = []
+    var vkMyNews:  Results<VKNews>? 
     var urlAvatarSource: URL!
     var sourceName: String = ""
     
@@ -33,12 +33,18 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     override func viewDidLoad() {
         
-        NewsService.loadAllNews() { [weak self] vkMyNews in
-            self?.vkMyNews = vkMyNews
-            self?.tableView?.reloadData()
-            
-        }
+//        NewsService.loadAllNews() { [weak self] vkMyNews in
+//            self?.vkMyNews = vkMyNews
+//            self?.tableView?.reloadData()
+//
+//        }
         super.viewDidLoad()
+        
+        vkMyNews = pairTableNewsAndRealm()
+               self.tableView.reloadData()
+               NewsService.loadAllNews ()
+               vkMyNews = pairTableNewsAndRealm()
+                 self.tableView.reloadData()
 
         tableView.estimatedRowHeight = 300.0
         
@@ -61,7 +67,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return vkMyNews.count
+        return vkMyNews?.count ?? 0
         //
     }
     
@@ -71,7 +77,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         
         
         
-        let sourceId = vkMyNews[indexPath.row].sourceId
+        let sourceId = vkMyNews![indexPath.row].sourceId
         
         if sourceId < 0 {
             let groupInfo = getInfoGroup (id: (sourceId*(-1)))
@@ -90,7 +96,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         cell.userName.text = sourceName
         
         dateFormatter.dateFormat = "dd.MM.yyyy HH.mm"
-        let date = Date(timeIntervalSince1970: vkMyNews[indexPath.row].date)
+        let date = Date(timeIntervalSince1970: vkMyNews![indexPath.row].date)
         let stringDate = dateFormatter.string(from: date)
         cell.time.text = stringDate
         
@@ -98,16 +104,16 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
 //        cell.likeBtn.likeCount = vkMyNews[indexPath.row].likesCount!
 //        cell.viewBtn.countView = vkMyNews[indexPath.row].viewsCount!
 //        cell.shareBtn.countShare = vkMyNews[indexPath.row].repostsCount!
-        cell.newsText.text = vkMyNews[indexPath.row].text ?? " "//myNews[indexPath.row].textNews
+        cell.newsText.text = vkMyNews![indexPath.row].text ?? " "//myNews[indexPath.row].textNews
         print ("лайки " + String(cell.likeBtn.likeCount))
-        if  let photos = vkMyNews[indexPath.row].photos {
+        if  let photos = vkMyNews![indexPath.row].photos {
             cell.fotoNews.removeAll()
             cell.fotoNews = photos
             //cell.newsText.text =   String(photos.count)
         }
         else
         {
-             print(vkMyNews[indexPath.row].photos)
+            print(vkMyNews![indexPath.row].photos)
              print("нет фото")
             cell.fotoNews.removeAll()
             
@@ -170,6 +176,13 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         let strFilter = "id == " + String(id)
         return realm.objects(MyFrineds.self).filter(strFilter)
     }
+    
+    func pairTableNewsAndRealm() -> Results<VKNews>?
+       {
+           guard let realm = try? Realm() else {return nil}
+           return realm.objects(VKNews.self)
+          
+       }
     
 }
 
