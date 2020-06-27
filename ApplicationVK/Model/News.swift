@@ -10,7 +10,7 @@ import Alamofire
 import RealmSwift
 
 
-
+// источник новостей группы
 class VKNewsGroup: Object, Decodable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
@@ -28,6 +28,7 @@ class VKNewsGroup: Object, Decodable {
     
 }
 
+//источник новостей юзеры
 class VKNewsProfile: Object, Decodable {
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
@@ -54,6 +55,7 @@ class VKPhotoSize: Decodable {
     
 }
 
+//класс для хранения фотографий 
 class VKNewsPhoto: Object  {
     @objc dynamic var date: Int = 0
     @objc dynamic var id: Int = 0

@@ -110,8 +110,8 @@
             filePath = "ApplicationVK/Model/News.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "ApplicationVK/Model/News.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "CodingKeyAttachment"
             landmarkType = "13">
          </BreakpointContent>

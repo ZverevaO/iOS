@@ -35,11 +35,11 @@ class NewsTableViewController: UITableViewController {
 //        vkMyNews = pairTableNewsAndRealm()
 //        self.tableView.reloadData()
         
-//        //устанавливаем высоту ячейки
-//        tableView.estimatedRowHeight = 300.0
-//
-//        //пересчитываем высоту ячеек
-//        tableView.rowHeight = UITableView.automaticDimension
+        //устанавливаем высоту ячейки
+        tableView.estimatedRowHeight = 300.0
+
+        //пересчитываем высоту ячеек
+        tableView.rowHeight = UITableView.automaticDimension
         
         
         self.title = "новости"
