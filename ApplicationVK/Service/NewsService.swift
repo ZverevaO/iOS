@@ -27,22 +27,22 @@ class NewsService
             do {
                 
                 
-                let dataNews =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
+                let dataNews =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
                 
-                self.saveNews(dataNews!)
+                self.saveNews(dataNews)
                 
-                for index in 0...dataNews!.count-1
+                for index in 0...dataNews.count-1
                 {
-                    if let photoLost = dataNews![index].photos {
+                    if let photoLost = dataNews[index].photos {
                         self.saveNewsPostPhoto(photoLost)
                     }
                 }
                 
-                let dataNewsProfiles = try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                self.saveNewsPofiles(dataNewsProfiles!)
+                let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
+                self.saveNewsPofiles(dataNewsProfiles)
                 
-                let dataNewsGroups =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                self.saveNewsGroups(dataNewsGroups!)
+                let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
+                self.saveNewsGroups(dataNewsGroups)
                 
                 //let serviceDispatchGroup = DispatchGroup()
                 
