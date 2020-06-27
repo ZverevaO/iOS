@@ -51,7 +51,7 @@ extension  NewsPhotoTableViewCell : UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         let stringUrl = URL(string: fotoNews![indexPath.item].urlX)
-        let photo = fotoNews![indexPath.item]
+        //let photo = fotoNews![indexPath.item]
         //cell.foto.image? = nil
         cell.photoNews.image = nil
         cell.photoNews.af.setImage(withURL: stringUrl!)

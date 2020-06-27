@@ -104,7 +104,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
 //        cell.likeBtn.likeCount = vkMyNews[indexPath.row].likesCount!
 //        cell.viewBtn.countView = vkMyNews[indexPath.row].viewsCount!
 //        cell.shareBtn.countShare = vkMyNews[indexPath.row].repostsCount!
-        cell.newsText.text = vkMyNews![indexPath.row].text ?? " "//myNews[indexPath.row].textNews
+        cell.newsText.text = vkMyNews![indexPath.row].text //myNews[indexPath.row].textNews
         print ("лайки " + String(cell.likeBtn.likeCount))
         if  let photos = vkMyNews![indexPath.row].photos {
             cell.fotoNews.removeAll()
@@ -113,7 +113,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         }
         else
         {
-            print(vkMyNews![indexPath.row].photos)
+            print(vkMyNews![indexPath.row].photos as Any)
              print("нет фото")
             cell.fotoNews.removeAll()
             

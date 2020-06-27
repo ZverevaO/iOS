@@ -15,7 +15,7 @@ class VKNewsGroup: Object, Decodable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var photo50: String = ""
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -34,7 +34,7 @@ class VKNewsProfile: Object, Decodable {
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic  var photo50: String = ""
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
@@ -75,10 +75,10 @@ class VKNewsPhoto: Object  {
     }
     
     override static func primaryKey() -> String? {
-          return "id"
-      }
+        return "id"
+    }
     
- 
+    
 }
 
 
@@ -94,7 +94,7 @@ class VKNews: Object, Decodable {
     var repostsCount: Int?
     var viewsCount: Int?
     var photos: [VKNewsPhoto]?
-    @objc dynamic var countPhoto: Int = 0
+    @objc dynamic var countPhoto: Int = -1
     
     enum CodingKeyVKNews: String, CodingKey {
         case postId = "post_id"
@@ -136,44 +136,38 @@ class VKNews: Object, Decodable {
     
     convenience required init  (from decoder: Decoder) throws {
         self.init()
-
+        
         let values = try decoder.container(keyedBy: CodingKeyVKNews.self)
         let postId = try values.decode(Int.self, forKey: .postId)
         self.postId = postId //try values.decode(Int.self, forKey: .postId)
-        let post = try values.decode(Int.self, forKey: .postId)
+        //let post = try values.decode(Int.self, forKey: .postId)
         self.sourceId = try values.decode(Int.self, forKey: .sourceId)
         let typeNews = try values.decode(String.self, forKey: .type)
         self.type = typeNews
         self.date = try values.decode(Double.self, forKey: .date)
         let text =  try? values.decode(String?.self, forKey: .text)
         self.text =  text ?? " " //try? values.decode(String?.self, forKey: .text)
-       
+        
         var photosNews: [VKNewsPhoto]? = []
         var id: Int = 0
         var date: Int = 0
         var url = ""
         var urlX = ""
         
-        
-       
-        if typeNews == "post" {
-            
-            let attachmentsVal = try? values.nestedUnkeyedContainer(forKey: .attachments)
-            if (attachmentsVal == nil)  {
-                //print("ид новости " + String(post))
-                //print(text)
-                //print(typeNews)
-            }
-            else
+        switch typeNews {
+        case "post": do {
+            //начало обработки новости с типом post
+            if var  attachmentsValue = try? values.nestedUnkeyedContainer(forKey: .attachments)
             {
                 
-                var attachmentsValue = try values.nestedUnkeyedContainer(forKey: .attachments)
                 while !attachmentsValue.isAtEnd {
                     let attachmentItems = try  attachmentsValue.nestedContainer(keyedBy: CodingKeyAttachment.self)
                     let attachmetnType = try attachmentItems.decode(String.self, forKey: .type)
-                   // print ("тип вложения " + (attachmetnType))
-                    if attachmetnType == "photo" {
-                       // print ("это фото парсим дальше " + (attachmetnType) + String(count))
+                    
+                    switch attachmetnType {
+                    case "photo": do {
+                        //обработка вложений типа фото
+                        // print ("это фото парсим дальше " + (attachmetnType) + String(count))
                         let photoAttachment = try attachmentItems.nestedContainer(keyedBy: CodingKeyPhoto.self, forKey: .photo)
                         id = try photoAttachment.decode(Int.self, forKey: .id)
                         date = try photoAttachment.decode(Int.self, forKey: .date)
@@ -196,10 +190,15 @@ class VKNews: Object, Decodable {
                         let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
                         photosNews?.append(photoAtt)
                         self.photos = photosNews
-                        //print (photosNews?.count)
                         self.countPhoto = photosNews?.count ?? (-1)
-                    } else {
-                        self.countPhoto = (-1)
+                        //завершили обработку фото
+                        }
+                    case "video":
+                        print("тип вложения \(attachmetnType)")
+                    case "audio":
+                        print("тип вложения \(attachmetnType)")
+                    default:
+                        print("неизвестынй тип вложения \(attachmetnType)")
                     }
                     
                     
@@ -217,10 +216,15 @@ class VKNews: Object, Decodable {
                     
                 }
             }
+            else
+            {
+                print("ничего нет ")
+            }
+            //конец  обработки новости с типом post
+            }
             
-        }
-        
-        if typeNews == "photo" {
+        case "photo": do {
+            //начало обработки фото
             let photosValue =  try values.nestedContainer(keyedBy: CodingKeyVKNews.self, forKey: .photos)
             var photoList  = try photosValue.nestedUnkeyedContainer(forKey: .items)
             //var photosNews: [VKNewsPhoto]? = []
@@ -251,6 +255,10 @@ class VKNews: Object, Decodable {
             }
             self.photos = photosNews
             self.countPhoto = photosNews?.count ?? -1
+            //конец обработки типа фото
+            }
+        default:
+            print ("неопознанный тип новости")
         }
         
     }
@@ -259,9 +267,27 @@ class VKNews: Object, Decodable {
 class VKDataNews: Decodable {
     let items: [VKNews]
     let profiles: [VKNewsProfile]
-    let groups: [VKNewsGroup]
+    var groups: [VKNewsGroup]
     
+    enum CodingKeys: String, CodingKey {
+           case items
+           case profiles
+           case groups
+       }
     
+    required init (from decoder: Decoder)  throws
+    {
+     
+
+        let dataNews = try decoder.container(keyedBy: CodingKeys.self)
+         
+        DispatchQueue.global().async() {}
+        self.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
+        self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
+        self.items = try dataNews.decode([VKNews].self, forKey: .items)
+    
+    }
+       
 }
 
 class VKNewsRespons: Decodable {
@@ -270,4 +296,183 @@ class VKNewsRespons: Decodable {
 
 
 
+//старый инициализиатор
+/*    convenience required init  (from decoder: Decoder) throws {
+ self.init()
+ 
+ let values = try decoder.container(keyedBy: CodingKeyVKNews.self)
+ let postId = try values.decode(Int.self, forKey: .postId)
+ self.postId = postId //try values.decode(Int.self, forKey: .postId)
+ let post = try values.decode(Int.self, forKey: .postId)
+ self.sourceId = try values.decode(Int.self, forKey: .sourceId)
+ let typeNews = try values.decode(String.self, forKey: .type)
+ self.type = typeNews
+ self.date = try values.decode(Double.self, forKey: .date)
+ let text =  try? values.decode(String?.self, forKey: .text)
+ self.text =  text ?? " " //try? values.decode(String?.self, forKey: .text)
+ 
+ var photosNews: [VKNewsPhoto]? = []
+ var id: Int = 0
+ var date: Int = 0
+ var url = ""
+ var urlX = ""
+ 
+ if typeNews == "post" {
+ 
+ 
+ 
+ if var  attachmentsValue = try? values.nestedUnkeyedContainer(forKey: .attachments)
+ {
+ 
+ while !attachmentsValue.isAtEnd {
+ let attachmentItems = try  attachmentsValue.nestedContainer(keyedBy: CodingKeyAttachment.self)
+ let attachmetnType = try attachmentItems.decode(String.self, forKey: .type)
+ // print ("тип вложения " + (attachmetnType))
+ if attachmetnType == "photo" {
+ // print ("это фото парсим дальше " + (attachmetnType) + String(count))
+ let photoAttachment = try attachmentItems.nestedContainer(keyedBy: CodingKeyPhoto.self, forKey: .photo)
+ id = try photoAttachment.decode(Int.self, forKey: .id)
+ date = try photoAttachment.decode(Int.self, forKey: .date)
+ var photoSizeAttachment = try photoAttachment.nestedUnkeyedContainer(forKey: .sizes)
+ while !photoSizeAttachment.isAtEnd {
+ 
+ let firstSizeAttachment = try photoSizeAttachment.nestedContainer(keyedBy: CodingKeySize.self)
+ let sizeTypeAttachment = try firstSizeAttachment.decode(String.self, forKey: .type)
+ switch sizeTypeAttachment {
+ case "x":
+ urlX = try firstSizeAttachment.decode(String.self, forKey: .url)
+ case "m":
+ url = try firstSizeAttachment.decode(String.self, forKey: .url)
+ default:
+ break
+ }
+ 
+ 
+ }
+ let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
+ photosNews?.append(photoAtt)
+ self.photos = photosNews
+ self.countPhoto = photosNews?.count ?? (-1)
+ } else {
+ self.countPhoto = (-1)
+ }
+ 
+ 
+ let commentValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
+ self.commentCount = try commentValue?.decode(Int?.self, forKey: .count)
+ 
+ let likesValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
+ self.likesCount = try likesValue?.decode(Int?.self, forKey: .count)
+ 
+ let repostsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
+ self.repostsCount = try repostsValue?.decode(Int?.self, forKey: .count)
+ 
+ let viewsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
+ self.viewsCount = try viewsValue?.decode(Int?.self, forKey: .count)
+ 
+ }
+ }
+ else
+ {
+ print("ничего нет ")
+ }
+ 
+ let attachmentsVal = try? values.nestedUnkeyedContainer(forKey: .attachments)
+ 
+ if (attachmentsVal == nil)  {
+ //print("ид новости " + String(post))
+ //print(text)
+ //print(typeNews)
+ }
+ else
+ {
+ 
+ var attachmentsValue = try values.nestedUnkeyedContainer(forKey: .attachments)
+ while !attachmentsValue.isAtEnd {
+ let attachmentItems = try  attachmentsValue.nestedContainer(keyedBy: CodingKeyAttachment.self)
+ let attachmetnType = try attachmentItems.decode(String.self, forKey: .type)
+ // print ("тип вложения " + (attachmetnType))
+ if attachmetnType == "photo" {
+ // print ("это фото парсим дальше " + (attachmetnType) + String(count))
+ let photoAttachment = try attachmentItems.nestedContainer(keyedBy: CodingKeyPhoto.self, forKey: .photo)
+ id = try photoAttachment.decode(Int.self, forKey: .id)
+ date = try photoAttachment.decode(Int.self, forKey: .date)
+ var photoSizeAttachment = try photoAttachment.nestedUnkeyedContainer(forKey: .sizes)
+ while !photoSizeAttachment.isAtEnd {
+ 
+ let firstSizeAttachment = try photoSizeAttachment.nestedContainer(keyedBy: CodingKeySize.self)
+ let sizeTypeAttachment = try firstSizeAttachment.decode(String.self, forKey: .type)
+ switch sizeTypeAttachment {
+ case "x":
+ urlX = try firstSizeAttachment.decode(String.self, forKey: .url)
+ case "m":
+ url = try firstSizeAttachment.decode(String.self, forKey: .url)
+ default:
+ break
+ }
+ 
+ 
+ }
+ let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
+ photosNews?.append(photoAtt)
+ self.photos = photosNews
+ self.countPhoto = photosNews?.count ?? (-1)
+ } else {
+ self.countPhoto = (-1)
+ }
+ 
+ 
+ let commentValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
+ self.commentCount = try commentValue?.decode(Int?.self, forKey: .count)
+ 
+ let likesValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
+ self.likesCount = try likesValue?.decode(Int?.self, forKey: .count)
+ 
+ let repostsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
+ self.repostsCount = try repostsValue?.decode(Int?.self, forKey: .count)
+ 
+ let viewsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
+ self.viewsCount = try viewsValue?.decode(Int?.self, forKey: .count)
+ 
+ }
+ }
+ 
+ 
+ 
+ }
+ 
+ if typeNews == "photo" {
+ let photosValue =  try values.nestedContainer(keyedBy: CodingKeyVKNews.self, forKey: .photos)
+ var photoList  = try photosValue.nestedUnkeyedContainer(forKey: .items)
+ //var photosNews: [VKNewsPhoto]? = []
+ while !photoList.isAtEnd {
+ let photoInf = try photoList.nestedContainer(keyedBy: CodingKeyPhoto.self)
+ id = try photoInf.decode(Int.self, forKey: .id)
+ date = try photoInf.decode(Int.self, forKey: .date)
+ url = ""
+ urlX = ""
+ var photoSizeValues = try photoInf.nestedUnkeyedContainer(forKey: .sizes)
+ 
+ while !photoSizeValues.isAtEnd {
+ 
+ let firstSizeValues = try photoSizeValues.nestedContainer(keyedBy: CodingKeySize.self)
+ let sizetype = try firstSizeValues.decode(String.self, forKey: .type)
+ switch sizetype {
+ case "x":
+ urlX = try firstSizeValues.decode(String.self, forKey: .url)
+ case "m":
+ url = try firstSizeValues.decode(String.self, forKey: .url)
+ default:
+ break
+ }
+ }
+ 
+ let photo = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
+ photosNews?.append(photo)
+ }
+ self.photos = photosNews
+ self.countPhoto = photosNews?.count ?? -1
+ }
+ 
+ } */
 

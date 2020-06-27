@@ -60,6 +60,7 @@ class MyGroupTableController: UITableViewController {
             if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
                 // Получаем город по индексу
                 let group = allGroupTableController.allFoundGroup[indexPath.row]
+                print(group)
                 // Проверяем, что такого города нет в списке
                 //let userGroup = FireBaseUserGroups(userID: Session.instance.userId, groupID: group.id)
                 //let ref = String(group.id) + String(Session.instance.userId)

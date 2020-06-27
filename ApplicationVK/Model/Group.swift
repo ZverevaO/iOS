@@ -85,7 +85,7 @@ class VKGroupsService
             do {
                 let dataVKGroups =  try JSONDecoder().decode(VKGroupsResponse.self, from: data).response.items
                 self.saveGroups(dataVKGroups)
-                print(response.value)
+                print(response.value as Any)
             }
             catch{
                 print(error)
@@ -97,7 +97,7 @@ class VKGroupsService
     static func  saveGroups (_ groups: [VKGroup]) {
            do {
                let realm = try Realm()
-               print(realm.configuration.fileURL)
+            print(realm.configuration.fileURL as Any)
                let oldGroups = realm.objects(VKGroup.self)
                realm.beginWrite()
                realm.delete(oldGroups)

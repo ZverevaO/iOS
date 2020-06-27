@@ -79,14 +79,14 @@ class NewsTableViewController: UITableViewController {
             
             if sourceId < 0 {
                 let groupInfo = getInfoGroup (id: (sourceId * (-1)))
-                urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
-                sourceName = groupInfo?[0].name ?? "NoName"
+                urlAvatarSource = URL(string: (groupInfo?.first?.photo50)!)!
+                sourceName = groupInfo?.first?.name ?? "NoName"
             }
             else
             {
                 let friendInfo = getFriendInfo(id: sourceId)
-                urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
-                sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastName ?? "NoName"))
+                urlAvatarSource = URL(string: (friendInfo?.first?.photo50)!)!
+                sourceName = ((friendInfo?.first?.firstName ?? "NoName") + " " + (friendInfo?.first?.lastName ?? "NoName"))
             }
             
             cell.avatar.af.setImage(withURL: urlAvatarSource)
@@ -101,7 +101,7 @@ class NewsTableViewController: UITableViewController {
             //ячейка для вывода текста новости
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTextTableViewCell", for: indexPath) as! NewsTextTableViewCell
             //let post = vkMyNews[indexPath.section]
-            cell.textPost.text = post.text ?? " "
+            cell.textPost.text = post.text 
             
             return cell
         case 2:
@@ -211,8 +211,7 @@ class NewsTableViewController: UITableViewController {
         return realm.objects(VKNewsPhoto.self).filter(strFilter)
     }
     
-    func pairTableNewsAndRealm()
-    {
+    func pairTableNewsAndRealm() {
         guard let realm = try? Realm() else {return }
         vkMyNews = realm.objects(VKNews.self)
         

@@ -27,22 +27,36 @@ class NewsService
             do {
                 
                 
-                let dataNews =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
+                let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
                 
-                self.saveNews(dataNews)
+                self.saveNews(dataVKNews.items)
                 
-                for index in 0...dataNews.count-1
+                for index in 0...dataVKNews.items.count-1
                 {
-                    if let photoLost = dataNews[index].photos {
+                    if let photoLost = dataVKNews.items[index].photos {
                         self.saveNewsPostPhoto(photoLost)
                     }
                 }
                 
-                let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                self.saveNewsPofiles(dataNewsProfiles)
+                self.saveNewsPofiles(dataVKNews.profiles)
+                self.saveNewsGroups(dataVKNews.groups)
                 
-                let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                self.saveNewsGroups(dataNewsGroups)
+//                let dataNews =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
+//
+//                self.saveNews(dataNews)
+//
+//                for index in 0...dataNews.count-1
+//                {
+//                    if let photoLost = dataNews[index].photos {
+//                        self.saveNewsPostPhoto(photoLost)
+//                    }
+//                }
+//
+//                let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
+//                self.saveNewsPofiles(dataNewsProfiles)
+//
+//                let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
+//                self.saveNewsGroups(dataNewsGroups)
                 
                 //let serviceDispatchGroup = DispatchGroup()
                 

@@ -136,7 +136,7 @@ class VKPhotosService {
     static func  savePhotos (_ photos: [VKPhoto], userId: Int) {
         do {
             let realm = try Realm()
-            print(realm.configuration.fileURL)
+            print(realm.configuration.fileURL as Any)
             let strFilter = "ownerId == " + String(userId)
             let oldFotoByUser = realm.objects(VKPhoto.self).filter(strFilter)
             realm.beginWrite()
