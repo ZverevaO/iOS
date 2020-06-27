@@ -280,8 +280,16 @@ class VKDataNews: Decodable {
      
 
         let dataNews = try decoder.container(keyedBy: CodingKeys.self)
-         
-        DispatchQueue.global().async() {}
+        
+//        try DispatchQueue.global().async() { [weak self] in
+//            self?.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
+//        }
+//        DispatchQueue.global().async() {
+//            self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
+//        }
+//        DispatchQueue.global().async() {
+//            self.items = try dataNews.decode([VKNews].self, forKey: .items)
+//        }
         self.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
         self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
         self.items = try dataNews.decode([VKNews].self, forKey: .items)

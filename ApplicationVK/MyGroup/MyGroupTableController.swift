@@ -39,7 +39,8 @@ class MyGroupTableController: UITableViewController {
        // loadDataGroup()
         
         //        список групп пользователя
-        VKGroupsService.loadGroupsUser()
+        //VKGroupsService.loadGroupsUser()
+        VKGroupsService.loadGroupsUser(controller: self)
         
         self.title = "мои группы"
         

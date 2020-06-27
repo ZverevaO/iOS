@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import RealmSwift
 
 class VKGroup: Object, Decodable, Comparable {
@@ -38,22 +37,7 @@ class VKGroup: Object, Decodable, Comparable {
     static func < (lhs: VKGroup, rhs: VKGroup) -> Bool {
         return lhs.name < rhs.name
     }
-    
-    
-//    convenience required init (from decoder: Decoder) throws {
-//       self.init()
-//        // try self.init(from: Decoder.self as! Decoder)
-//        //получаем контейнер массива фото
-//        let values = try decoder.container(keyedBy: GroupCodingKeys.self)
-//
-//        self.id = try values.decode(Int.self, forKey: .id)
-//        self.name = try values.decode(String.self, forKey: .name)
-//        self.screenName = try values.decode(String.self, forKey: .screenName)
-//        self.membersCount = try values.decode(Int.self, forKey: .membersCount)
-//        self.photo50 = try values.decode(String.self, forKey: .photo50)
-//
-//    }
-//    
+     
 }
 
 class VKGroupsData: Decodable {
@@ -68,47 +52,5 @@ class VKGroupsResponse: Decodable
 
 
 
-class VKGroupsService
-{
-    static func loadGroupsUser ()
-    {
-        AF.request("https://api.vk.com/method/groups.get",
-                   parameters: [
-                    "access_token" : Session.instance.token,
-                    "user_id" : Session.instance.userId,
-                    "extended" : "1",
-                    "fields" : "description,members_count",
-                    "v" : "5.103"
-        ]).responseData {
-            response in
-            guard let data = response.value else {return}
-            do {
-                let dataVKGroups =  try JSONDecoder().decode(VKGroupsResponse.self, from: data).response.items
-                self.saveGroups(dataVKGroups)
-                print(response.value as Any)
-            }
-            catch{
-                print(error)
-            }
-            
-        }
-    }
-    
-    static func  saveGroups (_ groups: [VKGroup]) {
-           do {
-               let realm = try Realm()
-            print(realm.configuration.fileURL as Any)
-               let oldGroups = realm.objects(VKGroup.self)
-               realm.beginWrite()
-               realm.delete(oldGroups)
-               realm.add(groups)
-               try realm.commitWrite()
-           }
-           catch
-           {
-               print (error)
-           }
-       }
-}
 
 

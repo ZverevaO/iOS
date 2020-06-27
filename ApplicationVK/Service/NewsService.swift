@@ -25,8 +25,7 @@ class NewsService
             response in
             guard let data = response.value else {return}
             do {
-                
-                
+                //парсим полученные новости 
                 let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
                 
                 self.saveNews(dataVKNews.items)
@@ -41,62 +40,6 @@ class NewsService
                 self.saveNewsPofiles(dataVKNews.profiles)
                 self.saveNewsGroups(dataVKNews.groups)
                 
-//                let dataNews =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
-//
-//                self.saveNews(dataNews)
-//
-//                for index in 0...dataNews.count-1
-//                {
-//                    if let photoLost = dataNews[index].photos {
-//                        self.saveNewsPostPhoto(photoLost)
-//                    }
-//                }
-//
-//                let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-//                self.saveNewsPofiles(dataNewsProfiles)
-//
-//                let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-//                self.saveNewsGroups(dataNewsGroups)
-                
-                //let serviceDispatchGroup = DispatchGroup()
-                
-                //
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNews =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
-                //
-                //                    self.saveNews(dataNews!)
-                //
-                //                    for index in 0...dataNews!.count-1
-                //                    {
-                //                        if let photoLost = dataNews![index].photos {
-                //                            self.saveNewsPostPhoto(photoLost, postID: dataNews![index].postId)
-                //                        }
-                //                    }
-                //                    print("очередь декодирования новостей")
-                //
-                //                }
-                
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNewsProfiles = try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                //                    self.saveNewsPofiles(dataNewsProfiles!)
-                //                    print("очередь декодирования профилей")
-                //                }
-                
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNewsGroups =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                //                    self.saveNewsGroups(dataNewsGroups!)
-                //                    print("очередь декодирования групп")
-                //                }
-                //
-                //
-                //
-                //                serviceDispatchGroup.notify(queue: .global()) {
-                //                    print("сохранили все новости")
-                //                }
-                //
             }
             catch{
                 print(error)
