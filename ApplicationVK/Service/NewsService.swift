@@ -35,6 +35,10 @@ class NewsService
                     if let photoLost = dataVKNews.items[index].photos {
                         self.saveNewsPostPhoto(photoLost)
                     }
+                    
+//                    if let audiolist = dataVKNews.items[index].audios {
+//                        self.saveNewsPostAudio(audiolist)
+//                    }
                 }
                 
                 self.saveNewsPofiles(dataVKNews.profiles)
@@ -88,13 +92,17 @@ class NewsService
     static func  saveNews (_ newsList: [VKNews]) {
         do {
             let realm = try Realm()
+            //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            //let realm = try Realm(configuration: config)
             //print(realm.configuration.fileURL as Any)
             // удаляем старые новости и фото для этих новостей
             let oldNews = realm.objects(VKNews.self)
             let oldPhoto = realm.objects(VKNewsPhoto.self)
+            let oldAudio = realm.objects(VKNewsAudio.self)
             realm.beginWrite()
             realm.delete(oldNews)
             realm.delete(oldPhoto)
+            realm.delete(oldAudio)
             realm.add(newsList)
             try realm.commitWrite()
         }
@@ -124,4 +132,20 @@ class NewsService
         }
     }
     
+    //сохраняем аудио для новости
+    static func saveNewsPostAudio (_ postAudios: [VKNewsAudio]) {
+        do {
+            
+
+            let realm = try Realm()
+            print(realm.configuration.fileURL as Any)
+            realm.beginWrite()
+            realm.add(postAudios)
+            try realm.commitWrite()
+        }
+        catch
+        {
+            print (error)
+        }
+    }
 }
