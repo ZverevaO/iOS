@@ -78,22 +78,22 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         
         
         let sourceId = vkMyNews![indexPath.row].sourceId
+//
+//        if sourceId < 0 {
+//            let groupInfo = getInfoGroup (id: (sourceId*(-1)))
+//            urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
+//            sourceName = groupInfo?[0].name ?? "NoName"
+//
+//        }
+//        else
+//        {
+//            let friendInfo = getFriendInfo(id: sourceId)
+//            urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
+//            sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastLame ?? "NoName"))
+//        }
         
-        if sourceId < 0 {
-            let groupInfo = getInfoGroup (id: (sourceId*(-1)))
-            urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
-            sourceName = groupInfo?[0].name ?? "NoName"
-           
-        }
-        else
-        {
-            let friendInfo = getFriendInfo(id: sourceId)
-            urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
-            sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastLame ?? "NoName"))
-        }
-        
-        cell.avatar.af.setImage(withURL: urlAvatarSource)
-        cell.userName.text = sourceName
+        //cell.avatar.af.setImage(withURL: urlAvatarSource)
+        //cell.userName.text = sourceName
         
         dateFormatter.dateFormat = "dd.MM.yyyy HH.mm"
         let date = Date(timeIntervalSince1970: vkMyNews![indexPath.row].date)
@@ -104,7 +104,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
 //        cell.likeBtn.likeCount = vkMyNews[indexPath.row].likesCount!
 //        cell.viewBtn.countView = vkMyNews[indexPath.row].viewsCount!
 //        cell.shareBtn.countShare = vkMyNews[indexPath.row].repostsCount!
-        cell.newsText.text = vkMyNews![indexPath.row].text ?? " "//myNews[indexPath.row].textNews
+        cell.newsText.text = vkMyNews![indexPath.row].text //myNews[indexPath.row].textNews
         print ("лайки " + String(cell.likeBtn.likeCount))
         if  let photos = vkMyNews![indexPath.row].photos {
             cell.fotoNews.removeAll()
@@ -113,7 +113,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         }
         else
         {
-            print(vkMyNews![indexPath.row].photos)
+            print(vkMyNews![indexPath.row].photos as Any)
              print("нет фото")
             cell.fotoNews.removeAll()
             
@@ -163,19 +163,19 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
         }
     }
     
-    func getInfoGroup (id: Int) -> Results<VKGroup>? {
-        
-        guard let realm = try? Realm() else {return nil}
-        let strFilter = "id == " + String(id)
-        return realm.objects(VKGroup.self).filter(strFilter)
-    }
-    
-    func getFriendInfo (id: Int) -> Results<MyFrineds>?
-    {
-        guard let realm = try? Realm() else {return nil}
-        let strFilter = "id == " + String(id)
-        return realm.objects(MyFrineds.self).filter(strFilter)
-    }
+//    func getInfoGroup (id: Int) -> Results<VKGroup>? {
+//
+//        guard let realm = try? Realm() else {return nil}
+//        let strFilter = "id == " + String(id)
+//        return realm.objects(VKGroup.self).filter(strFilter)
+//    }
+//
+//    func getFriendInfo (id: Int) -> Results<MyFrineds>?
+//    {
+//        guard let realm = try? Realm() else {return nil}
+//        let strFilter = "id == " + String(id)
+//        return realm.objects(MyFrineds.self).filter(strFilter)
+//    }
     
     func pairTableNewsAndRealm() -> Results<VKNews>?
        {

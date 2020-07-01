@@ -101,7 +101,7 @@ class FriendService
    static func  saveFriends (_ friends: [MyFrineds]) {
         do {
             let realm = try Realm()
-            print(realm.configuration.fileURL)
+            print(realm.configuration.fileURL as Any)
             let oldFriends = realm.objects(MyFrineds.self)
             realm.beginWrite()
             realm.delete(oldFriends)

@@ -25,64 +25,25 @@ class NewsService
             response in
             guard let data = response.value else {return}
             do {
+                //парсим полученные новости 
+                let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
                 
+                self.saveNews(dataVKNews.items)
                 
-                let dataNews =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
-                
-                self.saveNews(dataNews!)
-                
-                for index in 0...dataNews!.count-1
+                for index in 0...dataVKNews.items.count-1
                 {
-                    if let photoLost = dataNews![index].photos {
+                    if let photoLost = dataVKNews.items[index].photos {
                         self.saveNewsPostPhoto(photoLost)
                     }
+                    
+//                    if let audiolist = dataVKNews.items[index].audios {
+//                        self.saveNewsPostAudio(audiolist)
+//                    }
                 }
                 
-                let dataNewsProfiles = try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                self.saveNewsPofiles(dataNewsProfiles!)
+                self.saveNewsPofiles(dataVKNews.profiles)
+                self.saveNewsGroups(dataVKNews.groups)
                 
-                let dataNewsGroups =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                self.saveNewsGroups(dataNewsGroups!)
-                
-                //let serviceDispatchGroup = DispatchGroup()
-                
-                //
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNews =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.items
-                //
-                //                    self.saveNews(dataNews!)
-                //
-                //                    for index in 0...dataNews!.count-1
-                //                    {
-                //                        if let photoLost = dataNews![index].photos {
-                //                            self.saveNewsPostPhoto(photoLost, postID: dataNews![index].postId)
-                //                        }
-                //                    }
-                //                    print("очередь декодирования новостей")
-                //
-                //                }
-                
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNewsProfiles = try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                //                    self.saveNewsPofiles(dataNewsProfiles!)
-                //                    print("очередь декодирования профилей")
-                //                }
-                
-                //                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .background)
-                //                {
-                //                    let dataNewsGroups =  try? JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                //                    self.saveNewsGroups(dataNewsGroups!)
-                //                    print("очередь декодирования групп")
-                //                }
-                //
-                //
-                //
-                //                serviceDispatchGroup.notify(queue: .global()) {
-                //                    print("сохранили все новости")
-                //                }
-                //
             }
             catch{
                 print(error)
@@ -131,13 +92,17 @@ class NewsService
     static func  saveNews (_ newsList: [VKNews]) {
         do {
             let realm = try Realm()
+            //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            //let realm = try Realm(configuration: config)
             //print(realm.configuration.fileURL as Any)
             // удаляем старые новости и фото для этих новостей
             let oldNews = realm.objects(VKNews.self)
             let oldPhoto = realm.objects(VKNewsPhoto.self)
+            let oldAudio = realm.objects(VKNewsAudio.self)
             realm.beginWrite()
             realm.delete(oldNews)
             realm.delete(oldPhoto)
+            realm.delete(oldAudio)
             realm.add(newsList)
             try realm.commitWrite()
         }
@@ -167,4 +132,20 @@ class NewsService
         }
     }
     
+    //сохраняем аудио для новости
+    static func saveNewsPostAudio (_ postAudios: [VKNewsAudio]) {
+        do {
+            
+
+            let realm = try Realm()
+            print(realm.configuration.fileURL as Any)
+            realm.beginWrite()
+            realm.add(postAudios)
+            try realm.commitWrite()
+        }
+        catch
+        {
+            print (error)
+        }
+    }
 }

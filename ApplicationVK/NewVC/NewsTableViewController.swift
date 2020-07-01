@@ -22,6 +22,13 @@ class NewsTableViewController: UITableViewController {
     var urlAvatarSource: URL!
     var sourceName: String = ""
     
+    enum typeCell: String {
+        case autur
+        case footer
+        case text
+        case potos
+    }
+    
     let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
@@ -29,11 +36,9 @@ class NewsTableViewController: UITableViewController {
         
         pairTableNewsAndRealm()
         
-//        vkMyNews = pairTableNewsAndRealm()
-//        self.tableView.reloadData()
+
         NewsService.loadAllNews ()
-//        vkMyNews = pairTableNewsAndRealm()
-//        self.tableView.reloadData()
+
         
         //устанавливаем высоту ячейки
         tableView.estimatedRowHeight = 300.0
@@ -57,7 +62,7 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return  vkMyNews?[section].countCellNews ?? 0
         // для каждой новости(секции) 4 ячейки
     }
     
@@ -66,27 +71,34 @@ class NewsTableViewController: UITableViewController {
         
         
         let post = vkMyNews![indexPath.section]
-        //выбираем ячейку
-        switch indexPath.row {
-        case 0:
+        //нужно определииь какие типы ячеек есть в новости
+        var arrayOfTypeCell: [typeCell] = []
+   
+        arrayOfTypeCell.append(.autur)
+        if (post.text != ""  && post.text != " ")  {arrayOfTypeCell.append(.text)}
+        if post.countPhoto > 0 { arrayOfTypeCell.append(.potos)}
+        arrayOfTypeCell.append(.footer)
+        
+        let typeCell = arrayOfTypeCell[indexPath.row]
+        
+        switch typeCell {
+        case .autur: do {
             //ячейка для вывода автора новости
             let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
-            
-            //let post = vkMyNews[indexPath.section]
-            
+        
             let sourceId = post.sourceId
             
             
             if sourceId < 0 {
                 let groupInfo = getInfoGroup (id: (sourceId * (-1)))
-                urlAvatarSource = URL(string: (groupInfo?[0].photo50)!)!
-                sourceName = groupInfo?[0].name ?? "NoName"
+                urlAvatarSource = URL(string: (groupInfo?.first?.photo50)!)!
+                sourceName = groupInfo?.first?.name ?? "NoName"
             }
             else
             {
                 let friendInfo = getFriendInfo(id: sourceId)
-                urlAvatarSource = URL(string: (friendInfo?[0].photo50)!)!
-                sourceName = ((friendInfo?[0].firstName ?? "NoName") + " " + (friendInfo?[0].lastName ?? "NoName"))
+                urlAvatarSource = URL(string: (friendInfo?.first?.photo50)!)!
+                sourceName = ((friendInfo?.first?.firstName ?? "NoName") + " " + (friendInfo?.first?.lastName ?? "NoName"))
             }
             
             cell.avatar.af.setImage(withURL: urlAvatarSource)
@@ -97,14 +109,18 @@ class NewsTableViewController: UITableViewController {
             let stringDate = dateFormatter.string(from: date)
             cell.time.text = stringDate
             return cell
-        case 1:
+        }
+           
+        case .text: do {
             //ячейка для вывода текста новости
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTextTableViewCell", for: indexPath) as! NewsTextTableViewCell
             //let post = vkMyNews[indexPath.section]
-            cell.textPost.text = post.text ?? " "
+            cell.textPost.text = post.text
             
             return cell
-        case 2:
+        }
+           
+        case .potos: do {
             //ячнйка для вывода фотографий, содержит коллекцию
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
             //let newsPost = vkMyNews[indexPath.section]
@@ -112,31 +128,103 @@ class NewsTableViewController: UITableViewController {
             
             if post.countPhoto > 0 {
                 cell.fotoNews = getPhotoPost(postID: postID)
-                //print ("кол-во фото \(post.countPhoto)  \(cell.fotoNews?.count)")
             }
             else {
                 //print("нет фото")
                 cell.fotoNews = nil
             }
-            
-            
-            
+
             cell.photoCollection.reloadData()
             cell.layoutIfNeeded()
             
             //получем высоту контента ячейки
             cell.photoCollectionHeight.constant = cell.photoCollection.contentSize.height
-            
-            
             return cell
-        case 3:
+            
+        }
+        case .footer: do {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterTableViewCell", for: indexPath) as! NewsFooterTableViewCell
-            return cell
-            
-        default:
-            let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
+            cell.commentBtn.countCount = post.commentCount
+            print("post.commentCount \(post.commentCount)")
+            cell.likeBtn.likeCount = post.likesCount
+            cell.shareBtn.countShare = post.repostsCount
+            cell.viewBtn.countView = post.viewsCount
             return cell
         }
+        }
+        
+        
+        //выбираем ячейку
+//        switch indexPath.row {
+//        case 0:
+//            //ячейка для вывода автора новости
+//            let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
+//
+//            //let post = vkMyNews[indexPath.section]
+//
+//            let sourceId = post.sourceId
+//
+//
+//            if sourceId < 0 {
+//                let groupInfo = getInfoGroup (id: (sourceId * (-1)))
+//                urlAvatarSource = URL(string: (groupInfo?.first?.photo50)!)!
+//                sourceName = groupInfo?.first?.name ?? "NoName"
+//            }
+//            else
+//            {
+//                let friendInfo = getFriendInfo(id: sourceId)
+//                urlAvatarSource = URL(string: (friendInfo?.first?.photo50)!)!
+//                sourceName = ((friendInfo?.first?.firstName ?? "NoName") + " " + (friendInfo?.first?.lastName ?? "NoName"))
+//            }
+//
+//            cell.avatar.af.setImage(withURL: urlAvatarSource)
+//            cell.autorName.text = sourceName
+//
+//            dateFormatter.dateFormat = "dd.MM.yyyy HH.mm"
+//            let date = Date(timeIntervalSince1970: post.date)
+//            let stringDate = dateFormatter.string(from: date)
+//            cell.time.text = stringDate
+//            return cell
+//        case 1:
+//            //ячейка для вывода текста новости
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTextTableViewCell", for: indexPath) as! NewsTextTableViewCell
+//            //let post = vkMyNews[indexPath.section]
+//            cell.textPost.text = post.text
+//
+//            return cell
+//        case 2:
+//            //ячнйка для вывода фотографий, содержит коллекцию
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
+//            //let newsPost = vkMyNews[indexPath.section]
+//            let postID = post.postId
+//
+//            if post.countPhoto > 0 {
+//                cell.fotoNews = getPhotoPost(postID: postID)
+//                //print ("кол-во фото \(post.countPhoto)  \(cell.fotoNews?.count)")
+//            }
+//            else {
+//                //print("нет фото")
+//                cell.fotoNews = nil
+//            }
+//
+//
+//
+//            cell.photoCollection.reloadData()
+//            cell.layoutIfNeeded()
+//
+//            //получем высоту контента ячейки
+//            cell.photoCollectionHeight.constant = cell.photoCollection.contentSize.height
+//
+//
+//            return cell
+//        case 3:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterTableViewCell", for: indexPath) as! NewsFooterTableViewCell
+//            return cell
+//
+//        default:
+//            let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
+//            return cell
+//        }
         
         
     }
@@ -211,8 +299,7 @@ class NewsTableViewController: UITableViewController {
         return realm.objects(VKNewsPhoto.self).filter(strFilter)
     }
     
-    func pairTableNewsAndRealm()
-    {
+    func pairTableNewsAndRealm() {
         guard let realm = try? Realm() else {return }
         vkMyNews = realm.objects(VKNews.self)
         
@@ -224,7 +311,7 @@ class NewsTableViewController: UITableViewController {
                 tableView.reloadData()
                 //устанавливаем высоту ячейки
                 tableView.estimatedRowHeight = 300.0
-                
+               
                 //пересчитываем высоту ячеек
                 tableView.rowHeight = UITableView.automaticDimension
             case .update(_, let deletions, let insertions, let modifications):

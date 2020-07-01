@@ -314,12 +314,13 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Gdv-1x-HYx" secondAttribute="trailing" id="Fxs-8h-DNT"/>
-                                        <constraint firstItem="uuO-Zs-dL0" firstAttribute="top" secondItem="Gdv-1x-HYx" secondAttribute="bottom" constant="5" id="SaD-r9-OqE"/>
+                                        <constraint firstItem="uuO-Zs-dL0" firstAttribute="top" secondItem="Gdv-1x-HYx" secondAttribute="bottom" constant="5" id="J0V-sr-tnx"/>
+                                        <constraint firstAttribute="bottom" secondItem="uuO-Zs-dL0" secondAttribute="bottom" constant="5" id="Lh9-9y-qrj"/>
                                         <constraint firstAttribute="trailing" secondItem="uuO-Zs-dL0" secondAttribute="trailing" constant="40" id="ZcG-Q3-wlm"/>
                                         <constraint firstItem="Gdv-1x-HYx" firstAttribute="top" secondItem="Zcf-fx-aFo" secondAttribute="top" id="a95-fv-fej"/>
-                                        <constraint firstAttribute="bottom" secondItem="uuO-Zs-dL0" secondAttribute="bottom" constant="5" id="wxU-if-Mpx"/>
                                         <constraint firstAttribute="bottom" secondItem="Gdv-1x-HYx" secondAttribute="bottom" constant="40" id="xNx-BX-tQD"/>
                                         <constraint firstItem="Gdv-1x-HYx" firstAttribute="leading" secondItem="Zcf-fx-aFo" secondAttribute="leading" id="xOQ-CC-r54"/>
+                                        <constraint firstItem="uuO-Zs-dL0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zcf-fx-aFo" secondAttribute="leading" constant="20" symbolic="YES" id="xWz-Yh-hiL"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="150" height="170"/>
@@ -535,7 +536,7 @@
         <!--Custom Navigation Controller-->
         <scene sceneID="0Cd-mv-EHH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dLy-Nu-Wtj" customClass="CustomNavigationController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CustomNavigationController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dLy-Nu-Wtj" customClass="CustomNavigationController" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nek-5Q-45l">
                         <autoresizingMask key="autoresizingMask"/>
@@ -804,28 +805,22 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="10y-BE-27T">
-                                            <rect key="frame" x="75" y="13.999999999999996" width="285" height="42.666666666666657"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="10y-BE-27T">
+                                            <rect key="frame" x="75" y="14.333333333333332" width="285" height="41.666666666666671"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="autor " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6v-KI-xRZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="autor " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6v-KI-xRZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="285" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="14.30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34f-dH-hWa">
-                                                    <rect key="frame" x="0.0" y="22.333333333333336" width="285" height="20.333333333333336"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34f-dH-hWa">
+                                                    <rect key="frame" x="0.0" y="21.333333333333336" width="285" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="34f-dH-hWa" secondAttribute="trailing" id="2j8-qI-a0v"/>
-                                                <constraint firstItem="r6v-KI-xRZ" firstAttribute="leading" secondItem="10y-BE-27T" secondAttribute="leading" id="X2h-gh-aAu"/>
-                                                <constraint firstAttribute="trailing" secondItem="r6v-KI-xRZ" secondAttribute="trailing" id="nuw-p4-HLo"/>
-                                                <constraint firstItem="34f-dH-hWa" firstAttribute="leading" secondItem="10y-BE-27T" secondAttribute="leading" id="yDq-wA-bTV"/>
-                                            </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
