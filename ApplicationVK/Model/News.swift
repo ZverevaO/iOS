@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 import RealmSwift
 
-
 // источник новостей группы
 class VKNewsGroup: Object, Decodable {
     @objc dynamic var id: Int = 0
@@ -65,8 +64,8 @@ class VKNewsAudio: Object,  Decodable {
     }
     
     override static func primaryKey() -> String? {
-           return "id"
-       }
+        return "id"
+    }
     
     convenience required init (id: Int, artist: String, title: String, duration: Int, url: String, postID: Int ) {
         self.init()
@@ -80,11 +79,9 @@ class VKNewsAudio: Object,  Decodable {
     
 }
 
-
 class VKPhotoSize: Decodable {
     var type: String = ""
     var url: String = ""
-    
 }
 
 //класс для хранения фотографий 
@@ -94,7 +91,6 @@ class VKNewsPhoto: Object  {
     @objc dynamic var url: String = ""
     @objc dynamic var urlX: String = ""
     @objc dynamic var postID: Int = 0
-    
     
     convenience required init (date: Int, id: Int, url: String, urlX: String, postID: Int)
     {
@@ -109,8 +105,6 @@ class VKNewsPhoto: Object  {
     override static func primaryKey() -> String? {
         return "id"
     }
-    
-    
 }
 
 
@@ -147,7 +141,6 @@ class VKNews: Object, Decodable {
         case attachments
     }
     
-    
     enum CodingKeyCounts: String, CodingKey {
         case count
     }
@@ -159,13 +152,12 @@ class VKNews: Object, Decodable {
         case sizes
     }
     enum CodingKeyAudio: String, CodingKey {
-           case id
-           case artist
-           case title
-           case duration
-           case url
-       }
-    
+        case id
+        case artist
+        case title
+        case duration
+        case url
+    }
     
     enum CodingKeyAttachment: String, CodingKey {
         case type
@@ -183,17 +175,17 @@ class VKNews: Object, Decodable {
         
         var cellcount = 0
         //массив для хранения фото
-         var photosNews: [VKNewsPhoto]? = []
-         
-         var audioNews: [VKNewsAudio]? = []
+        var photosNews: [VKNewsPhoto]? = []
         
-         var duration: Int = 0
-         var artist: String = ""
-         var title: String = ""
-         var id: Int = 0
-         var date: Int = 0
-         var url = ""
-         var urlX = ""
+        var audioNews: [VKNewsAudio]? = []
+        
+        var duration: Int = 0
+        var artist: String = ""
+        var title: String = ""
+        var id: Int = 0
+        var date: Int = 0
+        var url = ""
+        var urlX = ""
         
         let values = try decoder.container(keyedBy: CodingKeyVKNews.self)
         let postId = try values.decode(Int.self, forKey: .postId)
@@ -205,10 +197,6 @@ class VKNews: Object, Decodable {
         self.date = try values.decode(Double.self, forKey: .date)
         let text =  try? values.decode(String?.self, forKey: .text)
         self.text =  text ?? "" //try? values.decode(String?.self, forKey: .text)
-  
-        
-        
-        
         
         switch typeNews {
         case "post": do {
@@ -240,15 +228,13 @@ class VKNews: Object, Decodable {
                             default:
                                 break
                             }
-                            
-                            
                         }
                         let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
                         photosNews?.append(photoAtt)
                         self.photos = photosNews
                         //self.countPhoto = photosNews?.count ?? (-1)
                         //завершили обработку фото
-                    }
+                        }
                     case "video":
                         print("тип вложения \(attachmetnType)")
                     case "audio": do {
@@ -264,44 +250,28 @@ class VKNews: Object, Decodable {
                         let audioAtt = VKNewsAudio(id: id, artist: artist, title: title, duration: duration, url: url, postID: postId)
                         audioNews?.append(audioAtt)
                         self.audios = audioNews
-    
-                    //завершили обработку вложения audio
-                    }
+                        
+                        //завершили обработку вложения audio
+                        }
                     default:
                         print("неизвестынй тип вложения \(attachmetnType)")
                     }
-                    
-                   
-//
-//                    let commentValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments)
-//                    self.commentCount = try commentValue?.decode(Int?.self, forKey: .count)
-//
-//                    let likesValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes)
-//                    self.likesCount = try likesValue?.decode(Int?.self, forKey: .count)
-//
-//                    let repostsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts)
-//                    self.repostsCount = try repostsValue?.decode(Int?.self, forKey: .count)
-//
-//                    let viewsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .views)
-//                    self.viewsCount = try viewsValue?.decode(Int?.self, forKey: .count)
-                    
                 }
                 self.countPhoto = photosNews?.count ?? (-1)
-               
+                
             }
             else
             {
                 print("ничего нет ")
             }
-
-
+            
+            
             if let commentValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .comments) {
-                 self.commentCount = try commentValue.decode(Int.self, forKey: .count)
+                self.commentCount = try commentValue.decode(Int.self, forKey: .count)
             }
-      
+            
             if let likesValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .likes) {
                 self.likesCount = try likesValue.decode(Int.self, forKey: .count)
-                
             }
             
             if let repostsValue = try? values.nestedContainer(keyedBy: CodingKeyCounts.self, forKey: .reposts) {
@@ -354,12 +324,12 @@ class VKNews: Object, Decodable {
         }
         cellcount = 0
         if (text != "" && text != nil && text != " ") {
-             cellcount = cellcount + 1
-          }
+            cellcount = cellcount + 1
+        }
         
         if (photosNews?.count != nil && photosNews?.count != 0) {
-                           cellcount = cellcount + 1
-                       }
+            cellcount = cellcount + 1
+        }
         self.countCellNews = 2 + cellcount //увеличаевм на 2 т.к у всех есть автор и подвал 
     }
 }
@@ -370,33 +340,23 @@ class VKDataNews: Decodable {
     var groups: [VKNewsGroup]
     
     enum CodingKeys: String, CodingKey {
-           case items
-           case profiles
-           case groups
-       }
-    
-    required init (from decoder: Decoder)  throws
-    {
-     
-
-        let dataNews = try decoder.container(keyedBy: CodingKeys.self)
-        
-//        try DispatchQueue.global().async() { [weak self] in
-//            self?.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
-//        }
-//        DispatchQueue.global().async() {
-//            self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
-//        }
-//        DispatchQueue.global().async() {
-//            self.items = try dataNews.decode([VKNews].self, forKey: .items)
-//        }
-        self.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
-        self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
-        self.items = try dataNews.decode([VKNews].self, forKey: .items)
-        
-    
+        case items
+        case profiles
+        case groups
     }
-       
+    
+    //    required init (from decoder: Decoder)  throws
+    //    {
+    //
+    //
+    //        let dataNews = try decoder.container(keyedBy: CodingKeys.self)
+    //        self.groups = try dataNews.decode([VKNewsGroup].self, forKey: .groups)
+    //        self.profiles = try dataNews.decode([VKNewsProfile].self, forKey: .profiles)
+    //        self.items = try dataNews.decode([VKNews].self, forKey: .items)
+    //
+    //
+    //    }
+    
 }
 
 class VKNewsRespons: Decodable {

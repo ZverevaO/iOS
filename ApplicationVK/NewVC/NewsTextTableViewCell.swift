@@ -10,8 +10,7 @@ import UIKit
 
 class NewsTextTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var textPost: UILabel!
-    
+    @IBOutlet private weak var textPost: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,6 +21,10 @@ class NewsTextTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure (text: String)  {
+        textPost.text = text
     }
 
 }

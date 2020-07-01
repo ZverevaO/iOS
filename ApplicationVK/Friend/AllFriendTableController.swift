@@ -37,7 +37,12 @@ class AllFriendTableController: UITableViewController {
         pairTableFriendsAdnRealm()
         //loadDataFriend()
         //        нужно получить данные друзей
-        FriendService.loadAlllFriend()
+       // FriendService.loadAlllFriend()
+        
+       FriendService.freandPromise()
+//            .get {
+//                
+//        }
         
         self.title = "друзья"
         

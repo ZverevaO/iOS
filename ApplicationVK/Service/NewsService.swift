@@ -15,34 +15,67 @@ class NewsService
     static func loadAllNews ()
         //(completion: @escaping ([VKNews])-> Void)
     {
+        let serviceDispatchGroup = DispatchGroup()
+        
         // "filters" : "post,photo",
         AF.request("https://api.vk.com/method/newsfeed.get",
                    parameters: [
                     "access_token" : Session.instance.token,
                     "filters" : "post, photo",
                     "v" : "5.103"
-        ]).responseData {
+        ]).responseData(queue: .global(qos: .utility)) {
             response in
             guard let data = response.value else {return}
             do {
-                //парсим полученные новости 
-                let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
                 
-                self.saveNews(dataVKNews.items)
-                
-                for index in 0...dataVKNews.items.count-1
-                {
-                    if let photoLost = dataVKNews.items[index].photos {
-                        self.saveNewsPostPhoto(photoLost)
+                //запускаем парсинг в отдельных очередях
+                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .utility) {
+                    //парсим полученные новости
+                    do {
+                        let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
+                     
+                        saveNews(dataVKNews.items)
+                        
+                        for index in 0...dataVKNews.items.count-1
+                        {
+                            if let photoLost = dataVKNews.items[index].photos {
+                                self.saveNewsPostPhoto(photoLost)
+                            }
+                            
+                            // if let audiolist = dataVKNews.items[index].audios {
+                            //self.saveNewsPostAudio(audiolist)
+                            //}
+                        }
                     }
-                    
-//                    if let audiolist = dataVKNews.items[index].audios {
-//                        self.saveNewsPostAudio(audiolist)
-//                    }
+                    catch {
+                        print(error)
+                    }
                 }
                 
-                self.saveNewsPofiles(dataVKNews.profiles)
-                self.saveNewsGroups(dataVKNews.groups)
+                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .utility) {
+                    do {
+                        let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
+                        saveNewsPofiles(dataNewsProfiles)
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+                
+                DispatchQueue.global().async(group: serviceDispatchGroup, qos: .utility) {
+                    do {
+                        let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
+                        saveNewsGroups(dataNewsGroups)
+                    }
+                    catch {
+                        print (error)
+                    }
+                }
+                
+                serviceDispatchGroup.notify(queue: .global()) {  
+                    print("сохранили все новости")
+                    
+                }
                 
             }
             catch{
@@ -64,8 +97,7 @@ class NewsService
             realm.add(profiles)
             try realm.commitWrite()
         }
-        catch
-        {
+        catch {
             print (error)
         }
     }
@@ -81,8 +113,7 @@ class NewsService
             realm.add(groups)
             try realm.commitWrite()
         }
-        catch
-        {
+        catch {
             print (error)
         }
     }
@@ -106,8 +137,7 @@ class NewsService
             realm.add(newsList)
             try realm.commitWrite()
         }
-        catch
-        {
+        catch {
             print (error)
         }
     }
@@ -126,8 +156,7 @@ class NewsService
             realm.add(postPhotos)
             try realm.commitWrite()
         }
-        catch
-        {
+        catch {
             print (error)
         }
     }
@@ -135,16 +164,13 @@ class NewsService
     //сохраняем аудио для новости
     static func saveNewsPostAudio (_ postAudios: [VKNewsAudio]) {
         do {
-            
-
             let realm = try Realm()
             print(realm.configuration.fileURL as Any)
             realm.beginWrite()
             realm.add(postAudios)
             try realm.commitWrite()
         }
-        catch
-        {
+        catch {
             print (error)
         }
     }
