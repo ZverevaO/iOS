@@ -2,30 +2,42 @@ PODS:
   - Alamofire (5.2.1)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
-  - Realm (5.0.1):
-    - Realm/Headers (= 5.0.1)
-  - Realm/Headers (5.0.1)
-  - RealmSwift (5.0.1):
-    - Realm (= 5.0.1)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
+  - Realm (5.2.0):
+    - Realm/Headers (= 5.2.0)
+  - Realm/Headers (5.2.0)
+  - RealmSwift (5.2.0):
+    - Realm (= 5.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.1)
   - AlamofireImage (~> 4.1)
+  - PromiseKit (~> 6.0)
   - RealmSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - PromiseKit
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
-  Realm: d36cfc336d76d2e15b13651beb6050f49354de4b
-  RealmSwift: f29ae0ceaf4fbaf4803c40bbebd838ea2beb903a
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  Realm: f749c723e272f08fdf1939af5e61d2bd09b203e8
+  RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
 
-PODFILE CHECKSUM: de659982acfe6b01bce82deebe75ad70d30a2ca7
+PODFILE CHECKSUM: 0376e493b20e9827b1b026cedc9cb7f6d00755cd
 
 COCOAPODS: 1.9.1
