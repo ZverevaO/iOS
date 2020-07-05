@@ -39,7 +39,7 @@ class AllFriendTableController: UITableViewController {
         //        нужно получить данные друзей
        // FriendService.loadAlllFriend()
         
-       FriendService.freandPromise()
+       FriendService.friendPromise()
 //            .get {
 //                
 //        }

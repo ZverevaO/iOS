@@ -13,7 +13,7 @@ import PromiseKit
 
 class FriendService
 {
-    static func freandPromise () -> Promise<[MyFrineds]> {
+    static func friendPromise () -> Promise<[MyFrineds]> {
         let friendRequest = AF.request("https://api.vk.com/method/friends.get",
                                        parameters: [
                                         "access_token" : Session.instance.token,
@@ -42,7 +42,7 @@ class FriendService
         }
     }
     
-    static func loadAlllFriend ()
+    static func loadAlllFriends ()
     {
         //"nickname, sex, bdate , city",
         AF.request("https://api.vk.com/method/friends.get",
