@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 import RealmSwift
 
-class VKGroupsService
-{
+class VKGroupsService {
+    
     static func loadGroupsUser (controller: MyGroupTableController) {
         let request = AF.request("https://api.vk.com/method/groups.get",
                                  parameters: [

@@ -11,6 +11,10 @@ pod 'AlamofireImage', '~> 4.1'
 
 pod 'RealmSwift'
 
+pod  'PromiseKit' ,  '~> 6.0'
+
+#pod 'PromiseKit/Alamofire', '~> 6.0'
+
   # Pods for ApplicationVK
 
 end
