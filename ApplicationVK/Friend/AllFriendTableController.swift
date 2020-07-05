@@ -133,6 +133,8 @@ class AllFriendTableController: UITableViewController {
         cell.city.text = online
         
         let url = URL(string: friend.photo50)
+        
+        //cell.shadowFoto.image = photoService?.photo(atIndexpath: <#T##IndexPath#>, byUrl: <#T##String#>)
         cell.shadowFoto.image.af.setImage(withURL: url!)
         cell.userId = friend.id
         

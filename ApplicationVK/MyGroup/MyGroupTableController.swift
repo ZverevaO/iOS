@@ -15,6 +15,7 @@ import RealmSwift
 
 class MyGroupTableController: UITableViewController {
     
+    var photoService: PhotoService?
     var myGroup: [VKGroup] = [] //GroupDB.getGroups()
     var allMyGroups: [VKGroup] = []
     var token: NotificationToken?
@@ -32,6 +33,8 @@ class MyGroupTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        photoService = PhotoService(container: self.tableView)
         pairTableAdnRealm()
         
         groupSearch.delegate = self
@@ -59,14 +62,10 @@ class MyGroupTableController: UITableViewController {
   
             //Получаем индекс выделенной ячейки
             if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
-                // Получаем город по индексу
+                
                 let group = allGroupTableController.allFoundGroup[indexPath.row]
                 print(group)
-                // Проверяем, что такого города нет в списке
-                //let userGroup = FireBaseUserGroups(userID: Session.instance.userId, groupID: group.id)
-                //let ref = String(group.id) + String(Session.instance.userId)
-                //let userGroupRef = self.ref.child(ref)
-                //userGroupRef.setValue(userGroup.toAnyObject())
+               
                 
             }
         }
@@ -106,16 +105,17 @@ class MyGroupTableController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Получаем ячейку из пула
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell 
         // Получаем группу для строки
         let group = vkGroups?[indexPath.row]//allMyGroups[indexPath.row]
-            //myGroup[indexPath.row]
         
         // Устанавливаем параметры группы
-        cell.name.text = group?.name
-        cell.groupType.text = " "//group.gType.description
-        let iconUrl = URL(string: group?.photo50 ?? "")
-        cell.iconShadow.image.af.setImage(withURL: iconUrl!) 
+        let iconUrl: String =  group?.photo50 ?? ""
+        let image: UIImage? = photoService?.photo(atIndexpath: indexPath, byUrl: iconUrl) ??  UIImage(named: "iconFriend1")
+        let groupName = group?.name ?? "группа"
+        
+        cell.configure(groupName: groupName, typeGroup: "", avatarGroup: image)
+        
         return cell
     }
     

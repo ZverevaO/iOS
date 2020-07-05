@@ -11,11 +11,11 @@ import UIKit
 class MyGroupTableCell: UITableViewCell {
     
   
-    @IBOutlet weak var iconShadow: CircleShadowImage!
+    @IBOutlet private weak var iconShadow: CircleShadowImage!
     
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet private weak var name: UILabel!
     
-    @IBOutlet weak var groupType: UILabel!
+    @IBOutlet private weak var groupType: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +26,13 @@ class MyGroupTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure (groupName: String, typeGroup: String, avatarGroup: UIImage?)
+    {
+        name.text = groupName
+        groupType.text = typeGroup
+        iconShadow.image.image = avatarGroup
     }
 
 }

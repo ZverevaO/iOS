@@ -22,7 +22,7 @@ class CircleShadowImage: UIView {
         viewAnimation ()
     }
     
-    func viewAnimation () {
+    private func viewAnimation () {
         let animation = CASpringAnimation (keyPath: "transform.scale")
         animation.fromValue = 0.5
         animation.toValue = 1.0
@@ -46,7 +46,7 @@ class CircleShadowImage: UIView {
         addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func addImage() {
+    private func addImage() {
         image = UIImageView(frame: frame)
         addSubview(image)
     }
