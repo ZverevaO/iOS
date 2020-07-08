@@ -20,10 +20,6 @@ class MyGroupTableController: UITableViewController {
     var allMyGroups: [VKGroup] = []
     var token: NotificationToken?
     var vkGroups: Results<VKGroup>?
-
-//    private var userGroups = [FireBaseUserGroups]()
-//    private let ref = Database.database().reference(withPath: "userGroups")
-    
     
     @IBOutlet weak var groupSearch: UISearchBar!
     
@@ -33,16 +29,12 @@ class MyGroupTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         photoService = PhotoService(container: self.tableView)
+        
         pairTableAdnRealm()
         
         groupSearch.delegate = self
         
-       // loadDataGroup()
-        
-        //        список групп пользователя
-        //VKGroupsService.loadGroupsUser()
         VKGroupsService.loadGroupsUser(controller: self)
         
         self.title = "мои группы"
@@ -59,37 +51,17 @@ class MyGroupTableController: UITableViewController {
             
             //Получаем ссылку на контроллер, с которого осуществлен переход
             let allGroupTableController = segue.source as! AllGroupTableController
-  
+            
             //Получаем индекс выделенной ячейки
             if let indexPath = allGroupTableController.tableView.indexPathForSelectedRow {
                 
                 let group = allGroupTableController.allFoundGroup[indexPath.row]
                 print(group)
-               
-                
+ 
             }
         }
         
     }
-    
-    // MARK: - Table view data source
-    
-//    func loadDataGroup()
-//       {
-//           do {
-//               
-//               let realm = try Realm()
-//               let groups = realm.objects(VKGroup.self)
-//               self.allMyGroups = Array(groups)
-//               print(self.self.allMyGroups)
-//               self.tableView?.reloadData()
-//           }
-//           catch {
-//               print(error)
-//           }
-//           
-//       }
-//    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -98,7 +70,7 @@ class MyGroupTableController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-
+        
         return vkGroups?.count ?? 0
     }
     
@@ -107,7 +79,7 @@ class MyGroupTableController: UITableViewController {
         // Получаем ячейку из пула
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableCell 
         // Получаем группу для строки
-        let group = vkGroups?[indexPath.row]//allMyGroups[indexPath.row]
+        let group = vkGroups?[indexPath.row]
         
         // Устанавливаем параметры группы
         let iconUrl: String =  group?.photo50 ?? ""
@@ -135,7 +107,7 @@ class MyGroupTableController: UITableViewController {
     }
     
     func pairTableAdnRealm() {
-
+        
         guard let realm = try? Realm() else {return}
         vkGroups = realm.objects(VKGroup.self)
         token = vkGroups?.observe { [weak self]
@@ -147,7 +119,7 @@ class MyGroupTableController: UITableViewController {
             case .update(_, let deletions, let insertions, let modifications):
                 
                 tableView.reloadData()
-
+                
             case .error(let error):
                 fatalError("\(error)")
             }
@@ -163,26 +135,6 @@ extension MyGroupTableController: UISearchBarDelegate
         myGroup = allMyGroups.filter{(group) -> Bool in return
             searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
         }
-
-        
-//        let realm = try Realm()
-//        let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
-//        self.allMyFriend = Array(frinds)
-//        
-//        print(searchText.lowercased())
-//        //поиск групп
-//        AF.request("https://api.vk.com/method/groups.search",
-//                   parameters: [
-//                    "access_token" : Session.instance.token,
-//                    "q": searchText.lowercased(),
-//                    "type" : "group",
-//                    "sort" : "2",
-//                    "v" : "5.103"
-//        ]).responseJSON {
-//            response in
-//            print(response.value)
-//
-//        }
         tableView.reloadData()
         
     }

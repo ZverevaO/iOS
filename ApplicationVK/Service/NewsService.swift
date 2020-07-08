@@ -133,7 +133,7 @@ class NewsService
             realm.beginWrite()
             realm.delete(oldNews)
             realm.delete(oldPhoto)
-            realm.delete(oldAudio)
+            //realm.delete(oldAudio)
             realm.add(newsList)
             try realm.commitWrite()
         }
@@ -154,6 +154,7 @@ class NewsService
             realm.beginWrite()
             //realm.delete(oldPostPhotos)
             realm.add(postPhotos)
+            realm.add(postPhotos, update: .modified)
             try realm.commitWrite()
         }
         catch {

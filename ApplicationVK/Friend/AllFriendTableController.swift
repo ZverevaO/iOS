@@ -18,9 +18,7 @@ struct Section <T> {
 }
 
 
-
 class AllFriendTableController: UITableViewController {
-    
     
     var allMyFriend =  [MyFrineds]()
     var myFriendSection = [Section<MyFrineds>]()
@@ -28,51 +26,20 @@ class AllFriendTableController: UITableViewController {
     var vkFrends: Results<MyFrineds>?
     
     @IBOutlet weak var searchFriend: UISearchBar!
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchFriend.delegate = self
         pairTableFriendsAdnRealm()
-        //loadDataFriend()
-        //        нужно получить данные друзей
-       // FriendService.loadAlllFriend()
         
        FriendService.friendPromise()
-//            .get {
-//                
-//        }
-        
+  
         self.title = "друзья"
         
     }
     
-//    func loadDataFriend()
-//    {
-//        do {
-//
-//            let realm = try Realm()
-//            let frinds = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
-//            self.allMyFriend = Array(frinds)
-//
-//            let myFriendsDictionary = Dictionary.init(grouping: (self.allMyFriend)) {
-//                       $0.lastLame.prefix(1)
-//
-//                   }
-//            //формируем секции по словарю
-//            self.myFriendSection = myFriendsDictionary.map {Section(title: String($0.key), items: $0.value)}
-//            //сортируем секции
-//            self.myFriendSection.sort {$0.title < $1.title}
-//            print(self.allMyFriend.count)
-//            self.tableView?.reloadData()
-//        }
-//        catch {
-//            print(error)
-//        }
-//
-//    }
-    
+
     func pairTableFriendsAdnRealm() {
         guard let realm = try? Realm() else {return}
         vkFrends = realm.objects(MyFrineds.self).filter("firstName != %@","DELETED")
@@ -122,22 +89,18 @@ class AllFriendTableController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendTableCell", for: indexPath) as! AllFriendTableCell
         // Получаем друзей из секции
         let friend = myFriendSection[indexPath.section].items[indexPath.row]
-        // ранее получали просто массив друзей let friend = allFriend[indexPath.row]
         
         // Устанавливаем параметры друга
-        cell.name.text = friend.firstName + " " + friend.lastLame
+        let textName = friend.firstName + " " + friend.lastLame
+    
         var online = ""
         if friend.online == 1 {
            online = "online"
         }
-        cell.city.text = online
-        
+
         let url = URL(string: friend.photo50)
-        
-        //cell.shadowFoto.image = photoService?.photo(atIndexpath: <#T##IndexPath#>, byUrl: <#T##String#>)
-        cell.shadowFoto.image.af.setImage(withURL: url!)
-        cell.userId = friend.id
-        
+    
+        cell.configure(nameFriend: textName, onlineStatus: online, avatarURL: url, userId: friend.id)
         return cell
     }
     
@@ -157,10 +120,9 @@ class AllFriendTableController: UITableViewController {
             let fotoCollection: FotoCollectionController = segue.destination as! FotoCollectionController
             let cell: AllFriendTableCell = sender as! AllFriendTableCell
             
-            fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
-            fotoCollection.userowner = cell.userId!
-            print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))
-
+            //fotoCollection.titelWindow = String(cell.name.text ?? " ") + " галерея"
+            fotoCollection.userowner = cell.getUser()
+            //print ("выбранный друг " + String(cell.name.text ?? " ") + String(cell.userId!))
         }
         
     }
@@ -175,7 +137,6 @@ extension AllFriendTableController: UISearchBarDelegate {
         }) {
             $0.lastLame.prefix(1)
         }
-        
         
         //формируем секции по словарю
         myFriendSection = friendsDictionary.map {Section(title: String($0.key), items: $0.value)}
