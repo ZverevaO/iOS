@@ -153,7 +153,7 @@ class NewsService
             //let oldPostPhotos = realm.objects(VKNewsPhoto.self).filter(strFilter)
             realm.beginWrite()
             //realm.delete(oldPostPhotos)
-            realm.add(postPhotos)
+            //realm.add(postPhotos)
             realm.add(postPhotos, update: .modified)
             try realm.commitWrite()
         }
