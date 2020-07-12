@@ -13,31 +13,43 @@ import Foundation
 
 class NewsTableViewController: UITableViewController {
     
-    var source: UIImageView?
-    var vkBDGroups: Results<VKNewsGroup>?
-    var vkFriend: Results<VKNewsProfile>?
-    var token: NotificationToken?
+    private var source: UIImageView?
+    private var vkBDGroups: Results<VKNewsGroup>?
+    private var vkFriend: Results<VKNewsProfile>?
+    private var token: NotificationToken?
+    private var vkMyNews: Results<VKNews>?
     
+    var vkNewsArray = [VKNews]()
+    var vkProfileArray = [VKNewsProfile]()
+    var vkGroupArray = [VKNewsGroup]()
+    var vkNewsPhotoArray =  [Int: [VKNewsPhoto]]()
     
-    var vkMyNews: Results<VKNews>?
-    var urlAvatarSource: URL!
-    var sourceName: String = ""
+    private var urlAvatarSource: URL!
+    private var sourceName: String = ""
     
-    enum typeCell: String {
+    private var controlRrefresh = UIRefreshControl()
+    let newsService = NewsService()
+    
+    private enum typeCell: String {
         case autur
         case footer
         case text
         case photos
     }
     
-    let dateFormatter = DateFormatter()
+    fileprivate var nextFrom = ""
+    fileprivate var isLoading = false
+    
+    private let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupRefreshControl()
         
         pairTableNewsAndRealm()
     
-        NewsService.loadAllNews ()
+        NewsService.loadAllNews(startfrom: Session.instance.nextFrom)
 
         //устанавливаем высоту ячейки
         tableView.estimatedRowHeight = 300.0
@@ -47,6 +59,9 @@ class NewsTableViewController: UITableViewController {
         
         self.title = "новости"
         
+        // Указываем, что мы делегат
+        tableView.prefetchDataSource = self
+
     }
     
     // MARK: - Table view data source
@@ -150,54 +165,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
     
     func getInfoGroup (id: Int) -> Results<VKNewsGroup>? {
         
@@ -224,53 +192,117 @@ class NewsTableViewController: UITableViewController {
         guard let realm = try? Realm() else {return }
         vkMyNews = realm.objects(VKNews.self)
         
-        token = vkMyNews?.observe { [weak self]
-            (changes: RealmCollectionChange) in
+        /*
+         private var vkBDGroups: Results<VKNewsGroup>?
+           private var vkFriend: Results<VKNewsProfile>?*/
+        
+//        token = vkMyNews?.observe { [weak self]
+//            (changes: RealmCollectionChange) in
+//            guard let tableView = self?.tableView else { return }
+//            switch changes {
+//            case .initial:
+//                tableView.reloadData()
+//                //устанавливаем высоту ячейки
+//                tableView.estimatedRowHeight = 300.0
+//
+//                //пересчитываем высоту ячеек
+//                tableView.rowHeight = UITableView.automaticDimension
+//            case .update(_, let deletions, let insertions, let modifications):
+//
+//                tableView.reloadData()
+//                //устанавливаем высоту ячейки
+//                tableView.estimatedRowHeight = 300.0
+//
+//                //пересчитываем высоту ячеек
+//                tableView.rowHeight = UITableView.automaticDimension
+//            case .error(let error):
+//                fatalError("\(error)")
+//            }
+//        }
+        
+        token = realm.observe { [weak self] notification, realm in
             guard let tableView = self?.tableView else { return }
-            switch changes {
-            case .initial:
-                tableView.reloadData()
-                //устанавливаем высоту ячейки
-                tableView.estimatedRowHeight = 300.0
-               
-                //пересчитываем высоту ячеек
-                tableView.rowHeight = UITableView.automaticDimension
-            case .update(_, let deletions, let insertions, let modifications):
-                
-                tableView.reloadData()
-                //устанавливаем высоту ячейки
-                tableView.estimatedRowHeight = 300.0
-                
-                //пересчитываем высоту ячеек
-                tableView.rowHeight = UITableView.automaticDimension
-            case .error(let error):
-                fatalError("\(error)")
-            }
+            
+            //self.datasource = realm.objects(AnObject.self)
+            tableView.reloadData()
+            //устанавливаем высоту ячейки
+            tableView.estimatedRowHeight = 300.0
+            
+            //пересчитываем высоту ячеек
+            tableView.rowHeight = UITableView.automaticDimension
         }
        
         
     }
     
-    /*
-      func pairTableAdnRealm() {
-
-            guard let realm = try? Realm() else {return}
-            vkGroups = realm.objects(VKGroup.self)
-            token = vkGroups?.observe { [weak self]
-                (changes: RealmCollectionChange) in
-                guard let tableView = self?.tableView else { return }
-                switch changes {
-                case .initial:
-                    tableView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
-                    
-                    tableView.reloadData()
-
-                case .error(let error):
-                    fatalError("\(error)")
-                }
-            }
+    // Функция настройки контроллера
+    fileprivate func setupRefreshControl() {
+        controlRrefresh.attributedTitle = NSAttributedString(string: "Loading...")
+        controlRrefresh.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+        tableView.addSubview(controlRrefresh)
+    }
+    
+    @objc func refreshNews() {
+        // Начинаем обновление новостей
+        self.controlRrefresh.beginRefreshing()
+        let mostFreshNewsDate = self.vkMyNews?.first?.date ??  Date().timeIntervalSince1970
+        
+        //NewsService.loadAllNews(startfrom: String(mostFreshNewsDate + 1))
+         //self.refreshControl?.endRefreshing()
+  
+        print("Start")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.controlRrefresh.endRefreshing()
         }
-     */
+  
+    }
+
     
 }
+
+extension NewsTableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        print ("!!!!!!! дозагружаем новости")
+        // Выбираем максимальный номер секции, которую нужно будет отобразить в ближайшее время
+        guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
+        // Проверяем,является ли эта секция одной из трех ближайших к концу
+        if maxSection > vkMyNews!.count - 3, !isLoading {
+            // Начинаем загрузку данных и меняем флаг isLoading
+            self.isLoading = true
+            
+//            newsService.loadPartVKNews(startfrom: Session.instance.nextFrom, completion: {
+//                [weak self] news, profile, group, photo, Error, dateFrom in
+//                guard let self = self else { return}
+//
+//                print("комплишен запроса")
+//                self.vkNewsArray = news ?? []
+//                self.vkProfileArray = profile ?? []
+//                self.vkGroupArray = group ?? []
+//                self.vkNewsPhotoArray = photo ?? [:]
+//
+//                NewsService.saveNews(self.vkNewsArray, needRemove: false)
+//                NewsService.saveNewsGroups(self.vkGroupArray, needRemove: false)
+//                NewsService.saveNewsPofiles(self.vkProfileArray, needRemove: false)
+//                for photo in self.vkNewsPhotoArray.values {
+//                    NewsService.saveNewsPostPhoto(photo)
+//                }
+//
+//                let indexSet = IndexSet(integersIn: self.vkMyNews!.count ..< self.vkMyNews!.count + news!.count)
+//                //self.news.append(contentsOf: news)
+//
+//
+//                self.tableView.insertSections(indexSet, with: .automatic)
+//                // Выключаем статус isLoading
+//                self.isLoading = false
+//
+//            })
+            
+        }
+        
+        
+    }
+}
+
+

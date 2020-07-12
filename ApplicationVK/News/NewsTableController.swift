@@ -40,11 +40,11 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
 //        }
         super.viewDidLoad()
         
-        vkMyNews = pairTableNewsAndRealm()
-               self.tableView.reloadData()
-               NewsService.loadAllNews ()
-               vkMyNews = pairTableNewsAndRealm()
-                 self.tableView.reloadData()
+//        vkMyNews = pairTableNewsAndRealm()
+//               self.tableView.reloadData()
+//               NewsService.loadAllNews (startfrom: Session.instance.nextFrom)
+//               vkMyNews = pairTableNewsAndRealm()
+//                 self.tableView.reloadData()
 
         tableView.estimatedRowHeight = 300.0
         
@@ -67,7 +67,7 @@ class NewsTableController: UITableViewController, ImageViewPresenterSource  {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return vkMyNews?.count ?? 0
+        return  0
         //
     }
     
