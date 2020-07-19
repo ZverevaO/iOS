@@ -12,16 +12,20 @@ import RealmSwift
 
 class NewsService
 {
-    static func loadAllNews ()
+    static func loadAllNews (startfrom: String)
         //(completion: @escaping ([VKNews])-> Void)
     {
         let serviceDispatchGroup = DispatchGroup()
-        
+        var vkNewsArray = [VKNews]()
+        var vkProfileArray = [VKNewsProfile]()
+        var vkGroupArray = [VKNewsGroup]()
+        var vkNewsPhotoArray =  [Int: [VKNewsPhoto]]()
         // "filters" : "post,photo",
         AF.request("https://api.vk.com/method/newsfeed.get",
                    parameters: [
                     "access_token" : Session.instance.token,
                     "filters" : "post, photo",
+                    "start_from": startfrom,
                     "v" : "5.103"
         ]).responseData(queue: .global(qos: .utility)) {
             response in
@@ -33,18 +37,16 @@ class NewsService
                     //парсим полученные новости
                     do {
                         let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: data).response
-                     
-                        saveNews(dataVKNews.items)
+
+                        Session.instance.nextFrom = dataVKNews.nextFrom
+                        vkNewsArray = dataVKNews.items
+
                         
                         for index in 0...dataVKNews.items.count-1
                         {
                             if let photoLost = dataVKNews.items[index].photos {
-                                self.saveNewsPostPhoto(photoLost)
+                                vkNewsPhotoArray[dataVKNews.items[index].postId] = photoLost
                             }
-                            
-                            // if let audiolist = dataVKNews.items[index].audios {
-                            //self.saveNewsPostAudio(audiolist)
-                            //}
                         }
                     }
                     catch {
@@ -55,7 +57,7 @@ class NewsService
                 DispatchQueue.global().async(group: serviceDispatchGroup, qos: .utility) {
                     do {
                         let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: data).response.profiles
-                        saveNewsPofiles(dataNewsProfiles)
+                        vkProfileArray = dataNewsProfiles
                     }
                     catch {
                         print(error)
@@ -65,15 +67,20 @@ class NewsService
                 DispatchQueue.global().async(group: serviceDispatchGroup, qos: .utility) {
                     do {
                         let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: data).response.groups
-                        saveNewsGroups(dataNewsGroups)
+                        vkGroupArray = dataNewsGroups
                     }
                     catch {
                         print (error)
                     }
                 }
                 
-                serviceDispatchGroup.notify(queue: .global()) {  
-                    print("сохранили все новости")
+                serviceDispatchGroup.notify(queue: .global()) {
+                    saveNewsGroups(vkGroupArray,  needRemove: true)
+                    saveNewsPofiles(vkProfileArray, needRemove: true)
+                    saveNews(vkNewsArray,  needRemove: true)
+                    for photo in vkNewsPhotoArray.values {
+                        saveNewsPostPhoto(photo)
+                    }
                     
                 }
                 
@@ -86,15 +93,69 @@ class NewsService
         
     }
     
+    func loadPartVKNews (startfrom: String ,completion: (([VKNews]?, [VKNewsProfile]?, [VKNewsGroup]?, [Int: [VKNewsPhoto]]?, Error?, String?)-> Void)? = nil) {
+ 
+        AF.request("https://api.vk.com/method/newsfeed.get",
+                   parameters: [
+                    "access_token" : Session.instance.token,
+                    "filters" : "post, photo",
+                    "start_from": startfrom,
+                    "v" : "5.103"
+        ]).responseData(queue: .global(qos: .utility)) {
+            response in
+            switch response.result {
+            case .success(let value):
+                do {
+                    var vkNewsArray = [VKNews]()
+                    var vkProfileArray = [VKNewsProfile]()
+                    var vkGroupArray = [VKNewsGroup]()
+                    var vkNewsPhotoArray =  [Int: [VKNewsPhoto]]()
+                    var nextFrom = ""
+                    
+                    let serviceDispatchGroup = DispatchGroup()
+                    
+                    let dataVKNews = try JSONDecoder().decode(VKNewsRespons.self, from: value).response
+                   
+                    vkNewsArray = dataVKNews.items
+                    nextFrom = dataVKNews.nextFrom
+                    Session.instance.nextFrom = nextFrom
+                    for index in 0...dataVKNews.items.count-1
+                    {
+                        if let photoLost = dataVKNews.items[index].photos {
+                            vkNewsPhotoArray[dataVKNews.items[index].postId] = photoLost
+                        }
+                    }
+                    
+                    let dataNewsGroups =  try JSONDecoder().decode(VKNewsRespons.self, from: value).response.groups
+                    vkGroupArray = dataNewsGroups
+                    let dataNewsProfiles = try JSONDecoder().decode(VKNewsRespons.self, from: value).response.profiles
+                    vkProfileArray = dataNewsProfiles
+                    
+                    serviceDispatchGroup.notify(queue: DispatchQueue.main) {
+                        completion?(vkNewsArray, vkProfileArray, vkGroupArray, vkNewsPhotoArray, nil, nextFrom)
+                    }
+                    
+                }
+                catch {
+                    print(error)
+                }
+            case .failure(let error):
+                completion?(nil, nil, nil, nil, error, nil)
+            }
+        }
+    }
+    
     //сохраняем полученные профили в реалм
-    static func  saveNewsPofiles (_ profiles: [VKNewsProfile]) {
+    static func  saveNewsPofiles (_ profiles: [VKNewsProfile], needRemove: Bool) {
         do {
             let realm = try Realm()
             print(realm.configuration.fileURL as Any)
             let oldProfiles = realm.objects(VKNewsProfile.self)
             realm.beginWrite()
-            realm.delete(oldProfiles)
-            realm.add(profiles)
+            if needRemove {
+                realm.delete(oldProfiles)
+            }
+            realm.add(profiles, update: .modified)
             try realm.commitWrite()
         }
         catch {
@@ -103,14 +164,16 @@ class NewsService
     }
     
     //сохранем полученные группы в реалм
-    static func  saveNewsGroups (_ groups: [VKNewsGroup]) {
+    static func  saveNewsGroups (_ groups: [VKNewsGroup], needRemove: Bool) {
         do {
             let realm = try Realm()
             //print(realm.configuration.fileURL as Any)
             let oldGroups = realm.objects(VKNewsGroup.self)
             realm.beginWrite()
-            realm.delete(oldGroups)
-            realm.add(groups)
+            if needRemove {
+                realm.delete(oldGroups)
+            }
+            realm.add(groups, update: .modified)
             try realm.commitWrite()
         }
         catch {
@@ -120,7 +183,7 @@ class NewsService
     
     
     //сохроняем новости
-    static func  saveNews (_ newsList: [VKNews]) {
+    static func  saveNews (_ newsList: [VKNews], needRemove: Bool) {
         do {
             let realm = try Realm()
             //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
@@ -129,12 +192,14 @@ class NewsService
             // удаляем старые новости и фото для этих новостей
             let oldNews = realm.objects(VKNews.self)
             let oldPhoto = realm.objects(VKNewsPhoto.self)
-            let oldAudio = realm.objects(VKNewsAudio.self)
+            //let oldAudio = realm.objects(VKNewsAudio.self)
             realm.beginWrite()
-            realm.delete(oldNews)
-            realm.delete(oldPhoto)
-            //realm.delete(oldAudio)
-            realm.add(newsList)
+            if needRemove {
+                realm.delete(oldNews)
+                realm.delete(oldPhoto)
+                //realm.delete(oldAudio)
+            }
+            realm.add(newsList, update: .modified)
             try realm.commitWrite()
         }
         catch {
@@ -148,6 +213,8 @@ class NewsService
         do {
             
             let realm = try Realm()
+            //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            //let realm = try Realm(configuration: config)
             //print(realm.configuration.fileURL as Any)
             //let strFilter = "postID == " + String(postID)
             //let oldPostPhotos = realm.objects(VKNewsPhoto.self).filter(strFilter)
@@ -168,7 +235,7 @@ class NewsService
             let realm = try Realm()
             print(realm.configuration.fileURL as Any)
             realm.beginWrite()
-            realm.add(postAudios)
+            realm.add(postAudios, update: .modified)
             try realm.commitWrite()
         }
         catch {

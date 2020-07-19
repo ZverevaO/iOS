@@ -103,9 +103,10 @@ class VKNewsPhoto: Object  {
     }
     
     override static func primaryKey() -> String? {
-        return "id"
-    }
-}
+         return "id"
+     }
+    
+ }
 
 
 class VKNews: Object, Decodable {
@@ -332,17 +333,23 @@ class VKNews: Object, Decodable {
         }
         self.countCellNews = 2 + cellcount //увеличаевм на 2 т.к у всех есть автор и подвал 
     }
+    
+    override static func primaryKey() -> String? {
+        return "postId"
+    }
 }
 //post,photo,photo_tag, wall_photo
 class VKDataNews: Decodable {
     let items: [VKNews]
     let profiles: [VKNewsProfile]
     var groups: [VKNewsGroup]
+    let nextFrom: String
     
     enum CodingKeys: String, CodingKey {
         case items
         case profiles
         case groups
+        case nextFrom = "next_from"
     }
     
     //    required init (from decoder: Decoder)  throws
