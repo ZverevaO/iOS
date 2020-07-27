@@ -91,8 +91,10 @@ class VKNewsPhoto: Object  {
     @objc dynamic var url: String = ""
     @objc dynamic var urlX: String = ""
     @objc dynamic var postID: Int = 0
+    @objc dynamic var width: Int = 0
+    @objc dynamic var height: Int = 0
     
-    convenience required init (date: Int, id: Int, url: String, urlX: String, postID: Int)
+    convenience required init (date: Int, id: Int, url: String, urlX: String, postID: Int, width: Int, height: Int)
     {
         self.init()
         self.date = date
@@ -100,6 +102,8 @@ class VKNewsPhoto: Object  {
         self.url = url
         self.urlX = urlX
         self.postID = postID
+        self.height = height
+        self.width = width
     }
     
     override static func primaryKey() -> String? {
@@ -169,6 +173,8 @@ class VKNews: Object, Decodable {
     enum CodingKeySize: String, CodingKey {
         case url
         case type
+        case width
+        case height
     }
     
     convenience required init  (from decoder: Decoder) throws {
@@ -187,6 +193,8 @@ class VKNews: Object, Decodable {
         var date: Int = 0
         var url = ""
         var urlX = ""
+        var height: Int = 0
+        var width: Int = 0
         
         let values = try decoder.container(keyedBy: CodingKeyVKNews.self)
         let postId = try values.decode(Int.self, forKey: .postId)
@@ -224,13 +232,15 @@ class VKNews: Object, Decodable {
                             switch sizeTypeAttachment {
                             case "x":
                                 urlX = try firstSizeAttachment.decode(String.self, forKey: .url)
+                                width = try firstSizeAttachment.decode(Int.self, forKey: .width)
+                                height = try firstSizeAttachment.decode(Int.self, forKey: .height)
                             case "m":
                                 url = try firstSizeAttachment.decode(String.self, forKey: .url)
                             default:
                                 break
                             }
                         }
-                        let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
+                        let photoAtt = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId, width: width, height: height)
                         photosNews?.append(photoAtt)
                         self.photos = photosNews
                         //self.countPhoto = photosNews?.count ?? (-1)
@@ -296,6 +306,8 @@ class VKNews: Object, Decodable {
                 date = try photoInf.decode(Int.self, forKey: .date)
                 url = ""
                 urlX = ""
+                width = 0
+                height = 0
                 var photoSizeValues = try photoInf.nestedUnkeyedContainer(forKey: .sizes)
                 
                 while !photoSizeValues.isAtEnd {
@@ -305,6 +317,8 @@ class VKNews: Object, Decodable {
                     switch sizetype {
                     case "x":
                         urlX = try firstSizeValues.decode(String.self, forKey: .url)
+                        width = try firstSizeValues.decode(Int.self, forKey: .width)
+                        height = try firstSizeValues.decode(Int.self, forKey: .height)
                     case "m":
                         url = try firstSizeValues.decode(String.self, forKey: .url)
                     default:
@@ -312,7 +326,7 @@ class VKNews: Object, Decodable {
                     }
                 }
                 
-                let photo = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId)
+                let photo = VKNewsPhoto(date: date, id: id, url: url, urlX: urlX, postID: postId,  width: width, height: height)
                 photosNews?.append(photo)
             }
             self.photos = photosNews
