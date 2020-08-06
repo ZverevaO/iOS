@@ -49,19 +49,21 @@ class AllFriendTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure (nameFriend: String, onlineStatus: String, avatarURL: URL?, userId: Int )
+
+    
+    func configure (with viewModel: FriendViewModel)
     {
-        name.text = nameFriend
-        status.text = onlineStatus
+        name.text = viewModel.nameFriend
+        status.text = viewModel.statusFriend
         
-        if let uAvatarURL = avatarURL {
+        if let uAvatarURL = viewModel.avatarFriend {
             shadowPhoto.image.af.setImage(withURL: uAvatarURL)
         }
         else {
             shadowPhoto.image.image = UIImage(named: "iconFriend1")
         }
         
-        self.userId = userId
+        self.userId = viewModel.userId
         
     }
     
@@ -101,5 +103,22 @@ class AllFriendTableCell: UITableViewCell {
         status.frame = CGRect(origin: origin, size: size)
         
     }
+    
+    //старая реализация
+    //    func configure (nameFriend: String, onlineStatus: String, avatarURL: URL?, userId: Int )
+    //    {
+    //        name.text = nameFriend
+    //        status.text = onlineStatus
+    //
+    //        if let uAvatarURL = avatarURL {
+    //            shadowPhoto.image.af.setImage(withURL: uAvatarURL)
+    //        }
+    //        else {
+    //            shadowPhoto.image.image = UIImage(named: "iconFriend1")
+    //        }
+    //
+    //        self.userId = userId
+    //
+    //    }
     
 }
