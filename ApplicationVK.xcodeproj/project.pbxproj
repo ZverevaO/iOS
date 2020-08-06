@@ -22,6 +22,7 @@
 		D71A07092438DEFA004DAA58 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A07082438DEFA004DAA58 /* CircleImage.swift */; };
 		D71A070B2439CCF5004DAA58 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070A2439CCF5004DAA58 /* LikeButton.swift */; };
 		D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A070C243A5ABA004DAA58 /* GradientView.swift */; };
+		D71AAEEA24CF2DA500BBE8B0 /* NewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71AAEE924CF2DA500BBE8B0 /* NewsTableView.swift */; };
 		D71AFC33246B28D5004CDCBF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71AFC32246B28D5004CDCBF /* WebKit.framework */; };
 		D71AFC36246B2A3D004CDCBF /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71AFC35246B2A3D004CDCBF /* AuthorizeViewController.swift */; };
 		D71AFC3824718855004CDCBF /* PhotoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71AFC3724718855004CDCBF /* PhotoUser.swift */; };
@@ -36,6 +37,7 @@
 		D738E5C624588B750041B775 /* UIapplication+Compliction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C524588B750041B775 /* UIapplication+Compliction.swift */; };
 		D738E5C8245D41780041B775 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C7245D41780041B775 /* Session.swift */; };
 		D738E5CA245D56C40041B775 /* NewsFotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738E5C9245D56C40041B775 /* NewsFotoController.swift */; };
+		D743912824C4A3EF00985A7A /* FriensGalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743912724C4A3EF00985A7A /* FriensGalleryController.swift */; };
 		D74E842C24ACCC650027EAE6 /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E842B24ACCC650027EAE6 /* FriendService.swift */; };
 		D74E842E24B1AEAC0027EAE6 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E842D24B1AEAC0027EAE6 /* PhotoService.swift */; };
 		D75763C2244311310065E684 /* NewsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75763C1244311310065E684 /* NewsTableController.swift */; };
@@ -57,6 +59,16 @@
 		D75F04FE249FCFDE00B68D2B /* NewsPhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F04FD249FCFDE00B68D2B /* NewsPhotoCollectionView.swift */; };
 		D75F0500249FD08B00B68D2B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F04FF249FD08B00B68D2B /* PhotoCollectionViewCell.swift */; };
 		D75F050324A3BEEF00B68D2B /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F050224A3BEEF00B68D2B /* NewsService.swift */; };
+		D78F0CE524C62248005DA66F /* NewsOnePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CE424C62248005DA66F /* NewsOnePhotoTableViewCell.swift */; };
+		D78F0CE924C8A8E6005DA66F /* MultiPhotoCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CE824C8A8E6005DA66F /* MultiPhotoCollectionLayout.swift */; };
+		D78F0CEE24CD54EA005DA66F /* VKRespons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CED24CD54EA005DA66F /* VKRespons.swift */; };
+		D78F0CF024CD5592005DA66F /* DataNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CEF24CD5592005DA66F /* DataNews.swift */; };
+		D78F0CF224CD5605005DA66F /* NewsProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CF124CD5605005DA66F /* NewsProfile.swift */; };
+		D78F0CF424CD569F005DA66F /* NewsGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CF324CD569F005DA66F /* NewsGroups.swift */; };
+		D78F0CF624CD573E005DA66F /* NewsPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CF524CD573E005DA66F /* NewsPhotos.swift */; };
+		D78F0CF824CD584D005DA66F /* NewsPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CF724CD584D005DA66F /* NewsPhotoSize.swift */; };
+		D78F0CFA24CD58F2005DA66F /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CF924CD58F2005DA66F /* NewsItem.swift */; };
+		D78F0CFC24CD5D96005DA66F /* DataNewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F0CFB24CD5D96005DA66F /* DataNewsService.swift */; };
 		D7903F8A24A7B05300B664AF /* GetDataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7903F8924A7B05300B664AF /* GetDataOperations.swift */; };
 		D7903F8C24A7B1A000B664AF /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7903F8B24A7B1A000B664AF /* AsyncOperation.swift */; };
 		D7903F8E24A7B4B600B664AF /* ReloadTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7903F8D24A7B4B600B664AF /* ReloadTableController.swift */; };
@@ -88,6 +100,7 @@
 		D71A07082438DEFA004DAA58 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		D71A070A2439CCF5004DAA58 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		D71A070C243A5ABA004DAA58 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		D71AAEE924CF2DA500BBE8B0 /* NewsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableView.swift; sourceTree = "<group>"; };
 		D71AFC32246B28D5004CDCBF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D71AFC35246B2A3D004CDCBF /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		D71AFC3724718855004CDCBF /* PhotoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUser.swift; sourceTree = "<group>"; };
@@ -102,6 +115,7 @@
 		D738E5C524588B750041B775 /* UIapplication+Compliction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIapplication+Compliction.swift"; sourceTree = "<group>"; };
 		D738E5C7245D41780041B775 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D738E5C9245D56C40041B775 /* NewsFotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFotoController.swift; sourceTree = "<group>"; };
+		D743912724C4A3EF00985A7A /* FriensGalleryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriensGalleryController.swift; sourceTree = "<group>"; };
 		D74E842B24ACCC650027EAE6 /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		D74E842D24B1AEAC0027EAE6 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		D75763C1244311310065E684 /* NewsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableController.swift; sourceTree = "<group>"; };
@@ -123,6 +137,16 @@
 		D75F04FD249FCFDE00B68D2B /* NewsPhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionView.swift; sourceTree = "<group>"; };
 		D75F04FF249FD08B00B68D2B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D75F050224A3BEEF00B68D2B /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		D78F0CE424C62248005DA66F /* NewsOnePhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsOnePhotoTableViewCell.swift; sourceTree = "<group>"; };
+		D78F0CE824C8A8E6005DA66F /* MultiPhotoCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPhotoCollectionLayout.swift; sourceTree = "<group>"; };
+		D78F0CED24CD54EA005DA66F /* VKRespons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRespons.swift; sourceTree = "<group>"; };
+		D78F0CEF24CD5592005DA66F /* DataNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataNews.swift; sourceTree = "<group>"; };
+		D78F0CF124CD5605005DA66F /* NewsProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsProfile.swift; sourceTree = "<group>"; };
+		D78F0CF324CD569F005DA66F /* NewsGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsGroups.swift; sourceTree = "<group>"; };
+		D78F0CF524CD573E005DA66F /* NewsPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotos.swift; sourceTree = "<group>"; };
+		D78F0CF724CD584D005DA66F /* NewsPhotoSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoSize.swift; sourceTree = "<group>"; };
+		D78F0CF924CD58F2005DA66F /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		D78F0CFB24CD5D96005DA66F /* DataNewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataNewsService.swift; sourceTree = "<group>"; };
 		D7903F8924A7B05300B664AF /* GetDataOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperations.swift; sourceTree = "<group>"; };
 		D7903F8B24A7B1A000B664AF /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		D7903F8D24A7B4B600B664AF /* ReloadTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableController.swift; sourceTree = "<group>"; };
@@ -230,6 +254,7 @@
 				D75763CD24438A680065E684 /* CustomCollectionViewLayout.swift */,
 				D75763D5244753F40065E684 /* Indicator.xib */,
 				D75763D7244759080065E684 /* Indicator.swift */,
+				D78F0CE824C8A8E6005DA66F /* MultiPhotoCollectionLayout.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -274,6 +299,14 @@
 			path = "Animator ";
 			sourceTree = "<group>";
 		};
+		D743912624C4A3A200985A7A /* ADKPhotoGallery */ = {
+			isa = PBXGroup;
+			children = (
+				D743912724C4A3EF00985A7A /* FriensGalleryController.swift */,
+			);
+			path = ADKPhotoGallery;
+			sourceTree = "<group>";
+		};
 		D75763BF244310390065E684 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +344,7 @@
 				D75F04F4249FB3D600B68D2B /* NewsTextTableViewCell.swift */,
 				D75F04F6249FB44400B68D2B /* NewsPhotoTableViewCell.swift */,
 				D75F04F8249FB4B800B68D2B /* NewsFooterTableViewCell.swift */,
+				D78F0CE424C62248005DA66F /* NewsOnePhotoTableViewCell.swift */,
 				D75F04FA249FB78000B68D2B /* NewsTableViewController.swift */,
 			);
 			path = NewVC;
@@ -335,6 +369,46 @@
 				D74E842D24B1AEAC0027EAE6 /* PhotoService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		D78F0CEA24CD5404005DA66F /* NewsVklesson89 */ = {
+			isa = PBXGroup;
+			children = (
+				D78F0CEC24CD5452005DA66F /* NewsVKController */,
+				D78F0CEB24CD543A005DA66F /* NewsVKModel  */,
+			);
+			path = NewsVklesson89;
+			sourceTree = "<group>";
+		};
+		D78F0CEB24CD543A005DA66F /* NewsVKModel  */ = {
+			isa = PBXGroup;
+			children = (
+				D78F0CFD24CD5F38005DA66F /* Networking */,
+				D78F0CED24CD54EA005DA66F /* VKRespons.swift */,
+				D78F0CEF24CD5592005DA66F /* DataNews.swift */,
+				D78F0CF124CD5605005DA66F /* NewsProfile.swift */,
+				D78F0CF324CD569F005DA66F /* NewsGroups.swift */,
+				D78F0CF524CD573E005DA66F /* NewsPhotos.swift */,
+				D78F0CF724CD584D005DA66F /* NewsPhotoSize.swift */,
+				D78F0CF924CD58F2005DA66F /* NewsItem.swift */,
+			);
+			path = "NewsVKModel ";
+			sourceTree = "<group>";
+		};
+		D78F0CEC24CD5452005DA66F /* NewsVKController */ = {
+			isa = PBXGroup;
+			children = (
+				D71AAEE924CF2DA500BBE8B0 /* NewsTableView.swift */,
+			);
+			path = NewsVKController;
+			sourceTree = "<group>";
+		};
+		D78F0CFD24CD5F38005DA66F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D78F0CFB24CD5D96005DA66F /* DataNewsService.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		D7903F8824A7B00800B664AF /* Operation */ = {
@@ -369,6 +443,8 @@
 		D7C39E4B23ED683700DCEDCF /* ApplicationVK */ = {
 			isa = PBXGroup;
 			children = (
+				D78F0CEA24CD5404005DA66F /* NewsVklesson89 */,
+				D743912624C4A3A200985A7A /* ADKPhotoGallery */,
 				D75F050124A3BECE00B68D2B /* Service */,
 				D75F04F1249FB0C500B68D2B /* NewVC */,
 				D71AFC34246B29DA004CDCBF /* Authorize */,
@@ -520,9 +596,13 @@
 				D738E5BA2450A6560041B775 /* CustomPopAnimator.swift in Sources */,
 				D75763D0244393BF0065E684 /* NewsTableCell.swift in Sources */,
 				D738E5B82450A6220041B775 /* CustomPushAnimator.swift in Sources */,
+				D78F0CE924C8A8E6005DA66F /* MultiPhotoCollectionLayout.swift in Sources */,
+				D78F0CF624CD573E005DA66F /* NewsPhotos.swift in Sources */,
 				D75F04FB249FB78000B68D2B /* NewsTableViewController.swift in Sources */,
+				D78F0CEE24CD54EA005DA66F /* VKRespons.swift in Sources */,
 				D738E5C8245D41780041B775 /* Session.swift in Sources */,
 				D75F04F5249FB3D600B68D2B /* NewsTextTableViewCell.swift in Sources */,
+				D78F0CFA24CD58F2005DA66F /* NewsItem.swift in Sources */,
 				D71A06FA2435D23A004DAA58 /* AllFriendTableController.swift in Sources */,
 				D75763C4244311ED0065E684 /* MessageTableController.swift in Sources */,
 				D71A06F52434F9F8004DAA58 /* AllGroupTableCell.swift in Sources */,
@@ -532,6 +612,7 @@
 				D7903F8C24A7B1A000B664AF /* AsyncOperation.swift in Sources */,
 				D71A070D243A5ABA004DAA58 /* GradientView.swift in Sources */,
 				D71A06FF2435DBEE004DAA58 /* FotoCollectionController.swift in Sources */,
+				D78F0CFC24CD5D96005DA66F /* DataNewsService.swift in Sources */,
 				D7903F8A24A7B05300B664AF /* GetDataOperations.swift in Sources */,
 				D738E5CA245D56C40041B775 /* NewsFotoController.swift in Sources */,
 				D7903F9024A7BDB000B664AF /* MyGroupsService.swift in Sources */,
@@ -545,12 +626,18 @@
 				D71AFC3824718855004CDCBF /* PhotoUser.swift in Sources */,
 				D75763C2244311310065E684 /* NewsTableController.swift in Sources */,
 				D7903F9224A7BE0F00B664AF /* ParseDataVKGroup.swift in Sources */,
+				D71AAEEA24CF2DA500BBE8B0 /* NewsTableView.swift in Sources */,
+				D78F0CF224CD5605005DA66F /* NewsProfile.swift in Sources */,
+				D743912824C4A3EF00985A7A /* FriensGalleryController.swift in Sources */,
 				D71A06ED2434F266004DAA58 /* Friend.swift in Sources */,
 				D71A07042436092F004DAA58 /* FotoController.swift in Sources */,
 				D71AFC36246B2A3D004CDCBF /* AuthorizeViewController.swift in Sources */,
+				D78F0CF424CD569F005DA66F /* NewsGroups.swift in Sources */,
 				D71A06F72434FA18004DAA58 /* AllGroupTableController.swift in Sources */,
 				D75F04F9249FB4B800B68D2B /* NewsFooterTableViewCell.swift in Sources */,
 				D75763D224439DB10065E684 /* NewsFotoCollectionCell.swift in Sources */,
+				D78F0CE524C62248005DA66F /* NewsOnePhotoTableViewCell.swift in Sources */,
+				D78F0CF824CD584D005DA66F /* NewsPhotoSize.swift in Sources */,
 				D738E5C2245884450041B775 /* PopAnimator.swift in Sources */,
 				D738E5C4245889110041B775 /* ImageViewerPresentor.swift in Sources */,
 				D7C39E4F23ED683700DCEDCF /* SceneDelegate.swift in Sources */,
@@ -558,6 +645,7 @@
 				D74E842E24B1AEAC0027EAE6 /* PhotoService.swift in Sources */,
 				D71A06EB2434F218004DAA58 /* Group.swift in Sources */,
 				D71A06F22434F9D4004DAA58 /* MyGroupTableCell.swift in Sources */,
+				D78F0CF024CD5592005DA66F /* DataNews.swift in Sources */,
 				D75F04FE249FCFDE00B68D2B /* NewsPhotoCollectionView.swift in Sources */,
 				D75F050324A3BEEF00B68D2B /* NewsService.swift in Sources */,
 				D75F04F3249FB11900B68D2B /* NewsAutorTableViewCell.swift in Sources */,
@@ -712,6 +800,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JHDC5TATVS;
 				INFOPLIST_FILE = ApplicationVK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -731,6 +820,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JHDC5TATVS;
 				INFOPLIST_FILE = ApplicationVK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

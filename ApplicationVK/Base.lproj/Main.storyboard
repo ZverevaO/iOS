@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gny-Me-rzc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gny-Me-rzc">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -187,9 +187,9 @@
                     <connections>
                         <segue destination="OBy-KL-uF1" kind="relationship" relationship="viewControllers" id="aFu-CW-U9t"/>
                         <segue destination="He7-F8-5R6" kind="relationship" relationship="viewControllers" id="X2C-2j-Me5"/>
-                        <segue destination="U7w-zN-Ioe" kind="relationship" relationship="viewControllers" id="wH1-fI-oig"/>
                         <segue destination="iMz-dE-gb5" kind="relationship" relationship="viewControllers" id="VoC-fS-pUg"/>
                         <segue destination="9HN-wI-ZQZ" kind="relationship" relationship="viewControllers" id="q51-g3-lej"/>
+                        <segue destination="6YM-4J-BAI" kind="relationship" relationship="viewControllers" id="TpB-jx-l3T"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7B-9k-LZ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -721,7 +721,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="In4-km-1eC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Zq7-Sk-IgJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1620" y="236"/>
+            <point key="canvasLocation" x="2562.4000000000001" y="235.71428571428572"/>
         </scene>
         <!--News Foto Controller-->
         <scene sceneID="mxt-Ah-t4B">
@@ -750,7 +750,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ar5-1B-rZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="244"/>
+            <point key="canvasLocation" x="3338.4000000000001" y="243.8423645320197"/>
         </scene>
         <!--News Table View Controller-->
         <scene sceneID="tzM-OK-GYg">
@@ -813,7 +813,7 @@
                                     <outlet property="time" destination="34f-dH-hWa" id="XR8-SB-dY6"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsTextTableViewCell" id="Kqf-RL-Bjc" customClass="NewsTextTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsTextTableViewCell" rowHeight="62.666667938232422" id="Kqf-RL-Bjc" customClass="NewsTextTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="98.333335876464844" width="375" height="62.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kqf-RL-Bjc" id="dk5-bX-Pe4">
@@ -851,29 +851,27 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="950" constant="200" id="0fw-xI-a7Y"/>
                                             </constraints>
-                                            <collectionViewLayout key="collectionViewLayout" id="cJ1-g5-TmE" customClass="CastomCollectionViewLayout" customModule="ApplicationVK" customModuleProvider="target"/>
+                                            <collectionViewLayout key="collectionViewLayout" id="BbM-s9-Edf" customClass="MultiPhotoCollectionLayout" customModule="ApplicationVK" customModuleProvider="target"/>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="C6u-BK-63y" customClass="PhotoCollectionViewCell" customModule="ApplicationVK" customModuleProvider="target">
-                                                    <rect key="frame" x="62.666666666666664" y="0.0" width="250" height="250"/>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="PhotoCollectionViewCell" id="C6u-BK-63y" customClass="PhotoCollectionViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GkW-qu-RZY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                                    <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" id="zfI-0y-2P3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ynh-dS-SzB">
-                                                                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                             </imageView>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="ynh-dS-SzB" secondAttribute="trailing" id="8ja-Pg-yc1"/>
-                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="centerY" secondItem="GkW-qu-RZY" secondAttribute="centerY" id="J7w-Yo-ZWM"/>
-                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="centerX" secondItem="GkW-qu-RZY" secondAttribute="centerX" id="KSq-08-hW4"/>
-                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="top" secondItem="GkW-qu-RZY" secondAttribute="top" id="Tkx-rj-wZT"/>
-                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="leading" secondItem="GkW-qu-RZY" secondAttribute="leading" id="an8-WO-KK5"/>
+                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="top" secondItem="zfI-0y-2P3" secondAttribute="top" id="Tkx-rj-wZT"/>
+                                                            <constraint firstItem="ynh-dS-SzB" firstAttribute="leading" secondItem="zfI-0y-2P3" secondAttribute="leading" id="an8-WO-KK5"/>
                                                             <constraint firstAttribute="bottom" secondItem="ynh-dS-SzB" secondAttribute="bottom" id="k5U-MX-jvW"/>
                                                         </constraints>
                                                     </collectionViewCellContentView>
-                                                    <size key="customSize" width="250" height="250"/>
+                                                    <size key="customSize" width="120" height="120"/>
                                                     <connections>
                                                         <outlet property="photoNews" destination="ynh-dS-SzB" id="MUb-DS-Inh"/>
                                                     </connections>
@@ -896,8 +894,31 @@
                                     <outlet property="photoCollectionHeight" destination="0fw-xI-a7Y" id="ZBK-S0-tPu"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsOnePhotoTableViewCell" id="seY-jO-k1L" customClass="NewsOnePhotoTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="361.33333206176758" width="375" height="1.3333333730697632"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="NewsOnePhotoTableViewCell" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="seY-jO-k1L" id="6Y4-mH-ZtB" customClass="NewsOnePhotoTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1.3333333730697632"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4QQ-cO-7si">
+                                            <rect key="frame" x="-2" y="-1" width="377" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="4QQ-cO-7si" secondAttribute="trailing" id="JbI-Jq-7u6"/>
+                                        <constraint firstAttribute="bottom" secondItem="4QQ-cO-7si" secondAttribute="bottom" id="QbF-fx-DdM"/>
+                                        <constraint firstItem="4QQ-cO-7si" firstAttribute="leading" secondItem="6Y4-mH-ZtB" secondAttribute="leading" id="UR5-oP-YOb"/>
+                                        <constraint firstItem="4QQ-cO-7si" firstAttribute="top" secondItem="6Y4-mH-ZtB" secondAttribute="top" id="csf-w4-aTt"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="photoPost" destination="4QQ-cO-7si" id="sMz-b6-PHw"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsFooterTableViewCell" id="KO5-Rj-Duw" customClass="NewsFooterTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="361.33333206176758" width="375" height="50.333332061767578"/>
+                                <rect key="frame" x="0.0" y="362.66666543483734" width="375" height="50.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KO5-Rj-Duw" id="DMH-TS-PYY">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50.333332061767578"/>
@@ -958,7 +979,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIr-Md-uFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="926"/>
+            <point key="canvasLocation" x="2866.4000000000001" y="925.86206896551732"/>
         </scene>
         <!--группы-->
         <scene sceneID="Meq-De-uqm">
@@ -996,7 +1017,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMA-eG-YIm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="236"/>
+            <point key="canvasLocation" x="1740" y="235.71428571428572"/>
         </scene>
         <!--Message Table Controller-->
         <scene sceneID="awy-TV-5c0">
@@ -1016,6 +1037,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NXR-ck-C31" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1604" y="1685"/>
+        </scene>
+        <!--News Table View-->
+        <scene sceneID="a9o-nW-RDX">
+            <objects>
+                <tableViewController id="Hgv-gB-Odx" customClass="NewsTableView" customModule="ApplicationVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="G1N-va-WeY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="FRT-k1-5IU" customClass="NewsAutorTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FRT-k1-5IU" id="Iv5-KW-nI6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mej-3d-aD1" customClass="NewsTextTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="71.666667938232422" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mej-3d-aD1" id="BAN-8c-DRt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SH5-Ee-eCq" customClass="NewsPhotoTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="115.33333587646484" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SH5-Ee-eCq" id="mN0-ex-w42">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="anM-nb-4Vt" customClass="NewsFooterTableViewCell" customModule="ApplicationVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="159.00000381469727" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="anM-nb-4Vt" id="hIP-MT-xDy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Hgv-gB-Odx" id="Jkn-S4-gh9"/>
+                            <outlet property="delegate" destination="Hgv-gB-Odx" id="deJ-og-VZ8"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="NCM-3O-R5L"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ZS-Tk-wFh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-554" y="683"/>
         </scene>
         <!--сообщения-->
         <scene sceneID="kIC-AA-K37">
@@ -1070,7 +1144,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbq-ua-1bW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1121" y="926"/>
+            <point key="canvasLocation" x="2063.1999999999998" y="925.86206896551732"/>
+        </scene>
+        <!--New1-->
+        <scene sceneID="mOq-ZC-Rkv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6YM-4J-BAI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="New1" image="iconNews" id="v5v-Ai-art"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XMP-uq-ZXe">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Hgv-gB-Odx" kind="relationship" relationship="rootViewController" id="lkM-dk-bpc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wIn-94-v9G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1455" y="683"/>
         </scene>
     </scenes>
     <resources>

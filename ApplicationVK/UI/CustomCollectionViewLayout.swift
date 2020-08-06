@@ -32,8 +32,8 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
         var lastY: CGFloat = 0
         var lastX: CGFloat = 0
         
-       
-      
+        
+        
         for index in 0..<itemsCount {
             let indexPath = IndexPath(item: index, section: 0)
             let attributtes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -63,6 +63,10 @@ class CastomCollectionViewLayout: UICollectionViewLayout {
             }
             cacheAttributes[indexPath] = attributtes
         }
+        
+        
+        
+        
         totalCellsHeight = lastY
     }
     

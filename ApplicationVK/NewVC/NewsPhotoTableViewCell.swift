@@ -15,6 +15,8 @@ class NewsPhotoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photoCollectionHeight: NSLayoutConstraint!
     
+    let cellType: typeCell = .photos
+    
     var fotoNews: Results<VKNewsPhoto>? //[VKNewsPhoto] = []
     var PostID: Int = 0
    
@@ -51,14 +53,11 @@ extension  NewsPhotoTableViewCell : UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         let stringUrl = URL(string: fotoNews![indexPath.item].urlX)
-        //let photo = fotoNews![indexPath.item]
-        //cell.foto.image? = nil
         cell.photoNews.image = nil
         cell.photoNews.af.setImage(withURL: stringUrl!)
-        //cell.foto.image = UIImage(named: fotoNews[indexPath.item])
-        //print("ид новости \(photo.postID)")
         return cell
     }
+    
     
 }
 
@@ -73,12 +72,14 @@ extension NewsPhotoTableViewCell : UICollectionViewDelegate
 
 //extension NewsPhotoTableViewCell: UICollectionViewDelegateFlowLayout {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        //let cellWidth = (collectionView.bounds.width - 4) / 2
-//        
-//       // return CGSize(width: cellWidth, height: cellWidth)
+//
+//        let cellWidth = (collectionView.bounds.width ) / 3
+//
+//        return CGSize(width: cellWidth, height: cellWidth)
 //    }
 //}
+
+
 
 
 /*extension NewsTableCell: UICollectionViewDelegateFlowLayout {

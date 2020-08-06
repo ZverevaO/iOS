@@ -93,7 +93,7 @@ class NewsService
         
     }
     
-    func loadPartVKNews (startfrom: String ,completion: (([VKNews]?, [VKNewsProfile]?, [VKNewsGroup]?, [Int: [VKNewsPhoto]]?, Error?, String?)-> Void)? = nil) {
+    func loadPartVKNews (startfrom: String ,completion: @escaping (String?, Error?) -> Void) {
  
         AF.request("https://api.vk.com/method/newsfeed.get",
                    parameters: [
@@ -132,7 +132,7 @@ class NewsService
                     vkProfileArray = dataNewsProfiles
                     
                     serviceDispatchGroup.notify(queue: DispatchQueue.main) {
-                        completion?(vkNewsArray, vkProfileArray, vkGroupArray, vkNewsPhotoArray, nil, nextFrom)
+                        completion(nextFrom, nil)
                     }
                     
                 }
@@ -140,7 +140,7 @@ class NewsService
                     print(error)
                 }
             case .failure(let error):
-                completion?(nil, nil, nil, nil, error, nil)
+                completion(nil, error)
             }
         }
     }

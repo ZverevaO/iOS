@@ -18,7 +18,7 @@ class NewsFooterTableViewCell: UITableViewCell {
     
     @IBOutlet weak var viewBtn: ViewButton!
     
-    
+    let cellType: typeCell = .footer
     
     @IBAction func likeClick(_ sender: LikeButton) {
         sender.like()

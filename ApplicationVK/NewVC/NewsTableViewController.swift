@@ -11,6 +11,13 @@ import RealmSwift
 import AlamofireImage
 import Foundation
 
+enum typeCell: String {
+    case autur
+    case footer
+    case text
+    case photos
+}
+
 class NewsTableViewController: UITableViewController {
     
     private var source: UIImageView?
@@ -27,16 +34,11 @@ class NewsTableViewController: UITableViewController {
     private var urlAvatarSource: URL!
     private var sourceName: String = ""
     
+    let maxHeightOfTextBlock: CGFloat = 200.0
+    
     private var controlRrefresh = UIRefreshControl()
     let newsService = NewsService()
-    
-    private enum typeCell: String {
-        case autur
-        case footer
-        case text
-        case photos
-    }
-    
+
     fileprivate var nextFrom = ""
     fileprivate var isLoading = false
     
@@ -74,7 +76,7 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return  vkMyNews?[section].countCellNews ?? 0
+        return  4 //vkMyNews?[section].countCellNews ?? 0
         // для каждой новости(секции) получаем кол-во ячеек
     }
     
@@ -91,10 +93,11 @@ class NewsTableViewController: UITableViewController {
         if post.countPhoto > 0 { arrayOfTypeCell.append(.photos)}
         arrayOfTypeCell.append(.footer)
         
-        let typeCell = arrayOfTypeCell[indexPath.row]
+        //let typeCell = arrayOfTypeCell[indexPath.row]
         
-        switch typeCell {
-        case .autur: do {
+        //switch typeCell {
+        switch indexPath.row {
+        case  0: do {//.autur: do {
             //ячейка для вывода автора новости
             let  cell = tableView.dequeueReusableCell(withIdentifier: "NewsAutorTableViewCell", for: indexPath) as! NewsAutorTableViewCell
         
@@ -122,7 +125,7 @@ class NewsTableViewController: UITableViewController {
             return cell
         }
            
-        case .text: do {
+        case 1: do { //.text: do {
             //ячейка для вывода текста новости
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTextTableViewCell", for: indexPath) as! NewsTextTableViewCell
             //let post = vkMyNews[indexPath.section]
@@ -131,29 +134,32 @@ class NewsTableViewController: UITableViewController {
             return cell
         }
            
-        case .photos: do {
-            //ячнйка для вывода фотографий, содержит коллекцию
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
-            //let newsPost = vkMyNews[indexPath.section]
+        case 2: do {//.photos: do {
             let postID = post.postId
+            let photoList = getPhotoPost(postID: postID)
             
-            if post.countPhoto > 0 {
-                cell.fotoNews = getPhotoPost(postID: postID)
-            }
-            else {
-                //print("нет фото")
-                cell.fotoNews = nil
-            }
-
-            cell.photoCollection.reloadData()
-            cell.layoutIfNeeded()
+//            if post.countPhoto == 1 {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "NewsOnePhotoTableViewCell", for: indexPath) as! NewsOnePhotoTableViewCell
+//                let url = URL(string: photoList?.first?.urlX ?? "")
+//                cell.configure(photoURL: url)
+//                return cell
+//            }
+//            else {
+                //ячнйка для вывода фотографий, содержит коллекцию
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
+                cell.fotoNews = photoList //getPhotoPost(postID: postID)
+                cell.photoCollection.reloadData()
+                cell.layoutIfNeeded()
+                
+                //получем высоту контента ячейки
+                cell.photoCollectionHeight.constant = cell.photoCollection.contentSize.height
+                return cell
+            //}
             
-            //получем высоту контента ячейки
-            cell.photoCollectionHeight.constant = cell.photoCollection.contentSize.height
-            return cell
+            
             
         }
-        case .footer: do {
+        case 3: do { //.footer: do {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterTableViewCell", for: indexPath) as! NewsFooterTableViewCell
             cell.commentBtn.countCount = post.commentCount
             print("post.commentCount \(post.commentCount)")
@@ -162,6 +168,9 @@ class NewsTableViewController: UITableViewController {
             cell.viewBtn.countView = post.viewsCount
             return cell
         }
+        default:
+             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterTableViewCell", for: indexPath) as! NewsFooterTableViewCell
+             return cell
         }
     }
     
@@ -257,6 +266,56 @@ class NewsTableViewController: UITableViewController {
         }
   
     }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        guard let postNews = self.vkMyNews?[indexPath.section] else {return UITableView.automaticDimension}
+        
+        switch indexPath.row {
+        
+        case 1: do {
+            //Ячейка с текстом новости
+            let textBlock = postNews.text
+            
+            if  !textBlock.isEmpty {
+                let autoSize = UITableView.automaticDimension
+                if autoSize > maxHeightOfTextBlock {
+                    return maxHeightOfTextBlock
+                }
+                return autoSize
+            } else {
+                return 0
+            }
+            }
+            
+        // Ячейки с фото у нас, например, имеют .row == 2
+        case 2:
+            let countPhoto = postNews.photos?.count ?? 0
+            
+            if postNews.countPhoto <= 0 {
+                return 0
+            }
+            else if postNews.countPhoto == 1 {
+                //тут должен быть расчет ячейки, но почему-то мне могу получить массив фото, всегда пустой
+                 //guard let photo = postNews.photos?.first else {return UITableView.automaticDimension }
+                //                let photo = postNews.photos?.first
+                //                let aspectRatio: CGFloat = CGFloat(photo!.height) / CGFloat(photo!.width)
+                //                let cellHeight = tableWidth * aspectRatio
+                //                return cellHeight
+                 let aspectRatio: CGFloat = 500
+                return aspectRatio//UITableView.automaticDimension
+            }
+            else {
+                return UITableView.automaticDimension
+            }
+
+        default:
+        // Для всех остальных ячеек оставляем автоматически определяемый размер
+                return UITableView.automaticDimension
+        }
+    }
+
 
     
 }

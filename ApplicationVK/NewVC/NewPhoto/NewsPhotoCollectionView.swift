@@ -19,3 +19,13 @@ class NewsPhotoCollectionView: UICollectionView {
     */
 
 }
+
+extension NewsPhotoCollectionView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = (collectionView.bounds.width) / 3
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+}
+

@@ -12,6 +12,8 @@ class NewsTextTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var textPost: UILabel!
     
+    let cellType: typeCell = .text
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

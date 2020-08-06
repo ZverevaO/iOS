@@ -17,6 +17,8 @@ class NewsAutorTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var time: UILabel!
     
+    let cellType: typeCell = .autur
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
