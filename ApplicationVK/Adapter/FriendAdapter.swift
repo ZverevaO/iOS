@@ -9,7 +9,7 @@
 import Foundation
 import  RealmSwift
 
-class FriendAdapter {
+class FriendAdapter: FriendServiceInterface {
     
     private let friendService = FriendService()
     private var token: NotificationToken?

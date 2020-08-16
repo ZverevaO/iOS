@@ -30,6 +30,7 @@ class AllFriendTableController: UITableViewController {
     private var friendVMSection = [Section<FriendViewModel>]()
     
     let friendService = FriendAdapter()
+    //let friendServiceProxy = FriendServiceProxy(friendService: friendService)
     
     @IBOutlet weak var searchFriend: UISearchBar!
         
@@ -41,6 +42,7 @@ class AllFriendTableController: UITableViewController {
         //FriendService.friendPromise()
         
         friendService.getFriends {[weak self] friends in
+        //friendServiceProxy.getFriends {[weak self] friends in
             guard let self = self else { return }
             
             self.vkFrends = friends
