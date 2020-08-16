@@ -42,7 +42,7 @@ class FriendService
         }
     }
     
-    static func loadAlllFriends ()
+    static func loadAllFriends ()
     {
         //"nickname, sex, bdate , city",
         AF.request("https://api.vk.com/method/friends.get",
