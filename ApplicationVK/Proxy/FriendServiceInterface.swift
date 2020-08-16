@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol FriendServiceInterface {
+    func getFriends (completion: @escaping ([Friend]) -> Void)
+}
